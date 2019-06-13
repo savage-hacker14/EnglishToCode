@@ -8,6 +8,8 @@ public class Program {
 	// Instance variables
 	private ArrayList<Command> commands;
 	
+	public Program() {}
+	
 	public Program(ArrayList<Command> cmdArray) {
 		commands = cmdArray;
 	}

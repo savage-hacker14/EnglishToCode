@@ -13,6 +13,12 @@ public class FileCreator {
 	private String lang;
 	private Program userCode;
 	
+	public FileCreator(String nameToSet, String langToSet, Program pToSet) {
+		nameOfClass = nameToSet;
+		lang = langToSet;
+		userCode = pToSet;
+	}
+	
 	public void createCodeFile() throws IOException {
 		switch (lang) {
 			case "java":
@@ -27,7 +33,7 @@ public class FileCreator {
 		}
 	}
 	
-	private void createJavaFile() throws IOException {
+	private void createJavaFile(Program p) throws IOException {
 		// Create new file and writer object
 		String filename = nameOfClass + ".java";
 		BufferedWriter writer = new BufferedWriter(new FileWriter("ExportedCode/" + filename));
@@ -47,11 +53,11 @@ public class FileCreator {
 		writer.write("}");
 	}
 	
-	private void createCPPFile() {
+	private void createCPPFile(Program p) {
 		
 	}
 	
-	private void createPythonFile() {
+	private void createPythonFile(Program p) {
 		
 	}
 }

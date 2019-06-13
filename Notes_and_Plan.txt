@@ -6,3 +6,8 @@ Supported languages:
 - Java
 - C++
 - Python
+
+Documentation
+- display [string, var, arr, or mat]: Prints the following items in the terminal
+- var [NAME] [VALUE: int, double, float?, or String]: Create and/or assign the VALUE to a variable named NAME 
+- arr [NAME] [VALUE]:  

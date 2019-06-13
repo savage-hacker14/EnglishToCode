@@ -8,37 +8,42 @@ import java.util.ArrayList;
 public class Command {
 	// Instance variables name
 	private String name;
-	private ArrayList<Object> parameters;
+	private String type;
+	private String params;
 	private String lang;
 	private String lineOfCode;
 	
-	public Command(String nameToSet, ArrayList<Object> parametersToSet, String lineOfCodeToSet) {
+	public Command(String nameToSet, String typeToSet, String parametersToSet) {
 		name = nameToSet;
-		parameters = parametersToSet;
-		lineOfCode = lineOfCodeToSet;
-	}
-	
-	public String createLineOfCode() {
-		String output = "";
-		
-		switch(lang) {
-			case "java":
-				break;
-			case "c++":
-				break;
-			case "python":
-				break;
-			
-		}
-		
-		return output;
+		type = typeToSet;
+		params = parametersToSet;
 	}
 	
 	public void setLanguage(String str) {
 		lang = str;
 	}
 	
-	public String getLineOfCode() {
+	public void createLineOfCode() {
+		lineOfCode = Interpretor.createLineOfCode(this);
+	}
+	
+	public String getLineOfCode() {	
 		return lineOfCode;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getType() {
+		return type;
+	}
+	
+	public String getParameters() {
+		return params;
+	}
+	
+	public String getLanguage() {
+		return lang;
 	}
 }

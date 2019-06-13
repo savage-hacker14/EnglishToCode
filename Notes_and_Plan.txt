@@ -1,0 +1,8 @@
+Supported commands:
+- display (print)
+- var (String, int, char, array, etc.)
+
+Supported languages:
+- Java
+- C++
+- Python

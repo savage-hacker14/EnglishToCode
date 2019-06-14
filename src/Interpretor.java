@@ -7,25 +7,39 @@ public class Interpretor {
 	private static final String[] cmds = {"display", "var", "arr", "list", "mat"};
 	
 	public static Command interpret(String input) {
+		// Find input string with all spaces removed
+		String inputNWS = input.replaceAll("\\s", "");
+		
 		// Find name of command
-		String name;
+		String name = "";
 		for (String cmd : cmds) {
-			if (input.indexOf(cmd) != -1) {
+			if (inputNWS.indexOf(cmd) != -1) {
 				name = cmd;
 			}
-		}
-		
-		// Find type (only for var, list)
+		}		
 		
 		// Find parameters of command
-		String params;
-		int start = input.indexOf("=");
-		if (input.charAt(start + 1) != ' ') {
-			String paramStr = input.substring(start + 1);
-		}
-		else {
+		String params = "";
+		int start = inputNWS.indexOf("=");
+		String paramStr = inputNWS.substring(start + 1);
+		
+		// Find type (only for var, list)
+		String type = "";
+		if (Character.isDigit(paramStr.charAt(0)) && inputNWS.indexOf(".") == -1) {
+			// The line contains an integer
+			type = "int";
 			
 		}
+		else if (Character.isDigit(paramStr.charAt(0)) && inputNWS.indexOf(".") != -1) {
+			// The line contains a double or float
+			type = "double";
+		}
+		else {
+			// The line contains a string (i.e "ab")
+			type = "String";
+		}
+		
+		
 		
 		return new Command(name, type, params);
 	}

@@ -7,13 +7,15 @@ import java.util.ArrayList;
 
 public class Command {
 	// Instance variables name
+	private String command;
 	private String name;
 	private String type;
 	private String params;
 	private String lang;
 	private String lineOfCode;
 	
-	public Command(String nameToSet, String typeToSet, String parametersToSet) {
+	public Command(String commandToSet, String nameToSet, String typeToSet, String parametersToSet) {
+		command = commandToSet;
 		name = nameToSet;
 		type = typeToSet;
 		params = parametersToSet;

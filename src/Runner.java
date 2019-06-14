@@ -14,9 +14,9 @@ public class Runner {
 		// Find necessary program info
 		Scanner reader = new Scanner(System.in);
 		System.out.print("What is the name of your program?: ");
-		String name = reader.next();
+		String name = reader.nextLine();
 		System.out.print("What language do you want your program coded in (java/c++/python)?: ");
-		String lang = reader.next();
+		String lang = reader.nextLine();
 		
 		// Have user create their program
 		System.out.println();

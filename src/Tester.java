@@ -3,6 +3,7 @@
 // This class runs the simple text UI for code creation
 
 // Import necessary packages
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Tester {
@@ -10,11 +11,32 @@ public class Tester {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		// Find necessary program info
+		// Testing input
 		Scanner reader = new Scanner(System.in);
 		System.out.print("Enter some text: ");
-		String ans = reader.nextLine();
+		String userInput = reader.nextLine();	
+		System.out.println(userInput.replaceAll("\\s", ""));
+			
+		// Testing interpreter
+		System.out.println();
+		Command c = Interpretor.interpret(userInput);
+		String lang = "python";
+		c.setLanguage(lang);
+		Interpretor.createLineOfCode(c);
+		System.out.println(c.toString());
 		
-		System.out.println(ans.replaceAll("\\s", ""));
+		// Testing Program
+		Program p = new Program();
+		p.addCommand(c);
+		
+		// Testing FileCreator
+		FileCreator fc = new FileCreator("Test", lang, p);
+		try {
+			fc.createCodeFile();
+			System.out.println("Code created!");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error: Failed to generate code!");
+		}
 	}
 }

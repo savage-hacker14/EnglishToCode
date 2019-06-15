@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Program {
 	// Instance variables
-	private ArrayList<Command> commands;
+	private ArrayList<Command> commands = new ArrayList<Command>();
 	
 	public Program() {}
 	
@@ -20,5 +20,9 @@ public class Program {
 	
 	public Command getCommand(int i) {
 		return commands.get(i);
+	}
+	
+	public int numCommands() {
+		return commands.size();
 	}
 }

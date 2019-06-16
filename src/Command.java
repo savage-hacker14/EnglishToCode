@@ -4,12 +4,12 @@
 
 public class Command {
 	// Instance variables name
-	private String command;		// Command name: var, list, arr, etc.
-	private String name;		// Variable name (if applicable)
-	private String type;		// Type (if applicable)
-	private String params;		// Parameters (i.e a = 5, 5 is parameter)
-	private String lang;		// Programming language the code should be written for 
-	private String lineOfCode;	// The actual line of code that will be written to the code file
+	private String command = "";		// Command name: var, list, arr, etc.
+	private String name = "";			// Variable name (if applicable)
+	private String type = "";			// Type (if applicable)
+	private String params = "";			// Parameters (i.e a = 5, 5 is parameter)
+	private String lang = "";			// Programming language the code should be written for 
+	private String lineOfCode = "";		// The actual line of code that will be written to the code file
 	
 	public Command(String commandToSet, String nameToSet, String typeToSet, String parametersToSet) {
 		command = commandToSet;
@@ -49,12 +49,12 @@ public class Command {
 	public String toString() {
 		String output = "";
 		output += "Command Details:\n";
-		output += "Command: " + command + "\n";
-		output += "Name: " + name + "\n";
-		output += "Type: " + type + "\n";
-		output += "Parameters: " + params + "\n";
-		output += "Language: " + lang + "\n";
-		output += "Line of code: " + lineOfCode + "\n";
+		output += "Command:\t" + command + "\n";
+		output += "Name:\t\t" + name + "\n";
+		output += "Type:\t\t" + type + "\n";
+		output += "Parameters:\t" + params + "\n";
+		output += "Language:\t" + lang + "\n";
+		output += "Line of code:\t" + lineOfCode + "\n";
 		
 		return output;
 	}

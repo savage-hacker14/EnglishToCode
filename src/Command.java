@@ -22,6 +22,10 @@ public class Command {
 		lang = str;
 	}
 	
+	public String getCommand() {
+		return command;
+	}
+	
 	public String getLineOfCode() {	
 		return lineOfCode;
 	}

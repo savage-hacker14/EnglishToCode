@@ -24,7 +24,6 @@ public class Tester {
 		c.setLanguage(lang);
 		Interpretor.createLineOfCode(c);
 		System.out.println(c.toString());
-		
 //		// Testing Program
 //		Program p = new Program();
 //		p.addCommand(c);

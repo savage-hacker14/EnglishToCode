@@ -12,3 +12,9 @@ Documentation
 - var [NAME] [VALUE: int, double, float?, or String]: Create and/or assign the VALUE to a variable named NAME 
 - arr [NAME] [VALUE]:  
 
+***
+
+Completed Code:
+- var support
+- mat support
+- Display support (java and python)

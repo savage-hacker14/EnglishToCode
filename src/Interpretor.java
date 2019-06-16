@@ -37,6 +37,17 @@ public class Interpretor {
 		
 		if (!command.equals("mat")) {
 			paramStr = inputNWS.substring(start + 1);
+			
+			if (command.equals("display")) {
+				// Special instructions for display command
+				if (input.indexOf("\"") != -1) {
+					int idx = input.indexOf("\"");
+					paramStr = input.substring(idx);
+				}
+				else {
+					paramStr = input.substring(cmdLen + 1);
+				}
+			}
 		}
 		else {
 			// Special matrix interpretation
@@ -49,34 +60,36 @@ public class Interpretor {
 		
 		// Find type (only for var, list, arr. and mat)
 		String type = "";
-		if (!command.equals("mat")) {
-			if (Character.isDigit(paramStr.charAt(0)) && inputNWS.indexOf(".") == -1) {
-				// The line contains an integer
-				type = "int";
-				
-			}
-			else if (Character.isDigit(paramStr.charAt(0)) && inputNWS.indexOf(".") != -1) {
-				// The line contains a double or float
-				type = "double";
-			}
-			else {
-				// The line contains a string (i.e "ab") 
-				type = "String";
-			}
-		}
-		else {
-			// Command is "mat"
-			if (Character.isDigit(paramStr.charAt(2)) && paramStr.indexOf(".") == -1) {
-				// Integers only
-				type = "int[][]";
-			}
-			else if (Character.isDigit(paramStr.charAt(2)) && paramStr.indexOf(".") != -1) {
-				// There is a double somewhere in the mat definition
-				type = "double[][]";
+		if (!command.equals("display")) {
+			if (!command.equals("mat")) {
+				if (Character.isDigit(paramStr.charAt(0)) && inputNWS.indexOf(".") == -1) {
+					// The line contains an integer
+					type = "int";
+					
+				}
+				else if (Character.isDigit(paramStr.charAt(0)) && inputNWS.indexOf(".") != -1) {
+					// The line contains a double or float
+					type = "double";
+				}
+				else {
+					// The line contains a string (i.e "ab") 
+					type = "String";
+				}
 			}
 			else {
-				// The mat is a mat of strings
-				type = "String[][]";
+				// Command is "mat"
+				if (Character.isDigit(paramStr.charAt(2)) && paramStr.indexOf(".") == -1) {
+					// Integers only
+					type = "int[][]";
+				}
+				else if (Character.isDigit(paramStr.charAt(2)) && paramStr.indexOf(".") != -1) {
+					// There is a double somewhere in the mat definition
+					type = "double[][]";
+				}
+				else {
+					// The mat is a mat of strings
+					type = "String[][]";
+				}
 			}
 		}
 		
@@ -89,13 +102,25 @@ public class Interpretor {
 		String lang = c.getLanguage();
 		
 		if (lang == "java") {
-			code = c.getType() + " " + c.getName() + " = " + c.getParameters() + ";";
+			if (!c.getCommand().equals("display")) {
+				code = c.getType() + " " + c.getName() + " = " + c.getParameters() + ";";
+			}
+			else {
+				// Display command
+				code = "System.out.println(" + c.getParameters() + ");";
+			}
 		}
 		else if (lang == "c++") {
 			
 		}
 		else {	// Language is Python
-			code = c.getName() + " = " + c.getParameters();
+			if (!c.getCommand().equals("display")) {
+				code = c.getName() + " = " + c.getParameters();
+			}
+			else {
+				// Display command
+				code = "print(" + c.getParameters() + ")";
+			}
 		}
 		
 		c.setLineOfCode(code);

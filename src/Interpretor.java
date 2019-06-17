@@ -101,7 +101,7 @@ public class Interpretor {
 		String code = "";
 		String lang = c.getLanguage();
 		
-		if (lang == "java") {
+		if (lang.equals("java")) {
 			if (!c.getCommand().equals("display")) {
 				code = c.getType() + " " + c.getName() + " = " + c.getParameters() + ";";
 			}
@@ -110,7 +110,7 @@ public class Interpretor {
 				code = "System.out.println(" + c.getParameters() + ");";
 			}
 		}
-		else if (lang == "c++") {
+		else if (lang.equals("c++")) {
 			
 		}
 		else {	// Language is Python

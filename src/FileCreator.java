@@ -39,7 +39,7 @@ public class FileCreator {
 		BufferedWriter writer = new BufferedWriter(new FileWriter("ExportedCode/" + filename));
 		
 		// Create header and main methdd
-		writer.write("public Class " + nameOfClass + " {");
+		writer.write("public class " + nameOfClass + " {");
 		writer.write("\n\n\t");
 		writer.write("public static void main (String[] args) {");
 		writer.write("\n");

@@ -22,19 +22,28 @@ public class Runner {
 		System.out.println();
 		System.out.println("Create your program here: Press enter after each line and type EXIT when done");
 		Program p = new Program();
-		do {
-			String rawLine = reader.next();		// Obtain raw input from user
+		
+		String rawLine = "";
+		while (!rawLine.equals("EXIT")) {
+			rawLine = reader.nextLine();		// Obtain raw input from user
+			
+			if (rawLine.equals("EXIT")) {
+				break;
+			}
 			
 			// Create all necessary objects
 			Command cmd = Interpretor.interpret(rawLine);
 			cmd.setLanguage(lang);
+			Interpretor.createLineOfCode(cmd);
+			System.out.println(cmd.toString());
 			p.addCommand(cmd);
-		} while (reader.next() != "EXIT");
-		
+		}
+	
 		// After program object has acquired all data from user, BUILD THE PROGRAM
 		FileCreator writer = new FileCreator(name, lang, p);
 		try {
 			writer.createCodeFile();
+			System.out.println("Success: Code file created!");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Error: Failed to generate code file!");

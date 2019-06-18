@@ -24,6 +24,7 @@ public class Tester {
 		c.setLanguage(lang);
 		Interpretor.createLineOfCode(c);
 		System.out.println(c.toString());
+		
 //		// Testing Program
 //		Program p = new Program();
 //		p.addCommand(c);
@@ -37,5 +38,7 @@ public class Tester {
 //			// TODO Auto-generated catch block
 //			System.out.println("Error: Failed to generate code!");
 //		}
+		
+		reader.close();
 	}
 }

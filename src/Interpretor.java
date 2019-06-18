@@ -60,6 +60,7 @@ public class Interpretor {
 		
 		// Find type (only for var, list, arr. and mat)
 		String type = "";
+		
 		if (!command.equals("display")) {
 			if (!command.equals("mat")) {
 				if (Character.isDigit(paramStr.charAt(0)) && inputNWS.indexOf(".") == -1) {
@@ -74,6 +75,12 @@ public class Interpretor {
 				else {
 					// The line contains a string (i.e "ab") 
 					type = "String";
+					
+					// HOWEVER THIS MAY BE CONFUSED WITH JUST REGULAR EXPRESSIONS
+					// So add this
+					if (command.equals("")) {
+						type = "";
+					}
 				}
 			}
 			else {
@@ -103,7 +110,12 @@ public class Interpretor {
 		
 		if (lang.equals("java")) {
 			if (!c.getCommand().equals("display")) {
-				code = c.getType() + " " + c.getName() + " = " + c.getParameters() + ";";
+				if (!c.getType().equals("")) {
+					code = c.getType() + " " + c.getName() + " = " + c.getParameters() + ";";
+				}
+				else {
+					code = c.getType() + c.getName() + " = " + c.getParameters() + ";";
+				}
 			}
 			else {
 				// Display command

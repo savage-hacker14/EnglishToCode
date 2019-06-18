@@ -123,7 +123,18 @@ public class Interpretor {
 			}
 		}
 		else if (lang.equals("c++")) {
-			
+			if (!c.getCommand().equals("display")) {
+				if (!c.getType().equals("")) {
+					code = c.getType() + " " + c.getName() + " = " + c.getParameters() + ";";
+				}
+				else {
+					code = c.getType() + c.getName() + " = " + c.getParameters() + ";";
+				}
+			}
+			else {
+				// Display command
+				code = "cout << " + c.getParameters() + " << endl;";
+			}
 		}
 		else {	// Language is Python
 			if (!c.getCommand().equals("display")) {

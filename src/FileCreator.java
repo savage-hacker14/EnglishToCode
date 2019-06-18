@@ -3,6 +3,7 @@
 // This file is responsible for creating the file with your code based on the Program Object
 
 // Import required packages
+import java.time.LocalDateTime;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -38,7 +39,14 @@ public class FileCreator {
 		String filename = nameOfClass + ".java";
 		BufferedWriter writer = new BufferedWriter(new FileWriter("ExportedCode/" + filename));
 		
-		// Create header and main methdd
+		// Create name and date title
+		// Acquire time date from system
+		LocalDateTime now = LocalDateTime.now();
+		String date = now.toString().substring(0, 10);
+		writer.write("//" + filename + "\n");
+		writer.write("//This program was auto-generated from your pseudocode on " + date + "\n\n");
+		
+		// Create header and main method
 		writer.write("public class " + nameOfClass + " {");
 		writer.write("\n\n\t");
 		writer.write("public static void main (String[] args) {");
@@ -60,8 +68,39 @@ public class FileCreator {
 		writer.close();
 	}
 	
-	private void createCPPFile(Program p) {
+	private void createCPPFile(Program p) throws IOException {
+		// Create new file and writer object
+		String filename = nameOfClass + ".cpp";
+		BufferedWriter writer = new BufferedWriter(new FileWriter("ExportedCode/" + filename));
 		
+		// Create name and date title
+		// Acquire time date from system
+		LocalDateTime now = LocalDateTime.now();
+		String date = now.toString().substring(0, 10);
+		writer.write("//" + filename + "\n");
+		writer.write("//This program was auto-generated from your pseudocode on " + date + "\n\n");
+		
+		// Create header and main method
+		writer.write("#include <iostream>" + "\n");
+		writer.write("using namespace std;" + "\n\n");
+		writer.write("int main() {");
+		writer.write("\n");
+		
+		// Now add lines of code from Program object
+		for (int i = 0; i < userCode.numCommands(); i++) {
+			String currentIndent = "\t";
+			writer.write(currentIndent + userCode.getCommand(i).getLineOfCode() + "\n");
+		}
+		
+		// Add return 0 statement
+		writer.write("\t" + "return 0;");
+		
+		// Finalize all brackets and EOF
+		writer.write("\n");
+		writer.write("}");
+		
+		// Close writer buffer
+		writer.close();
 	}
 	
 	private void createPythonFile(Program p) throws IOException {

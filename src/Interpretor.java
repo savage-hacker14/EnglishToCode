@@ -10,6 +10,11 @@ public class Interpretor {
 	// List of commands for string-based code creation
 	private static final String[] cmds = {"display", "var", "arr", "list", "mat"};
 	
+	/**
+	 * This method takes the user code string and extracts its command, name, parameters, and type
+	 * @param input
+	 * @return Command object with the extracted data
+	 */
 	public static Command interpret(String input) {
 		// Find input string with all spaces removed
 		String inputNWS = input.replaceAll("\\s", "");
@@ -127,6 +132,7 @@ public class Interpretor {
 		return new Command(command, name, type, paramStr);
 	}
 	
+	
 	public static void createLineOfCode(Command c) {
 		String code = "";
 		String lang = c.getLanguage();
@@ -172,6 +178,12 @@ public class Interpretor {
 		c.setLineOfCode(code);
 	}
 	
+	/**
+	 * Special helper method for parsing a string of values into a 2D array (matrix)
+	 * NOTE: ONLY WORKS FOR JAVA AND C++
+	 * @param vals
+	 * @return Explicit definition of a 2D array (matrix) 
+	 */
 	private static String interpretMat(String vals) {
 		// This method takes a list of numbers and puts them into a mat
 		// i.e [1 1;2 2] --> {{1,1},{2,2}} (for java at least)
@@ -219,6 +231,12 @@ public class Interpretor {
 		return output;
 	}
 	
+	/**
+	 * Special helper method for parsing a string of values into an array
+	 * NOTE; ONLY WORKS FOR JAVA AND C++
+	 * @param vals
+	 * @return Explicit definition of an array
+	 */
 	private static String interpretArr(String vals) {
 		String output = "{";
 				

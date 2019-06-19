@@ -14,12 +14,22 @@ public class FileCreator {
 	private String lang;
 	private Program userCode;
 	
+	/**
+	 * Constructor for FileCreator object
+	 * @param Name of the class/file
+	 * @param Language of the exported file
+	 * @param Program object (containing the user code)
+	 */
 	public FileCreator(String nameToSet, String langToSet, Program pToSet) {
 		nameOfClass = nameToSet;
 		lang = langToSet;
 		userCode = pToSet;
 	}
 	
+	/**
+	 * This method creates the proper code based on the language the user specified
+	 * @throws IOException
+	 */
 	public void createCodeFile() throws IOException {
 		switch (lang) {
 			case "java":
@@ -34,6 +44,11 @@ public class FileCreator {
 		}
 	}
 	
+	/**
+	 * This method creates the .java file from the user code
+	 * @param A Program object
+	 * @throws IOException
+	 */
 	private void createJavaFile(Program p) throws IOException {
 		// Create new file and writer object
 		String filename = nameOfClass + ".java";
@@ -68,6 +83,11 @@ public class FileCreator {
 		writer.close();
 	}
 	
+	/**
+	 * This method creates the .cpp file from the user code
+	 * @param A Program object
+	 * @throws IOException
+	 */
 	private void createCPPFile(Program p) throws IOException {
 		// Create new file and writer object
 		String filename = nameOfClass + ".cpp";
@@ -103,6 +123,11 @@ public class FileCreator {
 		writer.close();
 	}
 	
+	/**
+	 * This method creates the .py file from the user code
+	 * @param A Program object
+	 * @throws IOException
+	 */
 	private void createPythonFile(Program p) throws IOException {
 		// Create new file and writer object
 		String filename = nameOfClass + ".py";

@@ -31,11 +31,12 @@ public class Interpretor {
 		String name = "";
 		int start = inputNWS.indexOf("=");
 		
+		// If line of code isn't an expression
 		if (start != -1) {
 			name = inputNWS.substring(cmdIdx + cmdLen, start);
 		}
 		
-		if (!command.equals("mat")) {
+		if (!(command.equals("mat") || command.contentEquals("arr"))) {
 			paramStr = inputNWS.substring(start + 1);
 			
 			if (command.equals("display")) {
@@ -50,19 +51,24 @@ public class Interpretor {
 			}
 		}
 		else {
-			// Special matrix interpretation
+			// Special matrix and array interpretation
 			start = input.indexOf("[");
 			int end = input.indexOf("]");
 			String values = input.substring(start + 1, end);
 			
-			paramStr = interpretMat(values);
+			if (command.contentEquals("mat")) {
+				paramStr = interpretMat(values);
+			}
+			else {
+				paramStr = interpretArr(values);
+			}
 		}
 		
 		// Find type (only for var, list, arr. and mat)
 		String type = "";
 		
 		if (!command.equals("display")) {
-			if (!command.equals("mat")) {
+			if (!(command.equals("mat") || command.contentEquals("arr"))) {
 				if (Character.isDigit(paramStr.charAt(0)) && inputNWS.indexOf(".") == -1) {
 					// The line contains an integer
 					type = "int";
@@ -84,18 +90,35 @@ public class Interpretor {
 				}
 			}
 			else {
-				// Command is "mat"
-				if (Character.isDigit(paramStr.charAt(2)) && paramStr.indexOf(".") == -1) {
-					// Integers only
-					type = "int[][]";
-				}
-				else if (Character.isDigit(paramStr.charAt(2)) && paramStr.indexOf(".") != -1) {
-					// There is a double somewhere in the mat definition
-					type = "double[][]";
+				// Command is "mat" or "arr"
+				if (command.equals("mat")) {
+					if (Character.isDigit(paramStr.charAt(2)) && paramStr.indexOf(".") == -1) {
+						// Integers only
+						type = "int[][]";
+					}
+					else if (Character.isDigit(paramStr.charAt(2)) && paramStr.indexOf(".") != -1) {
+						// There is a double somewhere in the mat definition
+						type = "double[][]";
+					}
+					else {
+						// The mat is a mat of strings
+						type = "String[][]";
+					}
 				}
 				else {
-					// The mat is a mat of strings
-					type = "String[][]";
+					// "arr" command
+					if (Character.isDigit(paramStr.charAt(1)) && paramStr.indexOf(".") == -1) {
+						// Integers only
+						type = "int[]";
+					}
+					else if (Character.isDigit(paramStr.charAt(1)) && paramStr.indexOf(".") != -1) {
+						// There is a double somewhere in the mat definition
+						type = "double[]";
+					}
+					else {
+						// The mat is a mat of strings
+						type = "String[]";
+					}
 				}
 			}
 		}
@@ -192,6 +215,28 @@ public class Interpretor {
 		
 		// This code adds and extra ",{}" at the end of the string, REMOVE IT
 		output = output.replace(",{}", "");
+		
+		return output;
+	}
+	
+	private static String interpretArr(String vals) {
+		String output = "{";
+				
+		while (vals.length() > 0) {
+			int spaceIdx = vals.indexOf(" ");
+			
+			if (spaceIdx != -1) {
+				output += vals.substring(0, spaceIdx) + ",";
+			}
+			else {
+				output += vals;
+				break;
+			}
+			
+			vals = vals.substring(spaceIdx + 1);
+		}
+		
+		output += "}";
 		
 		return output;
 	}

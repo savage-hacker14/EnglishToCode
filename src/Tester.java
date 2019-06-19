@@ -20,25 +20,25 @@ public class Tester {
 		// Testing interpreter
 		System.out.println();
 		Command c = Interpretor.interpret(userInput);
-		String lang = "c++";
+		String lang = "java";
 		c.setLanguage(lang);
 		Interpretor.createLineOfCode(c);
 		System.out.println(c.toString());
 		
-		// Testing Program
-		Program p = new Program();
-		p.addCommand(c);
-		
-		// Testing FileCreator
-		FileCreator fc = new FileCreator("Test", lang, p);
-		try {
-			fc.createCodeFile();
-			System.out.println("Code created!");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Error: Failed to generate code!");
-		}
-		
-		reader.close();
+//		// Testing Program
+//		Program p = new Program();
+//		p.addCommand(c);
+//		
+//		// Testing FileCreator
+//		FileCreator fc = new FileCreator("Test", lang, p);
+//		try {
+//			fc.createCodeFile();
+//			System.out.println("Code created!");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("Error: Failed to generate code!");
+//		}
+//		
+//		reader.close();
 	}
 }

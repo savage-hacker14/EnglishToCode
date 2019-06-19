@@ -31,6 +31,7 @@ public class FileCreator {
 	 * @throws IOException
 	 */
 	public void createCodeFile() throws IOException {
+		// Determine the proper code to generate based on language parameter
 		switch (lang) {
 			case "java":
 				createJavaFile(userCode);

@@ -26,42 +26,43 @@ public class Interpretor {
 		for (String cmd : cmds) {
 			if (inputNWS.indexOf(cmd) != -1) {
 				command = cmd;
-				cmdIdx = inputNWS.indexOf(cmd);
-				cmdLen = cmd.length();
+				cmdIdx = inputNWS.indexOf(cmd);		// cmd location in string
+				cmdLen = cmd.length();				// length of cmd
 			}
 		}		
 		
 		// Find name and parameters of command
 		String paramStr = "";
 		String name = "";
-		int start = inputNWS.indexOf("=");
+		int eq = inputNWS.indexOf("=");
 		
 		// If line of code isn't an expression
-		if (start != -1) {
-			name = inputNWS.substring(cmdIdx + cmdLen, start);
+		if (eq != -1) {
+			name = inputNWS.substring(cmdIdx + cmdLen, eq);	
 		}
 		
 		if (!(command.equals("mat") || command.contentEquals("arr"))) {
-			paramStr = inputNWS.substring(start + 1);
+			// Command is not "mat" or "arr"
+			paramStr = inputNWS.substring(eq + 1); 		// Get string after the equal sign
 			
 			if (command.equals("display")) {
 				// Special instructions for display command
-				if (input.indexOf("\"") != -1) {
+				if (input.indexOf("\"") != -1) {		// Special case to check for "s
 					int idx = input.indexOf("\"");
 					paramStr = input.substring(idx);
 				}
 				else {
-					paramStr = input.substring(cmdLen + 1);
+					paramStr = input.substring(cmdLen + 1);		// displaying a variable (i.e display a)
 				}
 			}
 		}
 		else {
 			// Special matrix and array interpretation
-			start = input.indexOf("[");
+			int brack = input.indexOf("[");
 			int end = input.indexOf("]");
-			String values = input.substring(start + 1, end);
+			String values = input.substring(brack + 1, end);		// Get the string of values between the brackets
 			
-			if (command.contentEquals("mat")) {
+			if (command.contentEquals("mat")) {						// Interpret values string as arr or mat, depending on command
 				paramStr = interpretMat(values);
 			}
 			else {
@@ -73,7 +74,9 @@ public class Interpretor {
 		String type = "";
 		
 		if (!command.equals("display")) {
+			// If the command is not "display"
 			if (!(command.equals("mat") || command.contentEquals("arr"))) {
+				// If the command is not "mat" or "arr"
 				if (Character.isDigit(paramStr.charAt(0)) && inputNWS.indexOf(".") == -1) {
 					// The line contains an integer
 					type = "int";
@@ -117,11 +120,11 @@ public class Interpretor {
 						type = "int[]";
 					}
 					else if (Character.isDigit(paramStr.charAt(1)) && paramStr.indexOf(".") != -1) {
-						// There is a double somewhere in the mat definition
+						// There is a double somewhere in the arr definition
 						type = "double[]";
 					}
 					else {
-						// The mat is a mat of strings
+						// The array is a array of strings
 						type = "String[]";
 					}
 				}
@@ -134,16 +137,29 @@ public class Interpretor {
 	
 	
 	public static void createLineOfCode(Command c) {
+		// Grab important variables from command c
 		String code = "";
 		String lang = c.getLanguage();
 		
+		
 		if (lang.equals("java")) {
+			// Java line creation
 			if (!c.getCommand().equals("display")) {
+				// If command is not "display"
 				if (!c.getType().equals("")) {
+					// If no type exists in the command
 					code = c.getType() + " " + c.getName() + " = " + c.getParameters() + ";";
 				}
 				else {
-					code = c.getType() + c.getName() + " = " + c.getParameters() + ";";
+					// Command has a type
+					if (c.getCommand().equals("") && c.getName().equals("") && c.getType().equals("")) {
+						// Regular expression (command, name, and type is blank)
+						code = c.getParameters() + ";";
+					}
+					else {
+						// Regular line of code: type, var name, equals, and parameters (content)
+						code = c.getType() + c.getName() + " = " + c.getParameters() + ";";
+					}
 				}
 			}
 			else {
@@ -152,12 +168,23 @@ public class Interpretor {
 			}
 		}
 		else if (lang.equals("c++")) {
+			// C++ line creation
 			if (!c.getCommand().equals("display")) {
+				// If command is not "display"
 				if (!c.getType().equals("")) {
+					// If no type exists in the command
 					code = c.getType() + " " + c.getName() + " = " + c.getParameters() + ";";
 				}
 				else {
-					code = c.getType() + c.getName() + " = " + c.getParameters() + ";";
+					// Command has a type
+					if (c.getCommand().equals("") && c.getName().equals("") && c.getType().equals("")) {
+						// Regular expression (command, name, and type is blank)
+						code = c.getParameters() + ";";
+					}
+					else {
+						// Regular line of code: type, var name, equals, and parameters (content)
+						code = c.getType() + c.getName() + " = " + c.getParameters() + ";";
+					}
 				}
 			}
 			else {
@@ -167,6 +194,7 @@ public class Interpretor {
 		}
 		else {	// Language is Python
 			if (!c.getCommand().equals("display")) {
+				// Command is not "display"
 				code = c.getName() + " = " + c.getParameters();
 			}
 			else {
@@ -203,6 +231,7 @@ public class Interpretor {
 			}
 		}
 		
+		// Extract the values from each row
 		for (int i = 0; i < rows.size(); i++) {
 			String s = rows.get(i);
 			while (s.length() > 0) {
@@ -217,13 +246,13 @@ public class Interpretor {
 				String value = s.substring(0, spaceIdx);
 				output += value + ",";
 				
-				s = s.substring(spaceIdx + 1);
+				s = s.substring(spaceIdx + 1);		// Update string (remove value just added to output)
 			}
 			
 			output += "},{";
 		}
 		
-		output += "}}";
+		output += "}}";		// Finish brackets for the explicit mat definition
 		
 		// This code adds and extra ",{}" at the end of the string, REMOVE IT
 		output = output.replace(",{}", "");
@@ -239,7 +268,8 @@ public class Interpretor {
 	 */
 	private static String interpretArr(String vals) {
 		String output = "{";
-				
+		
+		// Extract each value from the string
 		while (vals.length() > 0) {
 			int spaceIdx = vals.indexOf(" ");
 			
@@ -247,11 +277,11 @@ public class Interpretor {
 				output += vals.substring(0, spaceIdx) + ",";
 			}
 			else {
-				output += vals;
+				output += vals;		// Prevents outOfBounds error and doesn't add , after last value
 				break;
 			}
 			
-			vals = vals.substring(spaceIdx + 1);
+			vals = vals.substring(spaceIdx + 1); // Update string (remove value just added to output)
 		}
 		
 		output += "}";

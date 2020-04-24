@@ -58,9 +58,9 @@ public class FileCreator {
 		// Create name and date title
 		// Acquire time date from system
 		LocalDateTime now = LocalDateTime.now();
-		String date = now.toString().substring(0, 10);
+		//String date = now.toString().substring(0, 10);
 		writer.write("//" + filename + "\n");
-		writer.write("//This program was auto-generated from your pseudocode on " + date + "\n\n");
+		writer.write("//This program was auto-generated from your pseudocode on " + now.toString() + "\n\n");
 		
 		// Create header and main method
 		writer.write("public class " + nameOfClass + " {");
@@ -97,9 +97,9 @@ public class FileCreator {
 		// Create name and date title
 		// Acquire time date from system
 		LocalDateTime now = LocalDateTime.now();
-		String date = now.toString().substring(0, 10);
+		//String date = now.toString().substring(0, 10);
 		writer.write("//" + filename + "\n");
-		writer.write("//This program was auto-generated from your pseudocode on " + date + "\n\n");
+		writer.write("//This program was auto-generated from your pseudocode on " + now.toString() + "\n\n");
 		
 		// Create header and main method
 		writer.write("#include <iostream>" + "\n");
@@ -133,6 +133,13 @@ public class FileCreator {
 		// Create new file and writer object
 		String filename = nameOfClass + ".py";
 		BufferedWriter writer = new BufferedWriter(new FileWriter("ExportedCode/" + filename));
+		
+		// Create name and date title
+		// Acquire time date from system
+		LocalDateTime now = LocalDateTime.now();
+		//String date = now.toString().substring(0, 10);
+		writer.write("# " + filename + "\n");
+		writer.write("# This program was auto-generated from your pseudocode on " + now.toString() + "\n\n");
 		
 		// Now add lines of code from Program object
 		for (int i = 0; i < userCode.numCommands(); i++) {

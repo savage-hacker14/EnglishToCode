@@ -11,6 +11,15 @@ public class Command {
 	private String lang;			// Programming language the code should be written for 
 	private String lineOfCode;		// The actual line of code that will be written to the code file
 	
+	public Command() {
+		command = "";
+		name = "";
+		type = "";
+		params = "";
+		lang = "";
+		lineOfCode = "";
+	}
+	
 	/**
 	 * Command object constructor
 	 * @param Command used (i.e var, arr, list, etc.)
@@ -40,6 +49,10 @@ public class Command {
 	 */
 	public String getCommand() {
 		return command;
+	}
+	
+	public void setCommand(String str) {
+		command = str;
 	}
 	
 	/**

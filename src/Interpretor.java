@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Interpretor {
 	// List of commands for string-based code creation
-	private static final String[] cmds = {"display", "var", "arr", "list", "mat"};
+	private static final String[] cmds = {"display", "var", "arr", "list", "mat", "ForLoop"};
 	
 	/**
 	 * This method takes the user code string and extracts its command, name, parameters, and type
@@ -77,12 +77,12 @@ public class Interpretor {
 			// If the command is not "display"
 			if (!(command.equals("mat") || command.contentEquals("arr"))) {
 				// If the command is not "mat" or "arr"
-				if (Character.isDigit(paramStr.charAt(0)) && inputNWS.indexOf(".") == -1) {
+				if (containsANumber(paramStr) && inputNWS.indexOf(".") == -1) {
 					// The line contains an integer
 					type = "int";
 					
 				}
-				else if (Character.isDigit(paramStr.charAt(0)) && inputNWS.indexOf(".") != -1) {
+				else if (containsANumber(paramStr) && inputNWS.indexOf(".") != -1) {
 					// The line contains a double or float
 					type = "double";
 				}
@@ -129,6 +129,10 @@ public class Interpretor {
 					}
 				}
 			}
+		}
+		
+		if (command.equals("ForLoop")) {
+			return new ForLoop();
 		}
 		
 		// Then return the created Command object
@@ -285,6 +289,149 @@ public class Interpretor {
 		}
 		
 		output += "}";
+		
+		return output;
+	}
+	
+	private static boolean containsANumber(String str) {
+		for (int i = 0; i < str.length(); i++) {
+			char c = str.charAt(i);
+			if (Character.isDigit(c)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	/** 
+	 * Helper method to create ForLoop object from command string
+	 * @param String command string 
+	 * @return ForLoop object with all instance variables written
+	 */
+	public static ForLoop interpretForLoop(String cmd, String lang) {
+		System.out.println("interpreting for loop");
+		
+		// Get param list from inside first set of parenthesis
+		String params = cmd.substring(cmd.indexOf("("), cmd.indexOf(")") + 1);		// Retain parenthesis in string
+		
+		// Get command list from 2nd set of parenthesis
+		String cmds = cmd.substring(cmd.indexOf(")") + 1);							// Retain parenthesis in string
+		
+		int[] commaLocations = findAllCommas(params);
+		// Get loop variable name
+		String lVarString = params.substring(1, commaLocations[0]);
+		String lVar = lVarString.replaceAll("\"", "");					// Remove quotes
+		
+		// Get start, end, and interation variables from string
+		// Start
+		String sString = params.substring(commaLocations[0] + 1, commaLocations[1]);
+		int s = Integer.parseInt(sString);
+		// End
+		String eString = params.substring(commaLocations[1] + 1, commaLocations[2]);
+		int e = Integer.parseInt(eString);
+		// Iteration
+		String iterString = params.substring(commaLocations[2] + 1, params.indexOf(")"));
+		int i = Integer.parseInt(iterString);
+		
+		
+		// Now process commands
+		ArrayList<Command> cmdList = new ArrayList<Command>();
+		cmds = cmds.substring(1);			// Ignore first parenthesis in string
+		while (!(cmds.isEmpty())) {
+			int nextSemiCol = cmds.indexOf(";");
+			// To handle end case
+			if (nextSemiCol == -1) {
+				nextSemiCol = cmds.length() - 1;
+			}
+			
+			String cmdToProcess = cmds.substring(0, nextSemiCol);
+			Command c = interpret(cmdToProcess);
+			c.setLanguage(lang);
+			cmdList.add(c);
+			
+			cmds = cmds.substring(nextSemiCol + 1);
+		}
+		
+		// Create the object
+		return new ForLoop(cmdList, lang, lVar, s, e, i);
+	}
+	
+	public static void createLinesOfCodeForLoop(ForLoop fl) {
+		// Create header
+		String header = "";
+		if (fl.getLanguage().equals("java") || fl.getLanguage().contentEquals("c++")) {
+			/// Java/C++ header
+			header = "for (int " + fl.getLoopVar() + " = " + fl.getStart() + "; " + fl.getLoopVar() + " < " + fl.getEnd() + "; ";
+			if (fl.getIncrement() == 1) {
+				header += fl.getLoopVar() + "++) {";
+			}
+			else {
+				header += fl.getLoopVar() + " += " + fl.getIncrement() + ") {";
+			}
+		}
+		else {
+			// Python header
+			if (fl.getIncrement() == 1) {
+				header = "for " + fl.getLoopVar() + " in range(" + fl.getStart() + "," + fl.getEnd() + "):";
+			}
+			else {
+				header = "for " + fl.getLoopVar() + " in range(" + fl.getStart() + "," + fl.getEnd() + "," + fl.getIncrement() + "):";
+			}
+		}
+		header += "\n";
+		
+		
+		// Add commands into the code
+		String cmds = "";
+		if (fl.getLanguage().equals("java") || fl.getLanguage().equals("c++")) {
+			// Java/C++ for loop
+			String currentIndent = "";
+			if (fl.getLanguage().contentEquals("java")) {
+				currentIndent = "\t\t\t";
+			}
+			else {
+				currentIndent = "\t\t";
+			}
+			
+			for (int i = 0; i < fl.getNumCommands(); i++) {
+				createLineOfCode(fl.getCommands().get(i));
+				cmds += currentIndent + fl.getCommands().get(i).getLineOfCode() + "\n";
+			}
+			
+			// Fix current indent for final bracket
+			if (fl.getLanguage().contentEquals("java")) {
+				currentIndent = "\t\t";
+			}
+			else {
+				currentIndent = "\t";
+			}
+			
+			// Add final bracket and new line 
+			cmds += currentIndent + "}" + "\n";
+			
+		}
+		else {
+			// Python for loop
+		}
+		
+		// Create code string and return it
+		String code = header + cmds;
+		fl.setLineOfCode(code);
+	}
+	
+	private static int[] findAllCommas(String str) {
+		ArrayList<Integer> locations = new ArrayList<Integer>();
+		for (int i = 0; i < str.length(); i++) {
+			if (str.charAt(i) == ',') {
+				locations.add(i);
+			}
+		}
+		
+		int[] output = new int[locations.size()];
+		for (int i = 0; i < locations.size(); i++) {
+			output[i] = locations.get(i).intValue();
+		}
 		
 		return output;
 	}

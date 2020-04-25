@@ -1,6 +1,9 @@
 Supported commands:
 - display (print)
 - var (String, int, char, array, etc.)
+- mat
+- ForLoop
+- use (for importing packages/modules)
 
 Supported languages:
 - Java
@@ -8,10 +11,11 @@ Supported languages:
 - Python
 
 Documentation
-- display [string, var, arr, or mat]: Prints the following items in the terminal
-- var [NAME] [VALUE: int, double, float?, or String]: Create and/or assign the VALUE to a variable named NAME 
-- arr [NAME] [VALUE]:  
-
+- display [string, var, arr, or mat]: 	Prints the following items in the terminal
+- var [NAME] [VALUE: 					int, double, float?, or String]: Create and/or assign the VALUE to a variable named NAME 
+- arr [NAME] [VALUE]:  					Create array variable with VALUE
+- mat [NAME] [VALUE]: 					i.e mat a = [1 1;2 2] --> {{1,1},{2,2}} (for java at least)
+- ForLoop(var,start,end,increment):		Loop from start to end-1, increment is how much to increase the loop variable (NEED TO ADD SUPPORT FOR TYPE DOUBLE LOOPING)
 ***
 
 Completed Code:

@@ -59,8 +59,8 @@ public class FileCreator {
 		// Acquire time date from system
 		LocalDateTime now = LocalDateTime.now();
 		//String date = now.toString().substring(0, 10);
-		writer.write("//" + filename + "\n");
-		writer.write("//This program was auto-generated from your pseudocode on " + now.toString() + "\n\n");
+		writer.write("// " + filename + "\n");
+		writer.write("// This program was auto-generated from your pseudocode on " + now.toString() + "\n\n");
 		
 		// Create header and main method
 		writer.write("public class " + nameOfClass + " {");
@@ -98,8 +98,8 @@ public class FileCreator {
 		// Acquire time date from system
 		LocalDateTime now = LocalDateTime.now();
 		//String date = now.toString().substring(0, 10);
-		writer.write("//" + filename + "\n");
-		writer.write("//This program was auto-generated from your pseudocode on " + now.toString() + "\n\n");
+		writer.write("// " + filename + "\n");
+		writer.write("// This program was auto-generated from your pseudocode on " + now.toString() + "\n\n");
 		
 		// Create header and main method
 		writer.write("#include <iostream>" + "\n");

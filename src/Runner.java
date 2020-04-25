@@ -34,7 +34,16 @@ public class Runner {
 			// Create all necessary objects
 			Command cmd = Interpretor.interpret(rawLine);
 			cmd.setLanguage(lang);
-			Interpretor.createLineOfCode(cmd);
+			
+			if (!cmd.getCommand().equals("ForLoop")) {
+				Interpretor.createLineOfCode(cmd);
+			}
+			else {
+				System.out.println("for loop detected");
+				cmd = Interpretor.interpretForLoop(rawLine, lang);
+				Interpretor.createLinesOfCodeForLoop((ForLoop) cmd);
+			}
+			
 			System.out.println(cmd.toString());
 			p.addCommand(cmd);
 		}

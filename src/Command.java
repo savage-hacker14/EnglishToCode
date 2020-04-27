@@ -92,6 +92,14 @@ public class Command {
 	}
 	
 	/**
+	 * Set the type instance variable of the Command object
+	 * @param str - Type (i.e double, int, etc.)
+	 */
+	public void setType(String str) {
+		type = str;
+	}
+	
+	/**
 	 * Get the name of the command (in the proper language) 
 	 * Used for code generation
 	 * @return lineCfCode

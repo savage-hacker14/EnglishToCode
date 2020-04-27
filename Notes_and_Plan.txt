@@ -20,6 +20,6 @@ Documentation
 ***
 
 To-do list:
-- Add Doxygen comments for all methods and regenerate Doxygen Docs
+- Add Doxygen comments for all methods and regenerate Doxygen Docs			DONE!!!
 - Add support for ForLoop of vars of type double
 - Add support to create functions

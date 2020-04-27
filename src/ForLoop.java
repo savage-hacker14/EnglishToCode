@@ -8,9 +8,9 @@ public class ForLoop extends Command {
 	// Instance variables
 	private ArrayList<Command> commands = new ArrayList<Command>();
 	private String loopVar;
-	private int start;					// Modify later to support vars (change to String type)
-	private int end; 
-	private int increment;
+	private String start;					// These are string types so that ints and doubles are supported
+	private String end; 
+	private String increment;
 	
 	/**
 	 * Default constructor for ForLoop object that initializes loop variable to the typical "i" and increment of one
@@ -20,9 +20,9 @@ public class ForLoop extends Command {
 		setCommand("ForLoop");
 		commands = null;
 		loopVar = "i"; 		// default var
-		start = 0;
-		end = 0;
-		increment = 1;
+		start = "0";
+		end = "0";
+		increment = "1";
 	}
 	
 	/**
@@ -34,7 +34,7 @@ public class ForLoop extends Command {
 	 * @param e - The end value of the looping variable (exclusive when looping)
 	 * @param i - The value to increment the looping variable after each iteration of the for loop
 	 */
-	public ForLoop(ArrayList<Command> cmds, String lan, String lVar, int s, int e, int i) {
+	public ForLoop(ArrayList<Command> cmds, String lan, String type, String lVar, String s, String e, String i) {
 		setCommand("ForLoop");
 		commands = cmds;
 		loopVar = lVar;
@@ -42,6 +42,7 @@ public class ForLoop extends Command {
 		end = e;
 		increment = i;
 		setLanguage(lan);
+		setType(type);
 	}
 	
 	/**
@@ -72,7 +73,7 @@ public class ForLoop extends Command {
 	 * This method returns the start instance variable
 	 * @return The number on which the looping variable starts at
 	 */
-	public int getStart() {
+	public String getStart() {
 		return start;
 	}
 	
@@ -80,7 +81,7 @@ public class ForLoop extends Command {
 	 * This method returns the end instance variable
 	 * @return The number on which the looping variable ends at (-1 due to exclusiveness)
 	 */
-	public int getEnd() {
+	public String getEnd() {
 		return end;
 	}
 	
@@ -88,7 +89,7 @@ public class ForLoop extends Command {
 	 * This methods return the increment variable
 	 * @return The number at which the looping variable is incremented during each iteration of the for loop
 	 */
-	public int getIncrement() {
+	public String getIncrement() {
 		return increment;
 	}
 }

@@ -336,14 +336,21 @@ public class Interpretor {
 		// Get start, end, and interation variables from string
 		// Start
 		String sString = params.substring(commaLocations[0] + 1, commaLocations[1]);
-		int s = Integer.parseInt(sString);
 		// End
 		String eString = params.substring(commaLocations[1] + 1, commaLocations[2]);
-		int e = Integer.parseInt(eString);
 		// Iteration
 		String iterString = params.substring(commaLocations[2] + 1, params.indexOf(")"));
-		int i = Integer.parseInt(iterString);
 		
+		// Check if start or end string is a decimal (double)
+		String type = "";
+		if (sString.indexOf(".") != -1 || eString.indexOf(".") != -1) {
+			// period detected in either
+			type = "double";
+		}
+		if (sString.indexOf(".") == -1 && eString.indexOf(".") == -1) {
+			// No period detected in both start and end strings
+			type = "int";
+		}
 		
 		// Now process commands
 		ArrayList<Command> cmdList = new ArrayList<Command>();
@@ -364,7 +371,7 @@ public class Interpretor {
 		}
 		
 		// Create the object
-		return new ForLoop(cmdList, lang, lVar, s, e, i);
+		return new ForLoop(cmdList, lang, type, lVar, sString, eString, iterString);
 	}
 	
 	/** 
@@ -376,8 +383,8 @@ public class Interpretor {
 		String header = "";
 		if (fl.getLanguage().equals("java") || fl.getLanguage().contentEquals("c++")) {
 			/// Java/C++ header
-			header = "for (int " + fl.getLoopVar() + " = " + fl.getStart() + "; " + fl.getLoopVar() + " < " + fl.getEnd() + "; ";
-			if (fl.getIncrement() == 1) {
+			header = "for (" + fl.getType() + " " +  fl.getLoopVar() + " = " + fl.getStart() + "; " + fl.getLoopVar() + " < " + fl.getEnd() + "; ";
+			if (fl.getIncrement().equals("1")) {
 				header += fl.getLoopVar() + "++) {";
 			}
 			else {
@@ -386,7 +393,7 @@ public class Interpretor {
 		}
 		else {
 			// Python header
-			if (fl.getIncrement() == 1) {
+			if (fl.getIncrement().equals("1")) {
 				header = "for " + fl.getLoopVar() + " in range(" + fl.getStart() + "," + fl.getEnd() + "):";
 			}
 			else {

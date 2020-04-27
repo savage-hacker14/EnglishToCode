@@ -13,9 +13,8 @@ public class ForLoop extends Command {
 	private int increment;
 	
 	/**
-	 * Default constructor for ForLoop object
-	 * @param None
-	 * @return default initialized ForLoop variable
+	 * Default constructor for ForLoop object that initializes loop variable to the typical "i" and increment of one
+	 * It also sets the other instance variables to default values of 0
 	 */
 	public ForLoop() {
 		setCommand("ForLoop");
@@ -26,6 +25,15 @@ public class ForLoop extends Command {
 		increment = 1;
 	}
 	
+	/**
+	 * Main constructor for ForLoop object that takes in values for all instance variables
+	 * @param cmds - The ArrayList of commands to be executed within the for loop
+	 * @param lan - The language the ForLoop is to be written in
+	 * @param lVar - The name of the looping variable (i.e "i")
+	 * @param s - The start value of the looping variable 
+	 * @param e - The end value of the looping variable (exclusive when looping)
+	 * @param i - The value to increment the looping variable after each iteration of the for loop
+	 */
 	public ForLoop(ArrayList<Command> cmds, String lan, String lVar, int s, int e, int i) {
 		setCommand("ForLoop");
 		commands = cmds;
@@ -36,26 +44,50 @@ public class ForLoop extends Command {
 		setLanguage(lan);
 	}
 	
+	/**
+	 * This method returns the commands instance variable
+	 * @return ArrayList of commands to be executed within the for loop
+	 */
 	public ArrayList<Command> getCommands() {
 		return commands;
 	}
 	
+	/**
+	 * This method returns the size of the commands instance variable
+	 * @return The size of the commands ArrayList (the number of commands to be placed in the for loop)
+	 */
 	public int getNumCommands() {
 		return commands.size();
 	}
 	
+	/**
+	 * This methods returns the loopvar instance variable
+	 * @return The name of the looping variable
+	 */
 	public String getLoopVar() {
 		return loopVar;
 	}
 	
+	/**
+	 * This method returns the start instance variable
+	 * @return The number on which the looping variable starts at
+	 */
 	public int getStart() {
 		return start;
 	}
 	
+	/**
+	 * This method returns the end instance variable
+	 * @return The number on which the looping variable ends at (-1 due to exclusiveness)
+	 */
 	public int getEnd() {
 		return end;
 	}
 	
+	/**
+	 * This methods return the increment variable
+	 * @return The number at which the looping variable is incremented during each iteration of the for loop
+	 */
 	public int getIncrement() {
 		return increment;
 	}

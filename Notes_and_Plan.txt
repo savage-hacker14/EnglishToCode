@@ -4,6 +4,7 @@ Supported commands:
 - mat
 - ForLoop
 - use (for importing packages/modules)
+- Function creation (ADD SOON)
 
 Supported languages:
 - Java
@@ -18,7 +19,7 @@ Documentation
 - ForLoop(var,start,end,increment):		Loop from start to end-1, increment is how much to increase the loop variable (NEED TO ADD SUPPORT FOR TYPE DOUBLE LOOPING)
 ***
 
-Completed Code:
-- var support
-- mat support
-- Display support (java and python)
+To-do list:
+- Add Doxygen comments for all methods and regenerate Doxygen Docs
+- Add support for ForLoop of vars of type double
+- Add support to create functions

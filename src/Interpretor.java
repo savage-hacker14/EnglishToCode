@@ -12,7 +12,7 @@ public class Interpretor {
 	
 	/**
 	 * This method takes the user code string and extracts its command, name, parameters, and type
-	 * @param input
+	 * @param input - Raw user string input
 	 * @return Command object with the extracted data
 	 */
 	public static Command interpret(String input) {
@@ -139,7 +139,11 @@ public class Interpretor {
 		return new Command(command, name, type, paramStr);
 	}
 	
-	
+	/**
+	 * This method sets the lineOfCode instance variable for a command given the states of the other instance variables
+	 * Note: This method creates the line of code depending on the language set in the Command object c
+	 * @param c - Command from which to generate the line of code 
+	 */
 	public static void createLineOfCode(Command c) {
 		// Grab important variables from command c
 		String code = "";
@@ -213,7 +217,7 @@ public class Interpretor {
 	/**
 	 * Special helper method for parsing a string of values into a 2D array (matrix)
 	 * NOTE: ONLY WORKS FOR JAVA AND C++
-	 * @param vals
+	 * @param vals - String of values (specified like in MATLAB - i.e [1 1;2 2])
 	 * @return Explicit definition of a 2D array (matrix) 
 	 */
 	private static String interpretMat(String vals) {
@@ -267,7 +271,7 @@ public class Interpretor {
 	/**
 	 * Special helper method for parsing a string of values into an array
 	 * NOTE; ONLY WORKS FOR JAVA AND C++
-	 * @param vals
+	 * @param vals - String of values (specified like in MATLAB - i.e [1 1])
 	 * @return Explicit definition of an array
 	 */
 	private static String interpretArr(String vals) {
@@ -293,6 +297,11 @@ public class Interpretor {
 		return output;
 	}
 	
+	/**
+	 * Helper method to determine if any character in a string is a digit
+	 * @param str - String
+	 * @return boolean true/false
+	 */
 	private static boolean containsANumber(String str) {
 		for (int i = 0; i < str.length(); i++) {
 			char c = str.charAt(i);
@@ -306,11 +315,12 @@ public class Interpretor {
 	
 	/** 
 	 * Helper method to create ForLoop object from command string
-	 * @param String command string 
+	 * @param cmd - String command string 
+	 * @param lang - Language of the ForLoop object
 	 * @return ForLoop object with all instance variables written
 	 */
 	public static ForLoop interpretForLoop(String cmd, String lang) {
-		System.out.println("interpreting for loop");
+		//System.out.println("interpreting for loop");
 		
 		// Get param list from inside first set of parenthesis
 		String params = cmd.substring(cmd.indexOf("("), cmd.indexOf(")") + 1);		// Retain parenthesis in string
@@ -357,6 +367,10 @@ public class Interpretor {
 		return new ForLoop(cmdList, lang, lVar, s, e, i);
 	}
 	
+	/** 
+	 * This method sets the lineOfCode instance variable for a ForLoop object given the states of the other instance variables
+	 * @param fl - ForLoop object
+	 */
 	public static void createLinesOfCodeForLoop(ForLoop fl) {
 		// Create header
 		String header = "";
@@ -420,6 +434,12 @@ public class Interpretor {
 		fl.setLineOfCode(code);
 	}
 	
+	/**
+	 * Helper method to find the indexes/locations of all the commas in a given string
+	 * This comes in handy when parsing strings that are part of the ForLoop command or Function object
+	 * @param str - String
+	 * @return
+	 */
 	private static int[] findAllCommas(String str) {
 		ArrayList<Integer> locations = new ArrayList<Integer>();
 		for (int i = 0; i < str.length(); i++) {

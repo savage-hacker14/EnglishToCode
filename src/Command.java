@@ -4,13 +4,17 @@
 
 public class Command {
 	// Instance variables name
-	private String command;		// Command name: var, list, arr, etc.
+	private String command;			// Command name: var, list, arr, etc.
 	private String name;			// Variable name (if applicable)
 	private String type;			// Type (if applicable)
 	private String params;			// Parameters (i.e a = 5, 5 is parameter)
 	private String lang;			// Programming language the code should be written for 
 	private String lineOfCode;		// The actual line of code that will be written to the code file
 	
+	/** 
+	 * Default Command object constructor
+	 * It initializes all instance variables of Command object with blank strings
+	 */
 	public Command() {
 		command = "";
 		name = "";
@@ -22,10 +26,10 @@ public class Command {
 	
 	/**
 	 * Command object constructor
-	 * @param Command used (i.e var, arr, list, etc.)
-	 * @param Name of the variable (if used)
-	 * @param Data type of the var, arr, etc. (i.e int, double, String, etc.)
-	 * @param Parameters (i.e the string to be displayed, the values that need to be assigned to the variable, array, etc.
+	 * @param commandToSet - Command used (i.e var, arr, list, etc.)
+	 * @param nameToSet - Name of the variable (if used)
+	 * @param typeToSet - Data type of the var, arr, etc. (i.e int, double, String, etc.)
+	 * @param parametersToSet - Parameters (i.e the string to be displayed, the values that need to be assigned to the variable, array, etc.
 	 */
 	public Command(String commandToSet, String nameToSet, String typeToSet, String parametersToSet) {
 		command = commandToSet;
@@ -36,7 +40,7 @@ public class Command {
 	
 	/**
 	 * Set the language of the command
-	 * @param string
+	 * @param str - String
 	 */
 	public void setLanguage(String str) {
 		lang = str;
@@ -51,6 +55,11 @@ public class Command {
 		return command;
 	}
 	
+	/** 
+	 * Set the command instance variable of Command 
+	 * i.e mat, var, display, ForLoop, etc.
+	 * @param str - String (see above)
+	 */
 	public void setCommand(String str) {
 		command = str;
 	}
@@ -58,7 +67,7 @@ public class Command {
 	/**
 	 * Get the line of code for the command (in the proper language) 
 	 * Used for code generation
-	 * @return lineCfCode
+	 * @return lineOfCode
 	 */
 	public String getLineOfCode() {	
 		return lineOfCode;
@@ -67,7 +76,7 @@ public class Command {
 	/**
 	 * Set the line of code for the command (in the proper language) 
 	 * Used for code generation
-	 * @return lineCfCode
+	 * @return lineOfCode
 	 */
 	public void setLineOfCode(String lineOfCodeToSet) {
 		lineOfCode = lineOfCodeToSet;
@@ -76,7 +85,7 @@ public class Command {
 	/**
 	 * Get the name of the command (in the proper language) 
 	 * Used for code generation
-	 * @return lineCfCode
+	 * @return lineOfCode
 	 */
 	public String getName() {
 		return name;

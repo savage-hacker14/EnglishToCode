@@ -15,7 +15,7 @@ public class Program {
 	
 	/**
 	 * Create a program object with an ArrayList of Command objects
-	 * @param cmdArray
+	 * @param cmdArray - ArrayList of Command objects within Program object
 	 */
 	public Program(ArrayList<Command> cmdArray) {
 		commands = cmdArray;
@@ -23,7 +23,7 @@ public class Program {
 	
 	/**
 	 * Add a command to the commands ArrayList
-	 * @param c
+	 * @param c - The Command to add
 	 */
 	public void addCommand(Command c) {
 		commands.add(c);
@@ -31,7 +31,7 @@ public class Program {
 	
 	/**
 	 * Get a given command based on its index in the ArrayList
-	 * @param index (0 based)
+	 * @param i - index (0 based)
 	 * @return
 	 */
 	public Command getCommand(int i) {
@@ -40,7 +40,7 @@ public class Program {
 	
 	/**
 	 * Returns the following:
-	 * @return length of commands ArrayLists
+	 * @return length of commands ArrayList
 	 */
 	public int numCommands() {
 		return commands.size();

@@ -16,9 +16,9 @@ public class FileCreator {
 	
 	/**
 	 * Constructor for FileCreator object
-	 * @param Name of the class/file
-	 * @param Language of the exported file
-	 * @param Program object (containing the user code)
+	 * @param nameToSet - Name of the class/file
+	 * @param langToSet - Language of the exported file
+	 * @param pToSet - Program object (containing the user code)
 	 */
 	public FileCreator(String nameToSet, String langToSet, Program pToSet) {
 		nameOfClass = nameToSet;
@@ -46,8 +46,8 @@ public class FileCreator {
 	}
 	
 	/**
-	 * This method creates the .java file from the user code
-	 * @param A Program object
+	 * This method creates the .java file from the user code (stored in Program object)
+	 * @param p - A Program object
 	 * @throws IOException
 	 */
 	private void createJavaFile(Program p) throws IOException {
@@ -85,8 +85,8 @@ public class FileCreator {
 	}
 	
 	/**
-	 * This method creates the .cpp file from the user code
-	 * @param A Program object
+	 * This method creates the .cpp file from the user code (stored in Program object)
+	 * @param p - A Program object
 	 * @throws IOException
 	 */
 	private void createCPPFile(Program p) throws IOException {
@@ -125,8 +125,8 @@ public class FileCreator {
 	}
 	
 	/**
-	 * This method creates the .py file from the user code
-	 * @param A Program object
+	 * This method creates the .py file from the user code (stored in Program object)
+	 * @param p - A Program object
 	 * @throws IOException
 	 */
 	private void createPythonFile(Program p) throws IOException {

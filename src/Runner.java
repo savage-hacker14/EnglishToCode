@@ -39,7 +39,7 @@ public class Runner {
 				Interpretor.createLineOfCode(cmd);
 			}
 			else {
-				System.out.println("for loop detected");
+				//System.out.println("for loop detected");
 				cmd = Interpretor.interpretForLoop(rawLine, lang);
 				Interpretor.createLinesOfCodeForLoop((ForLoop) cmd);
 			}

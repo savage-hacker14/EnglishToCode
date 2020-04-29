@@ -40,7 +40,7 @@ public class Runner {
 			}
 			else {
 				//System.out.println("for loop detected");
-				cmd = Interpretor.interpretForLoop(rawLine, lang);
+				cmd = Interpretor.interpretForLoop(rawLine, lang, 0);
 				Interpretor.createLinesOfCodeForLoop((ForLoop) cmd);
 			}
 			

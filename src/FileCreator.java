@@ -68,11 +68,12 @@ public class FileCreator {
 		writer.write("public static void main (String[] args) {");
 		writer.write("\n");
 		
-		// Now add lines of code from Program object
+		// Add commands from Program object
 		for (int i = 0; i < userCode.numCommands(); i++) {
-			String currentIndent = "\t\t";
-			writer.write(currentIndent + userCode.getCommand(i).getLineOfCode() + "\n");
+			writer.write(userCode.getCommand(i).getLineOfCode() + "\n");
 		}
+		
+		// Add functions from Program object
 		
 		// Finalize all brackets and EOF
 		writer.write("\n\t");
@@ -109,8 +110,7 @@ public class FileCreator {
 		
 		// Now add lines of code from Program object
 		for (int i = 0; i < userCode.numCommands(); i++) {
-			String currentIndent = "\t";
-			writer.write(currentIndent + userCode.getCommand(i).getLineOfCode() + "\n");
+			writer.write(userCode.getCommand(i).indent() + userCode.getCommand(i).getLineOfCode() + "\n");
 		}
 		
 		// Add return 0 statement
@@ -143,7 +143,7 @@ public class FileCreator {
 		
 		// Now add lines of code from Program object
 		for (int i = 0; i < userCode.numCommands(); i++) {
-			writer.write(userCode.getCommand(i).getLineOfCode() + "\n");
+			writer.write(userCode.getCommand(i).indent() + userCode.getCommand(i).getLineOfCode() + "\n");
 		}
 		
 		// Close writer buffer

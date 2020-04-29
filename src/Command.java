@@ -10,6 +10,7 @@ public class Command {
 	private String params;			// Parameters (i.e a = 5, 5 is parameter)
 	private String lang;			// Programming language the code should be written for 
 	private String lineOfCode;		// The actual line of code that will be written to the code file
+	private int indentLevel; 		// Determines how indented the command should be
 	
 	/** 
 	 * Default Command object constructor
@@ -22,6 +23,7 @@ public class Command {
 		params = "";
 		lang = "";
 		lineOfCode = "";
+		setIndentLevel(2);				// Java default
 	}
 	
 	/**
@@ -36,6 +38,7 @@ public class Command {
 		name = nameToSet;
 		type = typeToSet;
 		params = parametersToSet;
+		setIndentLevel(2);				// Java default
 	}
 	
 	/**
@@ -99,6 +102,30 @@ public class Command {
 		type = str;
 	}
 	
+	public void setIndentLevel(int i) {
+		indentLevel = i;
+	}
+	
+	public int getIndentLevel() {
+		return indentLevel;
+	}
+	
+	public String indent() {
+		String output = "";
+		
+		if (indentLevel == 0) {
+			return output;
+		}
+		else {
+			// Indent does not equal 0 (1 or above)
+			for (int i = 1; i <= indentLevel; i++) {
+				output += "\t";
+			}
+		}
+		
+		return output;
+	}
+	
 	/**
 	 * Get the name of the command (in the proper language) 
 	 * Used for code generation
@@ -138,7 +165,8 @@ public class Command {
 		output += "Type:\t\t" + type + "\n";
 		output += "Parameters:\t" + params + "\n";
 		output += "Language:\t" + lang + "\n";
-		output += "Line of code:\t" + lineOfCode + "\n";
+		output += "# of Indents:\t" + indentLevel + "\n";
+		output += "Line of code:\n" + lineOfCode + "\n";
 		
 		return output;
 	}

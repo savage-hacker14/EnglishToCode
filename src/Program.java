@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Program {
 	// Instance variables
 	private ArrayList<Command> commands = new ArrayList<Command>();
+	private ArrayList<Function> functions = new ArrayList<Function>();
 	
 	/**
 	 * Create a program object with no data

@@ -11,6 +11,7 @@ public class ForLoop extends Command {
 	private String start;					// These are string types so that ints and doubles are supported
 	private String end; 
 	private String increment;
+	private int numNested;					// Denotes which nested for loop a ForLoop object is. No nest is 0
 	
 	/**
 	 * Default constructor for ForLoop object that initializes loop variable to the typical "i" and increment of one
@@ -23,6 +24,7 @@ public class ForLoop extends Command {
 		start = "0";
 		end = "0";
 		increment = "1";
+		numNested = 0;
 	}
 	
 	/**
@@ -34,8 +36,24 @@ public class ForLoop extends Command {
 	 * @param e - The end value of the looping variable (exclusive when looping)
 	 * @param i - The value to increment the looping variable after each iteration of the for loop
 	 */
-	public ForLoop(ArrayList<Command> cmds, String lan, String type, String lVar, String s, String e, String i) {
+	public ForLoop(int numNestedToSet, ArrayList<Command> cmds, String lan, String type, String lVar, String s, String e, String i) {
 		setCommand("ForLoop");
+		
+		numNested = numNestedToSet;
+		
+		if (numNested == 0) {
+			if (lan.equals("java")) {
+				setIndentLevel(2);
+			}
+			else if (lan.equals("c++")) {
+				setIndentLevel(1);
+			}
+			else {
+				// Python
+				setIndentLevel(0);
+			}
+		}
+		
 		commands = cmds;
 		loopVar = lVar;
 		start = s;

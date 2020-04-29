@@ -82,7 +82,8 @@ public class Interpretor {
 					type = "int";
 					
 				}
-				else if (containsANumber(paramStr) && inputNWS.indexOf(".") != -1) {
+				else if ((containsANumber(paramStr) && inputNWS.indexOf(".") != -1) || 
+						 (command.equals("var") && hasMathOperations(paramStr))) {
 					// The line contains a double or float
 					type = "double";
 				}
@@ -319,8 +320,29 @@ public class Interpretor {
 	 * @param lang - Language of the ForLoop object
 	 * @return ForLoop object with all instance variables written
 	 */
-	public static ForLoop interpretForLoop(String cmd, String lang) {
-		//System.out.println("interpreting for loop");
+	public static ForLoop interpretForLoop(String cmd, String lang, int nestedNum) {
+		// Determine proper indent level
+		int indentLevel = 0;
+		if (lang.equals("java")) {
+			indentLevel = 2;
+		}
+		else if (lang.equals("c++")) {
+			indentLevel = 1;
+		}
+		else {
+			// Python
+			indentLevel = 0;
+		}
+
+//		int numNested = numOccurances("ForLoop", cmd) - 1;
+//		int numIndent;
+//		if (numNested == 0) {
+//			numIndent = indentLevel;
+//		}
+//		else {
+//			numIndent = indentLevel + numNested;
+//		}
+		int numIndent = indentLevel + nestedNum;
 		
 		// Get param list from inside first set of parenthesis
 		String params = cmd.substring(cmd.indexOf("("), cmd.indexOf(")") + 1);		// Retain parenthesis in string
@@ -352,10 +374,11 @@ public class Interpretor {
 			type = "int";
 		}
 		
-		// Now process commands
+		// Process commands
 		ArrayList<Command> cmdList = new ArrayList<Command>();
 		cmds = cmds.substring(1);			// Ignore first parenthesis in string
 		while (!(cmds.isEmpty())) {
+			//System.out.println("hi");
 			int nextSemiCol = cmds.indexOf(";");
 			// To handle end case
 			if (nextSemiCol == -1) {
@@ -363,16 +386,29 @@ public class Interpretor {
 			}
 			
 			String cmdToProcess = cmds.substring(0, nextSemiCol);
-			Command c = interpret(cmdToProcess);
-			c.setLanguage(lang);
-			cmdList.add(c);
+			
+			// Nested for loop detected
+			// This won't work for triple nested for loops
+			if (cmdToProcess.indexOf("ForLoop") != -1) {
+				ForLoop fl = interpretForLoop(cmdToProcess, lang, nestedNum + 1);				// Oo recursion?!			
+				fl.setIndentLevel(fl.getIndentLevel() + 1);										// Indent once from from current for loop indent - FIX THIS
+				fl.setLanguage(lang);
+				cmdList.add(fl);
+			}
+			else {
+				Command c = interpret(cmdToProcess);
+				c.setIndentLevel(numIndent + 1);
+				c.setLanguage(lang);
+				cmdList.add(c);
+			}
 			
 			cmds = cmds.substring(nextSemiCol + 1);
 		}
 		
 		// Create the object
-		return new ForLoop(cmdList, lang, type, lVar, sString, eString, iterString);
+		return new ForLoop(nestedNum, cmdList, lang, type, lVar, sString, eString, iterString);
 	}
+	
 	
 	/** 
 	 * This method sets the lineOfCode instance variable for a ForLoop object given the states of the other instance variables
@@ -380,10 +416,13 @@ public class Interpretor {
 	 */
 	public static void createLinesOfCodeForLoop(ForLoop fl) {
 		// Create header
+		
+		System.out.println(fl.getIndentLevel());
+		
 		String header = "";
 		if (fl.getLanguage().equals("java") || fl.getLanguage().contentEquals("c++")) {
 			/// Java/C++ header
-			header = "for (" + fl.getType() + " " +  fl.getLoopVar() + " = " + fl.getStart() + "; " + fl.getLoopVar() + " < " + fl.getEnd() + "; ";
+			header = fl.indent() + "for (" + fl.getType() + " " +  fl.getLoopVar() + " = " + fl.getStart() + "; " + fl.getLoopVar() + " < " + fl.getEnd() + "; ";
 			if (fl.getIncrement().equals("1")) {
 				header += fl.getLoopVar() + "++) {";
 			}
@@ -405,40 +444,77 @@ public class Interpretor {
 		
 		// Add commands into the code
 		String cmds = "";
-		if (fl.getLanguage().equals("java") || fl.getLanguage().equals("c++")) {
-			// Java/C++ for loop
-			String currentIndent = "";
-			if (fl.getLanguage().contentEquals("java")) {
-				currentIndent = "\t\t\t";
+		String currentIndent = "";
+		for (int i = 0; i < fl.getNumCommands(); i++) {
+			Command currentCommand = fl.getCommands().get(i);
+			
+			if (currentCommand.getCommand().equals("ForLoop")) {
+				createLinesOfCodeForLoop((ForLoop) currentCommand);
+				cmds += currentCommand.getLineOfCode() + "\n";
 			}
 			else {
-				currentIndent = "\t\t";
+				createLineOfCode(currentCommand);
+				cmds += currentCommand.indent() + currentCommand.getLineOfCode() + "\n";
 			}
-			
-			for (int i = 0; i < fl.getNumCommands(); i++) {
-				createLineOfCode(fl.getCommands().get(i));
-				cmds += currentIndent + fl.getCommands().get(i).getLineOfCode() + "\n";
-			}
-			
-			// Fix current indent for final bracket
-			if (fl.getLanguage().contentEquals("java")) {
-				currentIndent = "\t\t";
-			}
-			else {
-				currentIndent = "\t";
-			}
-			
-			// Add final bracket and new line 
-			cmds += currentIndent + "}" + "\n";
-			
 		}
-		else {
-			// Python for loop
-		}
+		
+		// Add final bracket and new line 
+		cmds += fl.indent() + "}" + "\n";
 		
 		// Create code string and return it
 		String code = header + cmds;
 		fl.setLineOfCode(code);
+	}
+	
+	public static Function interpretFunction(String fcn, String lang) {
+		// Obtain name of function
+		String params = fcn.substring(fcn.indexOf("("), fcn.indexOf(")") + 1);		// Retain parenthesis in string
+		int[] commaLocations = findAllCommas(params);
+		String name = params.substring(1, commaLocations[0]);
+		name = name.replaceAll("\"", "");									// Remove quotes
+		
+		// Get list of function parameters from string
+		String fcnParams = fcn.substring(fcn.indexOf(",") + 1, fcn.indexOf(")"));
+		commaLocations = findAllCommas(fcnParams);
+		int numParams = commaLocations.length + 1;
+		String[] allParams = new String[numParams];
+		for (int i = 0; i < numParams; i++) {
+			allParams[i] = fcnParams.substring(0, fcnParams.indexOf(","));
+		}
+		
+		// Get command list from 2nd set of parenthesis
+		String cmds = fcn.substring(fcn.indexOf(")") + 1);							// Retain parenthesis in string
+		
+		// Get return variable string
+		String returnVal = "";
+		String temp = "";
+		temp = fcn.replaceAll("Function", ""); 										// Remove "function" from string
+		temp = temp.replaceAll(params, "");											// Remove parameters string
+		temp = temp.replaceAll(cmds, "");											// Remove cmds string, now just left with last set of parenthesis
+		temp = temp.replaceAll("(", "");
+		temp = temp.replaceAll(")", "");
+		returnVal = temp;
+		
+		// Now process commands
+		// MAKE SURE to check for ForLoop commands
+		ArrayList<Command> cmdList = new ArrayList<Command>();
+		cmds = cmds.substring(1);			// Ignore first parenthesis in string
+		while (!(cmds.isEmpty())) {
+			int nextSemiCol = cmds.indexOf(";");
+			// To handle end case
+			if (nextSemiCol == -1) {
+				nextSemiCol = cmds.length() - 1;
+			}
+			
+			String cmdToProcess = cmds.substring(0, nextSemiCol);
+			Command c = interpret(cmdToProcess);
+			c.setLanguage(lang);
+			cmdList.add(c);
+			
+			cmds = cmds.substring(nextSemiCol + 1);
+		}
+		
+		return new Function(cmdList, name, allParams, returnVal);
 	}
 	
 	/**
@@ -461,5 +537,31 @@ public class Interpretor {
 		}
 		
 		return output;
+	}
+	
+	private static boolean hasMathOperations(String str) {
+		return str.indexOf("*") != -1 || str.indexOf("/") != -1 || str.indexOf("+") != -1 || str.indexOf("-") != -1;
+	}
+	
+	private static String strWithNTabs(int n) {
+		String output = "";
+		for (int i = 1; i < n; i++) {
+			output += "\t";
+		}
+		
+		return output;
+	}
+	
+	private static int numOccurances(String regex, String str) {
+		int counter = 0;
+		
+		while (!str.isEmpty()) {
+			if (str.indexOf(regex) != -1) {
+				counter++;
+				str = str.substring(str.indexOf(regex) + regex.length());
+			}
+		}
+		
+		return counter;
 	}
 }

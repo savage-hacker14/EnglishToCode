@@ -14,35 +14,38 @@ public class Tester {
 		// TODO Auto-generated method stub
 		
 		// Testing input
-		Scanner reader = new Scanner(System.in);
-		System.out.print("Enter some text: ");
-		String userInput = reader.nextLine();	
-		System.out.println(userInput.replaceAll("\\s", ""));
-			
-		// Testing interpreter
-		System.out.println();
-		Command c = Interpretor.interpret(userInput);
-		String lang = "java";
-		c.setLanguage(lang);
-		Interpretor.createLineOfCode(c);
-		System.out.println(c.toString());
+//		Scanner reader = new Scanner(System.in);
+//		System.out.print("Enter some text: ");
+//		String userInput = reader.nextLine();	
+//		System.out.println(userInput.replaceAll("\\s", ""));
+//			
+//		// Testing interpreter
+//		System.out.println();
+//		Command c = Interpretor.interpret(userInput);
+//		String lang = "java";
+//		c.setLanguage(lang);
+//		Interpretor.createLineOfCode(c);
+//		System.out.println(c.toString());
+//		
+//		if (outputCode) {
+//			// Testing Program
+//			Program p = new Program();
+//			p.addCommand(c);
+//			
+//			// Testing FileCreator
+//			FileCreator fc = new FileCreator("Test", lang, p);
+//			try {
+//				fc.createCodeFile();
+//				System.out.println("Code created!");
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				System.out.println("Error: Failed to generate code!");
+//			}
+//		}
+//		
+//		reader.close();
 		
-		if (outputCode) {
-			// Testing Program
-			Program p = new Program();
-			p.addCommand(c);
-			
-			// Testing FileCreator
-			FileCreator fc = new FileCreator("Test", lang, p);
-			try {
-				fc.createCodeFile();
-				System.out.println("Code created!");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				System.out.println("Error: Failed to generate code!");
-			}
-		}
-		
-		reader.close();
+		String s = "ForLoop__asdfasdf_ForLoopForLoop";
+		//System.out.println(Interpretor.numOccurances("ForLoop", s));
 	}
 }

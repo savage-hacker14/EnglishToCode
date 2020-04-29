@@ -385,24 +385,36 @@ public class Interpretor {
 				nextSemiCol = cmds.length() - 1;
 			}
 			
-			String cmdToProcess = cmds.substring(0, nextSemiCol);
+			// To handle single ForLoop command
+			String cmdToProcess = "";
+			if (cmds.indexOf("ForLoop") == 0) {
+				cmdToProcess = cmds.substring(0, cmds.length() - 1);
+			}
+			else {
+				cmdToProcess = cmds.substring(0, nextSemiCol);
+			}
 			
 			// Nested for loop detected
 			// This won't work for triple nested for loops
 			if (cmdToProcess.indexOf("ForLoop") != -1) {
 				ForLoop fl = interpretForLoop(cmdToProcess, lang, nestedNum + 1);				// Oo recursion?!			
-				fl.setIndentLevel(fl.getIndentLevel() + 1);										// Indent once from from current for loop indent - FIX THIS
+				fl.setIndentLevel(3 + nestedNum);										
 				fl.setLanguage(lang);
 				cmdList.add(fl);
+				
+				//String temp = cmds.substring(cmds.indexOf(")") + 1);
+				//cmds = temp.substring(temp.indexOf(")") + 2); 				// Basicaly clear for loop command from cmds
+				
+				cmds = "";
 			}
 			else {
 				Command c = interpret(cmdToProcess);
 				c.setIndentLevel(numIndent + 1);
 				c.setLanguage(lang);
 				cmdList.add(c);
+
+				cmds = cmds.substring(nextSemiCol + 1);
 			}
-			
-			cmds = cmds.substring(nextSemiCol + 1);
 		}
 		
 		// Create the object
@@ -459,7 +471,7 @@ public class Interpretor {
 		}
 		
 		// Add final bracket and new line 
-		cmds += fl.indent() + "}" + "\n";
+		cmds += fl.indent() + "}";
 		
 		// Create code string and return it
 		String code = header + cmds;

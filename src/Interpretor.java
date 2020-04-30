@@ -395,16 +395,12 @@ public class Interpretor {
 			}
 			
 			// Nested for loop detected
-			// This won't work for triple nested for loops
 			if (cmdToProcess.indexOf("ForLoop") != -1) {
 				ForLoop fl = interpretForLoop(cmdToProcess, lang, nestedNum + 1);				// Oo recursion?!			
-				fl.setIndentLevel(3 + nestedNum);										
+				
 				fl.setLanguage(lang);
 				cmdList.add(fl);
-				
-				//String temp = cmds.substring(cmds.indexOf(")") + 1);
-				//cmds = temp.substring(temp.indexOf(")") + 2); 				// Basicaly clear for loop command from cmds
-				
+					
 				cmds = "";
 			}
 			else {
@@ -445,10 +441,10 @@ public class Interpretor {
 		else {
 			// Python header
 			if (fl.getIncrement().equals("1")) {
-				header = "for " + fl.getLoopVar() + " in range(" + fl.getStart() + "," + fl.getEnd() + "):";
+				header = fl.indent() + "for " + fl.getLoopVar() + " in range(" + fl.getStart() + "," + fl.getEnd() + "):";
 			}
 			else {
-				header = "for " + fl.getLoopVar() + " in range(" + fl.getStart() + "," + fl.getEnd() + "," + fl.getIncrement() + "):";
+				header = fl.indent() + "for " + fl.getLoopVar() + " in range(" + fl.getStart() + "," + fl.getEnd() + "," + fl.getIncrement() + "):";
 			}
 		}
 		header += "\n";
@@ -471,7 +467,9 @@ public class Interpretor {
 		}
 		
 		// Add final bracket and new line 
-		cmds += fl.indent() + "}";
+		if (fl.getLanguage().equals("java") || fl.getLanguage().equals("c++")) {
+			cmds += fl.indent() + "}";
+		}
 		
 		// Create code string and return it
 		String code = header + cmds;

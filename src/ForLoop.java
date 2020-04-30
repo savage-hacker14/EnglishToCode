@@ -41,17 +41,15 @@ public class ForLoop extends Command {
 		
 		numNested = numNestedToSet;
 		
-		if (numNested == 0) {
-			if (lan.equals("java")) {
-				setIndentLevel(2);
-			}
-			else if (lan.equals("c++")) {
-				setIndentLevel(1);
-			}
-			else {
-				// Python
-				setIndentLevel(0);
-			}
+		if (lan.equals("java")) {
+			setIndentLevel(2 + numNested);
+		}
+		else if (lan.equals("c++")) {
+			setIndentLevel(1 + numNested);
+		}
+		else {
+			// Python
+			setIndentLevel(numNested);
 		}
 		
 		commands = cmds;

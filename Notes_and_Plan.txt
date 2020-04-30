@@ -23,6 +23,7 @@ Documentation
 To-do list:
 - Add Doxygen comments for all methods and regenerate Doxygen Docs			DONE!!!
 - Add support for ForLoop of vars of type double							DONE!!!
+- Rebuild Doxygen
 - Add support for variables of type boolean
 - Add support for logic expression
 - Add support to create functions

@@ -43,7 +43,7 @@ public class Command {
 	
 	/**
 	 * Set the language of the command
-	 * @param str - String
+	 * @param str - java, c++, or python
 	 */
 	public void setLanguage(String str) {
 		lang = str;
@@ -102,14 +102,26 @@ public class Command {
 		type = str;
 	}
 	
+	/**
+	 * Sets the indentLevel instance variable
+	 * @param i - int to set the indentLevel to
+	 */
 	public void setIndentLevel(int i) {
 		indentLevel = i;
 	}
 	
+	/**
+	 * Returns the indentLevel instance variable
+	 * @return indentLevel - The number of tabs to insert before the line of code of the Command object
+	 */
 	public int getIndentLevel() {
 		return indentLevel;
 	}
 	
+	/**
+	 * This method converts the indentLevel instance variable into a string with the proper number of tabs
+	 * @return A String with indentLevel number of tabs
+	 */
 	public String indent() {
 		String output = "";
 		

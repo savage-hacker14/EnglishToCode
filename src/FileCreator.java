@@ -70,7 +70,14 @@ public class FileCreator {
 		
 		// Add commands from Program object
 		for (int i = 0; i < userCode.numCommands(); i++) {
-			writer.write(userCode.getCommand(i).getLineOfCode() + "\n");
+			// Check for one liners
+			String code = userCode.getCommand(i).getLineOfCode();
+			if (code.indexOf("\n") == -1) {
+				writer.write(userCode.getCommand(i).indent() + code + "\n");
+			}
+			else {
+				writer.write(userCode.getCommand(i).getLineOfCode() + "\n");
+			}
 		}
 		
 		// Add functions from Program object

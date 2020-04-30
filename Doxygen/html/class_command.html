@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EnglishToCode
-   &#160;<span id="projectnumber">v2020.04.27</span>
+   &#160;<span id="projectnumber">v2020.04.30</span>
    </div>
    <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to scratch, however the code can be later exported to Java, C++, and Python.</div>
   </td>
@@ -122,6 +122,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aea50670aba2cdd11029da936f07717fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acecd54448a9961c086e308e050cc3046"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command.html#acecd54448a9961c086e308e050cc3046">getName</a> ()</td></tr>
 <tr class="separator:acecd54448a9961c086e308e050cc3046"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1591818abe1e19c1bc288d6263b0663f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command.html#a1591818abe1e19c1bc288d6263b0663f">setType</a> (String str)</td></tr>
+<tr class="separator:a1591818abe1e19c1bc288d6263b0663f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80079c1667798d3a83a4d2b724752bff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command.html#a80079c1667798d3a83a4d2b724752bff">setIndentLevel</a> (int i)</td></tr>
+<tr class="separator:a80079c1667798d3a83a4d2b724752bff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a845dcee4e2681fa6d773dce5f30df85f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command.html#a845dcee4e2681fa6d773dce5f30df85f">getIndentLevel</a> ()</td></tr>
+<tr class="separator:a845dcee4e2681fa6d773dce5f30df85f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a880468087902ea76ad88c04753031a1f"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command.html#a880468087902ea76ad88c04753031a1f">indent</a> ()</td></tr>
+<tr class="separator:a880468087902ea76ad88c04753031a1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acde8597e467da97b2e8f4377779b6528"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command.html#acde8597e467da97b2e8f4377779b6528">getType</a> ()</td></tr>
 <tr class="separator:acde8597e467da97b2e8f4377779b6528"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a450cb59fc98fa67c8b88aadf0f3afa4e"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command.html#a450cb59fc98fa67c8b88aadf0f3afa4e">getParameters</a> ()</td></tr>
@@ -218,6 +226,24 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a845dcee4e2681fa6d773dce5f30df85f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a845dcee4e2681fa6d773dce5f30df85f">&#9670;&nbsp;</a></span>getIndentLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Command.getIndentLevel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the indentLevel instance variable </p><dl class="section return"><dt>Returns</dt><dd>indentLevel - The number of tabs to insert before the line of code of the <a class="el" href="class_command.html">Command</a> object </dd></dl>
+
+</div>
+</div>
 <a id="aaf5caa5ff965ad2b15555b6127c0c7a3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaf5caa5ff965ad2b15555b6127c0c7a3">&#9670;&nbsp;</a></span>getLanguage()</h2>
 
@@ -308,6 +334,24 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a880468087902ea76ad88c04753031a1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a880468087902ea76ad88c04753031a1f">&#9670;&nbsp;</a></span>indent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String Command.indent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This method converts the indentLevel instance variable into a string with the proper number of tabs </p><dl class="section return"><dt>Returns</dt><dd>A String with indentLevel number of tabs </dd></dl>
+
+</div>
+</div>
 <a id="ab48399832de05d31d0dcf87dcdcbdc18"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab48399832de05d31d0dcf87dcdcbdc18">&#9670;&nbsp;</a></span>setCommand()</h2>
 
@@ -332,6 +376,30 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a80079c1667798d3a83a4d2b724752bff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80079c1667798d3a83a4d2b724752bff">&#9670;&nbsp;</a></span>setIndentLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Command.setIndentLevel </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sets the indentLevel instance variable </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>- int to set the indentLevel to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a67e286d5d6b2cc75b13f0b53629dbc34"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a67e286d5d6b2cc75b13f0b53629dbc34">&#9670;&nbsp;</a></span>setLanguage()</h2>
 
@@ -349,7 +417,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Set the language of the command </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">str</td><td>- String </td></tr>
+    <tr><td class="paramname">str</td><td>- java, c++, or python </td></tr>
   </table>
   </dd>
 </dl>
@@ -372,6 +440,30 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Set the line of code for the command (in the proper language) Used for code generation </p><dl class="section return"><dt>Returns</dt><dd>lineOfCode </dd></dl>
+
+</div>
+</div>
+<a id="a1591818abe1e19c1bc288d6263b0663f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1591818abe1e19c1bc288d6263b0663f">&#9670;&nbsp;</a></span>setType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Command.setType </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the type instance variable of the <a class="el" href="class_command.html">Command</a> object </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- Type (i.e double, int, etc.) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

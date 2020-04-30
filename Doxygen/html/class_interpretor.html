@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EnglishToCode
-   &#160;<span id="projectnumber">v2020.04.27</span>
+   &#160;<span id="projectnumber">v2020.04.30</span>
    </div>
    <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to scratch, however the code can be later exported to Java, C++, and Python.</div>
   </td>
@@ -101,10 +101,12 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:addebbf9f1c82ed74233fcd9313ea027f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ea176fd44730b3b7c2a4340dfe18b4f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a4ea176fd44730b3b7c2a4340dfe18b4f">createLineOfCode</a> (<a class="el" href="class_command.html">Command</a> c)</td></tr>
 <tr class="separator:a4ea176fd44730b3b7c2a4340dfe18b4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cc61eabfcf45d2ba0274b187aa523d9"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_for_loop.html">ForLoop</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a0cc61eabfcf45d2ba0274b187aa523d9">interpretForLoop</a> (String cmd, String lang)</td></tr>
-<tr class="separator:a0cc61eabfcf45d2ba0274b187aa523d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ff6adc592d822e74853e252ae03162b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_for_loop.html">ForLoop</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a0ff6adc592d822e74853e252ae03162b">interpretForLoop</a> (String cmd, String lang, int nestedNum)</td></tr>
+<tr class="separator:a0ff6adc592d822e74853e252ae03162b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa65f440c5c760f2abd5da4097d891fd6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#aa65f440c5c760f2abd5da4097d891fd6">createLinesOfCodeForLoop</a> (<a class="el" href="class_for_loop.html">ForLoop</a> fl)</td></tr>
 <tr class="separator:aa65f440c5c760f2abd5da4097d891fd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a699dd349f144a3c287c3993f161bcaef"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_function.html">Function</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a699dd349f144a3c287c3993f161bcaef">interpretFunction</a> (String fcn, String lang)</td></tr>
+<tr class="separator:a699dd349f144a3c287c3993f161bcaef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4ea176fd44730b3b7c2a4340dfe18b4f"></a>
@@ -205,8 +207,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0cc61eabfcf45d2ba0274b187aa523d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0cc61eabfcf45d2ba0274b187aa523d9">&#9670;&nbsp;</a></span>interpretForLoop()</h2>
+<a id="a0ff6adc592d822e74853e252ae03162b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ff6adc592d822e74853e252ae03162b">&#9670;&nbsp;</a></span>interpretForLoop()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -219,6 +221,57 @@ Static Public Member Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">String&#160;</td>
           <td class="paramname"><em>cmd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>lang</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nestedNum</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Helper method to create <a class="el" href="class_for_loop.html">ForLoop</a> object from command string </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmd</td><td>- String command string </td></tr>
+    <tr><td class="paramname">lang</td><td>- Language of the <a class="el" href="class_for_loop.html">ForLoop</a> object </td></tr>
+    <tr><td class="paramname">nestedNum</td><td>- The nested number for the <a class="el" href="class_command.html">Command</a> (used in the recursion process) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_for_loop.html">ForLoop</a> object with all instance variables written </dd></dl>
+
+</div>
+</div>
+<a id="a699dd349f144a3c287c3993f161bcaef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a699dd349f144a3c287c3993f161bcaef">&#9670;&nbsp;</a></span>interpretFunction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_function.html">Function</a> Interpretor.interpretFunction </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>fcn</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -238,14 +291,14 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Helper method to create <a class="el" href="class_for_loop.html">ForLoop</a> object from command string </p><dl class="params"><dt>Parameters</dt><dd>
+<p>NOTE: This method is a WORK IN PROGRESS </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cmd</td><td>- String command string </td></tr>
-    <tr><td class="paramname">lang</td><td>- Language of the <a class="el" href="class_for_loop.html">ForLoop</a> object </td></tr>
+    <tr><td class="paramname">fcn</td><td>- Raw user input to process </td></tr>
+    <tr><td class="paramname">lang</td><td>- The language for the <a class="el" href="class_function.html">Function</a> object </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_for_loop.html">ForLoop</a> object with all instance variables written </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_function.html">Function</a> object with instance variables set from the fcn string </dd></dl>
 
 </div>
 </div>

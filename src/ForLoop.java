@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ForLoop extends Command {
 	// Instance variables
-	private ArrayList<Command> commands = new ArrayList<Command>();
+	private ArrayList<Command> commands = new ArrayList<Command>();	 
 	private String loopVar;
 	private String start;					// These are string types so that ints and doubles are supported
 	private String end; 
@@ -29,8 +29,10 @@ public class ForLoop extends Command {
 	
 	/**
 	 * Main constructor for ForLoop object that takes in values for all instance variables
+	 * @param numNestedToSet - The integer denoting on which nest level the for loop is
 	 * @param cmds - The ArrayList of commands to be executed within the for loop
 	 * @param lan - The language the ForLoop is to be written in
+	 * @param type - The type of the loop variable (int or double)
 	 * @param lVar - The name of the looping variable (i.e "i")
 	 * @param s - The start value of the looping variable 
 	 * @param e - The end value of the looping variable (exclusive when looping)

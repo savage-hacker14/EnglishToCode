@@ -150,6 +150,13 @@ public class Interpretor {
 		String code = "";
 		String lang = c.getLanguage();
 		
+		// Fix type if there is logic in the params string
+		if (lang.equals("java") && hasLogicKeywords(c.getParameters())) {
+			c.setType("boolean");
+		}
+		if (lang.equals("c++") && hasLogicKeywords(c.getParameters())) {
+			c.setType("bool");
+		}
 		
 		if (lang.equals("java")) {
 			// Java line creation
@@ -318,6 +325,7 @@ public class Interpretor {
 	 * Helper method to create ForLoop object from command string
 	 * @param cmd - String command string 
 	 * @param lang - Language of the ForLoop object
+	 * @param nestedNum - The nested number for the Command (used in the recursion process)
 	 * @return ForLoop object with all instance variables written
 	 */
 	public static ForLoop interpretForLoop(String cmd, String lang, int nestedNum) {
@@ -334,14 +342,6 @@ public class Interpretor {
 			indentLevel = 0;
 		}
 
-//		int numNested = numOccurances("ForLoop", cmd) - 1;
-//		int numIndent;
-//		if (numNested == 0) {
-//			numIndent = indentLevel;
-//		}
-//		else {
-//			numIndent = indentLevel + numNested;
-//		}
 		int numIndent = indentLevel + nestedNum;
 		
 		// Get param list from inside first set of parenthesis
@@ -476,6 +476,12 @@ public class Interpretor {
 		fl.setLineOfCode(code);
 	}
 	
+	/**
+	 * NOTE: This method is a WORK IN PROGRESS
+	 * @param fcn - Raw user input to process
+	 * @param lang - The language for the Function object
+	 * @return Function object with instance variables set from the fcn string
+	 */
 	public static Function interpretFunction(String fcn, String lang) {
 		// Obtain name of function
 		String params = fcn.substring(fcn.indexOf("("), fcn.indexOf(")") + 1);		// Retain parenthesis in string
@@ -489,7 +495,7 @@ public class Interpretor {
 		int numParams = commaLocations.length + 1;
 		String[] allParams = new String[numParams];
 		for (int i = 0; i < numParams; i++) {
-			allParams[i] = fcnParams.substring(0, fcnParams.indexOf(","));
+			allParams[i] = fcnParams.substring(0, fcnParams.indexOf(","));			// BUG HERE
 		}
 		
 		// Get command list from 2nd set of parenthesis
@@ -531,7 +537,7 @@ public class Interpretor {
 	 * Helper method to find the indexes/locations of all the commas in a given string
 	 * This comes in handy when parsing strings that are part of the ForLoop command or Function object
 	 * @param str - String
-	 * @return
+	 * @return int array with all the locations
 	 */
 	private static int[] findAllCommas(String str) {
 		ArrayList<Integer> locations = new ArrayList<Integer>();
@@ -549,29 +555,21 @@ public class Interpretor {
 		return output;
 	}
 	
+	/**
+	 * Helper method to check if a string has any math operations 
+	 * @param str - String to check
+	 * @return true (1 or more math operations) or false (no math operations)
+	 */
 	private static boolean hasMathOperations(String str) {
-		return str.indexOf("*") != -1 || str.indexOf("/") != -1 || str.indexOf("+") != -1 || str.indexOf("-") != -1;
+		return str.indexOf("*") != -1 || str.indexOf("/") != -1 || str.indexOf("+") != -1 || str.indexOf("-") != -1 || str.indexOf("%") != -1;
 	}
 	
-	private static String strWithNTabs(int n) {
-		String output = "";
-		for (int i = 1; i < n; i++) {
-			output += "\t";
-		}
-		
-		return output;
-	}
-	
-	private static int numOccurances(String regex, String str) {
-		int counter = 0;
-		
-		while (!str.isEmpty()) {
-			if (str.indexOf(regex) != -1) {
-				counter++;
-				str = str.substring(str.indexOf(regex) + regex.length());
-			}
-		}
-		
-		return counter;
+	/**
+	 * Helper method to check if a string 
+	 * @param str - String to check
+	 * @return true (logic detected) or false (no logic detected)
+	 */
+	private static boolean hasLogicKeywords(String str) {
+		return str.indexOf("and") != -1 || str.indexOf("or") != -1 || str.indexOf("not") != -1;
 	}
 }

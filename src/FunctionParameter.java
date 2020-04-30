@@ -7,8 +7,8 @@ public class FunctionParameter {
 	// Instance variables
 	private String type;
 	private String name;
-	
-	public static int multiply(/* Type */ a, /* Type */ b) {
+
+	// public static int multiply(/* Type */ a, /* Type */ b) // {
 		
-	}
+	//}
 }

@@ -41,7 +41,7 @@ public class Interpretor {
 			name = inputNWS.substring(cmdIdx + cmdLen, eq);	
 		}
 		
-		if (!(command.equals("mat") || command.contentEquals("arr"))) {
+		if (!(command.equals("mat") || command.equals("arr"))) {
 			// Command is not "mat" or "arr"
 			paramStr = inputNWS.substring(eq + 1); 		// Get string after the equal sign
 			
@@ -156,6 +156,12 @@ public class Interpretor {
 		}
 		if (lang.equals("c++") && hasLogicKeywords(c.getParameters())) {
 			c.setType("bool");
+		}
+		
+		// Parse logic (if detected in params instance) before writing line of code 
+		if (c.getParameters().indexOf("Logic") != -1) {
+			String params = c.getParameters();
+			c.setParameters(interpretLogic(params, lang));
 		}
 		
 		if (lang.equals("java")) {
@@ -305,6 +311,81 @@ public class Interpretor {
 		return output;
 	}
 	
+	private static String interpretLogic(String logicExp, String lang) {
+		// First obtain full logical expression
+		String exp = logicExp.substring(5); 			// 5 is first char after "Logic"
+		exp = exp.substring(1, exp.length() - 1); 		// Remove parenthesis
+		
+		// Parse sub expressions
+		int[] commaLocations = findAllCommas(exp);
+		String[] subExp = new String[commaLocations.length + 1];
+		
+		int i = 0;
+		while (!(exp.isEmpty())) {
+			int nextComma = exp.indexOf(",");
+			// To handle end case
+			if (nextComma == -1) {
+				subExp[i] = exp;
+				exp = "";
+			}
+			else {
+				subExp[i] = exp.substring(0, nextComma);
+				exp = exp.substring(nextComma + 1);
+			}
+			i++;
+		}
+		
+		// Create expression in the proper language
+		String langExp = "";	
+		for (int j = 0; j < subExp.length; j++) {
+			if (!hasLogicKeywords(subExp[j])) {
+				// Only a variable detected in the subexpression
+				langExp += subExp[j];
+			}
+			else {
+				// subexpression contains logic keywords
+				langExp += interpretSubLogic(subExp[j], lang);
+			}
+		}
+		
+		return langExp;
+	}
+	
+	private static String interpretSubLogic(String str, String lang) {
+		String output = str;
+		
+		if (lang.equals("java") || lang.equals("c++")) {
+			// Later fix to handle .equals for objects like String
+			// No spaces used due to white space removed during processing
+			output = output.replaceAll("not", "!");
+			output = output.replaceAll("and", " && ");
+			output = output.replaceAll("or", " || ");
+			output = output.replaceAll("isnot", " != ");
+			output = output.replaceAll("notequalto", " != ");
+			output = output.replaceAll("is", " == ");
+			output = output.replaceAll("equals", " == ");
+			output = output.replaceAll("equalto", " == ");
+		}
+		else {			
+			// Add in removed spaces
+			output = output.replaceAll("not", "not ");
+			output = output.replaceAll("and", " and ");
+			output = output.replaceAll("or", " or ");
+			output = output.replaceAll("isnot", " is not ");
+			output = output.replaceAll("notequalto", " is not ");
+			output = output.replaceAll("is", " is ");
+			output = output.replaceAll("equals", " is ");
+			output = output.replaceAll("equalto", " is ");
+		}
+		
+		// Only add parenthesis if other variables are in output
+		if (output.length() > 4) {
+			output = "(" + output + ")";
+		}
+		
+		return output;
+	}
+	
 	/**
 	 * Helper method to determine if any character in a string is a digit
 	 * @param str - String
@@ -425,7 +506,7 @@ public class Interpretor {
 	public static void createLinesOfCodeForLoop(ForLoop fl) {
 		// Create header
 		
-		System.out.println(fl.getIndentLevel());
+		//System.out.println(fl.getIndentLevel());
 		
 		String header = "";
 		if (fl.getLanguage().equals("java") || fl.getLanguage().contentEquals("c++")) {
@@ -570,6 +651,7 @@ public class Interpretor {
 	 * @return true (logic detected) or false (no logic detected)
 	 */
 	private static boolean hasLogicKeywords(String str) {
-		return str.indexOf("and") != -1 || str.indexOf("or") != -1 || str.indexOf("not") != -1;
+		return str.indexOf("and") != -1 || str.indexOf("or") != -1 || str.indexOf("not") != -1 
+				|| str.indexOf("equals") != -1 || str.indexOf("is") != -1;
 	}
 }

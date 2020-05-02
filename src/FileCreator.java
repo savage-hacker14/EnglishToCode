@@ -73,9 +73,14 @@ public class FileCreator {
 			// Check for one liners
 			String code = userCode.getCommand(i).getLineOfCode();
 			if (code.indexOf("\n") == -1) {
+				userCode.getCommand(i).setIndentLevel(2);  						// Set typical one liner indent
+				
+				System.out.println(userCode.getCommand(i).toString());
+				
 				writer.write(userCode.getCommand(i).indent() + code + "\n");
 			}
 			else {
+				System.out.println(userCode.getCommand(i).toString());
 				writer.write(userCode.getCommand(i).getLineOfCode() + "\n");
 			}
 		}
@@ -117,7 +122,19 @@ public class FileCreator {
 		
 		// Now add lines of code from Program object
 		for (int i = 0; i < userCode.numCommands(); i++) {
-			writer.write(userCode.getCommand(i).indent() + userCode.getCommand(i).getLineOfCode() + "\n");
+			// Check for one liners
+			String code = userCode.getCommand(i).getLineOfCode();
+			if (code.indexOf("\n") == -1) {
+				userCode.getCommand(i).setIndentLevel(1);
+				
+				System.out.println(userCode.getCommand(i).toString());
+				
+				writer.write(userCode.getCommand(i).indent() + code + "\n");
+			}
+			else {
+				System.out.println(userCode.getCommand(i).toString());
+				writer.write(userCode.getCommand(i).getLineOfCode() + "\n");
+			}
 		}
 		
 		// Add return 0 statement
@@ -150,7 +167,19 @@ public class FileCreator {
 		
 		// Now add lines of code from Program object
 		for (int i = 0; i < userCode.numCommands(); i++) {
-			writer.write(userCode.getCommand(i).indent() + userCode.getCommand(i).getLineOfCode() + "\n");
+			// Check for one liners
+			String code = userCode.getCommand(i).getLineOfCode();
+			if (code.indexOf("\n") == -1) {
+				userCode.getCommand(i).setIndentLevel(0);
+				
+				System.out.println(userCode.getCommand(i).toString());
+				
+				writer.write(userCode.getCommand(i).indent() + code + "\n");
+			}
+			else {
+				System.out.println(userCode.getCommand(i).toString());
+				writer.write(userCode.getCommand(i).getLineOfCode() + "\n");
+			}
 		}
 		
 		// Close writer buffer

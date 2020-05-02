@@ -23,7 +23,7 @@ public class Command {
 		params = "";
 		lang = "";
 		lineOfCode = "";
-		setIndentLevel(2);				// Java default
+		setIndentLevel(0);				// Java default
 	}
 	
 	/**
@@ -38,7 +38,7 @@ public class Command {
 		name = nameToSet;
 		type = typeToSet;
 		params = parametersToSet;
-		setIndentLevel(2);				// Java default
+		setIndentLevel(0);				// Java default
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class Command {
 	 * @param str - java, c++, or python
 	 */
 	public void setLanguage(String str) {
-		lang = str;
+		lang = str; 
 	}
 	
 	/**
@@ -154,6 +154,10 @@ public class Command {
 	 */
 	public String getParameters() {
 		return params;
+	}
+	
+	public void setParameters(String str) {
+		params = str;
 	}
 
 	/**

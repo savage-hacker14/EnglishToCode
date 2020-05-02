@@ -44,7 +44,7 @@ public class Runner {
 				Interpretor.createLinesOfCodeForLoop((ForLoop) cmd);
 			}
 			
-			System.out.println(cmd.toString());
+			//System.out.println(cmd.toString());
 			p.addCommand(cmd);
 		}
 	

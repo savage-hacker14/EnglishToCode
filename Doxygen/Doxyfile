@@ -38,13 +38,13 @@ PROJECT_NAME           = EnglishToCode
 # could be handy for archiving the generated documentation or if some version
 # control system is used.
 
-PROJECT_NUMBER         = v2020.04.30
+PROJECT_NUMBER         = v2020.05.02
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewer a
 # quick idea about the purpose of the project. Keep the description short.
 
-PROJECT_BRIEF          = "The goal of this project is to allow a user to build code in an environment similar to scratch, however the code can be later exported to Java, C++, and Python."
+PROJECT_BRIEF          = "The goal of this project is to allow a user to build code in an environment similar to Scratch, however the code can be later exported to Java, C++, and Python."
 
 # With the PROJECT_LOGO tag one can specify a logo or an icon that is included
 # in the documentation. The maximum height of the logo should not exceed 55
@@ -473,7 +473,7 @@ EXTRACT_ALL            = YES
 # be included in the documentation.
 # The default value is: NO.
 
-EXTRACT_PRIVATE        = NO
+EXTRACT_PRIVATE        = YES
 
 # If the EXTRACT_PRIV_VIRTUAL tag is set to YES, documented private virtual
 # methods of a class will be included in the documentation.

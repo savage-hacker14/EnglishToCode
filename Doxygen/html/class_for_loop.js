@@ -7,5 +7,11 @@ var class_for_loop =
     [ "getIncrement", "class_for_loop.html#a1309dde05ddd22698afab77829bce567", null ],
     [ "getLoopVar", "class_for_loop.html#a3a84a05997fc08b43bbec8f530f8996e", null ],
     [ "getNumCommands", "class_for_loop.html#aeb3307722d5c40286156a2fecdfceada", null ],
-    [ "getStart", "class_for_loop.html#a899267ec13871f2bb7fdef5d694b89e7", null ]
+    [ "getStart", "class_for_loop.html#a899267ec13871f2bb7fdef5d694b89e7", null ],
+    [ "commands", "class_for_loop.html#a942e9007de53e4baeb05f33dfacaa12d", null ],
+    [ "end", "class_for_loop.html#a9a707baeba2da46e96f99288e2b58002", null ],
+    [ "increment", "class_for_loop.html#a4388278e2a71a00a9e395c4a56e9f66a", null ],
+    [ "loopVar", "class_for_loop.html#a8eede870dbf52e0e1f51a38d3b46ca3d", null ],
+    [ "numNested", "class_for_loop.html#a5fc244893125627d92568e5edc508d99", null ],
+    [ "start", "class_for_loop.html#aef330fa129948fe76d90340cc3866745", null ]
 ];

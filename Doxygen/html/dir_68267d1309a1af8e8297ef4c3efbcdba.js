@@ -13,7 +13,7 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
       [ "Function", "class_function.html", "class_function" ]
     ] ],
     [ "FunctionParameter.java", "_function_parameter_8java.html", [
-      [ "FunctionParameter", "class_function_parameter.html", null ]
+      [ "FunctionParameter", "class_function_parameter.html", "class_function_parameter" ]
     ] ],
     [ "HelloWorld.java", "_hello_world_8java.html", [
       [ "HelloWorld", "class_hello_world.html", null ]

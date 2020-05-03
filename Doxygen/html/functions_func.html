@@ -30,9 +30,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EnglishToCode
-   &#160;<span id="projectnumber">v2020.04.30</span>
+   &#160;<span id="projectnumber">v2020.05.02</span>
    </div>
-   <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to scratch, however the code can be later exported to Java, C++, and Python.</div>
+   <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to Scratch, however the code can be later exported to Java, C++, and Python.</div>
   </td>
  </tr>
  </tbody>
@@ -100,14 +100,26 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>Command()
 : <a class="el" href="class_command.html#a07964e3abd886f17d3949edb14de975a">Command</a>
 </li>
+<li>containsANumber()
+: <a class="el" href="class_interpretor.html#a82884415b18eb9053df5f0a744c50917">Interpretor</a>
+</li>
 <li>createCodeFile()
 : <a class="el" href="class_file_creator.html#a31e07db00e98d944b646463f5e98d494">FileCreator</a>
+</li>
+<li>createCPPFile()
+: <a class="el" href="class_file_creator.html#afca49aecebb13a551acd56532b6c510c">FileCreator</a>
+</li>
+<li>createJavaFile()
+: <a class="el" href="class_file_creator.html#a2905cd8db9948e5d4f13b7e1d1eeeebf">FileCreator</a>
 </li>
 <li>createLineOfCode()
 : <a class="el" href="class_interpretor.html#a4ea176fd44730b3b7c2a4340dfe18b4f">Interpretor</a>
 </li>
 <li>createLinesOfCodeForLoop()
 : <a class="el" href="class_interpretor.html#aa65f440c5c760f2abd5da4097d891fd6">Interpretor</a>
+</li>
+<li>createPythonFile()
+: <a class="el" href="class_file_creator.html#a47640c4a4983fd93608e816b985f48bb">FileCreator</a>
 </li>
 </ul>
 
@@ -116,11 +128,14 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>FileCreator()
 : <a class="el" href="class_file_creator.html#af9c38884b5009f2ce8a0338c8708f954">FileCreator</a>
 </li>
+<li>findAllCommas()
+: <a class="el" href="class_interpretor.html#ac1e56617f67f5f77573fcceddf25b293">Interpretor</a>
+</li>
 <li>ForLoop()
-: <a class="el" href="class_for_loop.html#a926cc830363d1bbf947b15e0b44188a2">ForLoop</a>
+: <a class="el" href="class_for_loop.html#ae7671a02475b3632b37c2d658701b010">ForLoop</a>
 </li>
 <li>Function()
-: <a class="el" href="class_function.html#a4a5074ff4f36b8722f9e4355cebda456">Function</a>
+: <a class="el" href="class_function.html#a39aae9054a12823451e9e671960e6cd2">Function</a>
 </li>
 </ul>
 
@@ -169,6 +184,16 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 </ul>
 
 
+<h3><a id="index_h"></a>- h -</h3><ul>
+<li>hasLogicKeywords()
+: <a class="el" href="class_interpretor.html#a5c7161ce6214b17125dee1ff8a1a9d15">Interpretor</a>
+</li>
+<li>hasMathOperations()
+: <a class="el" href="class_interpretor.html#a5d07ca32229c1209bb6abf8db51d9d4a">Interpretor</a>
+</li>
+</ul>
+
+
 <h3><a id="index_i"></a>- i -</h3><ul>
 <li>indent()
 : <a class="el" href="class_command.html#a880468087902ea76ad88c04753031a1f">Command</a>
@@ -176,11 +201,23 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>interpret()
 : <a class="el" href="class_interpretor.html#addebbf9f1c82ed74233fcd9313ea027f">Interpretor</a>
 </li>
+<li>interpretArr()
+: <a class="el" href="class_interpretor.html#ad91aa7f82ce4b7b194b3f4fb3e1518f7">Interpretor</a>
+</li>
 <li>interpretForLoop()
 : <a class="el" href="class_interpretor.html#a0ff6adc592d822e74853e252ae03162b">Interpretor</a>
 </li>
 <li>interpretFunction()
 : <a class="el" href="class_interpretor.html#a699dd349f144a3c287c3993f161bcaef">Interpretor</a>
+</li>
+<li>interpretLogic()
+: <a class="el" href="class_interpretor.html#aa2e9fe3b46a3cd6b7452f9e98f308d66">Interpretor</a>
+</li>
+<li>interpretMat()
+: <a class="el" href="class_interpretor.html#a829f4202f2137f5cc002729c2f221c58">Interpretor</a>
+</li>
+<li>interpretSubLogic()
+: <a class="el" href="class_interpretor.html#aa3ca22bb49c8e524af87fd680024ad59">Interpretor</a>
 </li>
 </ul>
 
@@ -220,6 +257,9 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 </li>
 <li>setLineOfCode()
 : <a class="el" href="class_command.html#aea50670aba2cdd11029da936f07717fa">Command</a>
+</li>
+<li>setParameters()
+: <a class="el" href="class_command.html#a27cb8a0494104cddc6dcc8536fdc07e2">Command</a>
 </li>
 <li>setType()
 : <a class="el" href="class_command.html#a1591818abe1e19c1bc288d6263b0663f">Command</a>

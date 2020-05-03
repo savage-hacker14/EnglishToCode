@@ -30,9 +30,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EnglishToCode
-   &#160;<span id="projectnumber">v2020.04.30</span>
+   &#160;<span id="projectnumber">v2020.05.02</span>
    </div>
-   <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to scratch, however the code can be later exported to Java, C++, and Python.</div>
+   <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to Scratch, however the code can be later exported to Java, C++, and Python.</div>
   </td>
  </tr>
  </tbody>
@@ -89,6 +89,8 @@ $(document).ready(function(){initNavTree('class_interpretor.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_interpretor-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Interpretor Class Reference</div>  </div>
@@ -107,8 +109,65 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:aa65f440c5c760f2abd5da4097d891fd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a699dd349f144a3c287c3993f161bcaef"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_function.html">Function</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a699dd349f144a3c287c3993f161bcaef">interpretFunction</a> (String fcn, String lang)</td></tr>
 <tr class="separator:a699dd349f144a3c287c3993f161bcaef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a829f4202f2137f5cc002729c2f221c58"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a829f4202f2137f5cc002729c2f221c58">interpretMat</a> (String vals)</td></tr>
+<tr class="separator:a829f4202f2137f5cc002729c2f221c58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad91aa7f82ce4b7b194b3f4fb3e1518f7"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#ad91aa7f82ce4b7b194b3f4fb3e1518f7">interpretArr</a> (String vals)</td></tr>
+<tr class="separator:ad91aa7f82ce4b7b194b3f4fb3e1518f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2e9fe3b46a3cd6b7452f9e98f308d66"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#aa2e9fe3b46a3cd6b7452f9e98f308d66">interpretLogic</a> (String logicExp, String lang)</td></tr>
+<tr class="separator:aa2e9fe3b46a3cd6b7452f9e98f308d66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3ca22bb49c8e524af87fd680024ad59"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#aa3ca22bb49c8e524af87fd680024ad59">interpretSubLogic</a> (String str, String lang)</td></tr>
+<tr class="separator:aa3ca22bb49c8e524af87fd680024ad59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82884415b18eb9053df5f0a744c50917"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a82884415b18eb9053df5f0a744c50917">containsANumber</a> (String str)</td></tr>
+<tr class="separator:a82884415b18eb9053df5f0a744c50917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1e56617f67f5f77573fcceddf25b293"><td class="memItemLeft" align="right" valign="top">static int[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#ac1e56617f67f5f77573fcceddf25b293">findAllCommas</a> (String str)</td></tr>
+<tr class="separator:ac1e56617f67f5f77573fcceddf25b293"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d07ca32229c1209bb6abf8db51d9d4a"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a5d07ca32229c1209bb6abf8db51d9d4a">hasMathOperations</a> (String str)</td></tr>
+<tr class="separator:a5d07ca32229c1209bb6abf8db51d9d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c7161ce6214b17125dee1ff8a1a9d15"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a5c7161ce6214b17125dee1ff8a1a9d15">hasLogicKeywords</a> (String str)</td></tr>
+<tr class="separator:a5c7161ce6214b17125dee1ff8a1a9d15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:a6dd93eb1643ab601e2fd76c7b06d878a"><td class="memItemLeft" align="right" valign="top">static final String[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a6dd93eb1643ab601e2fd76c7b06d878a">cmds</a> = {&quot;display&quot;, &quot;var&quot;, &quot;arr&quot;, &quot;list&quot;, &quot;mat&quot;, &quot;<a class="el" href="class_for_loop.html">ForLoop</a>&quot;}</td></tr>
+<tr class="separator:a6dd93eb1643ab601e2fd76c7b06d878a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a82884415b18eb9053df5f0a744c50917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82884415b18eb9053df5f0a744c50917">&#9670;&nbsp;</a></span>containsANumber()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static boolean Interpretor.containsANumber </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Helper method to determine if any character in a string is a digit </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- String </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean true/false </dd></dl>
+
+</div>
+</div>
 <a id="a4ea176fd44730b3b7c2a4340dfe18b4f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4ea176fd44730b3b7c2a4340dfe18b4f">&#9670;&nbsp;</a></span>createLineOfCode()</h2>
 
@@ -174,6 +233,105 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac1e56617f67f5f77573fcceddf25b293"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1e56617f67f5f77573fcceddf25b293">&#9670;&nbsp;</a></span>findAllCommas()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int [] Interpretor.findAllCommas </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Helper method to find the indexes/locations of all the commas in a given string This comes in handy when parsing strings that are part of the <a class="el" href="class_for_loop.html">ForLoop</a> command or <a class="el" href="class_function.html">Function</a> object </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- String </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int array with all the locations </dd></dl>
+
+</div>
+</div>
+<a id="a5c7161ce6214b17125dee1ff8a1a9d15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c7161ce6214b17125dee1ff8a1a9d15">&#9670;&nbsp;</a></span>hasLogicKeywords()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static boolean Interpretor.hasLogicKeywords </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Helper method to check if a string has logic keywords </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- String to check </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true (logic detected) or false (no logic detected) </dd></dl>
+
+</div>
+</div>
+<a id="a5d07ca32229c1209bb6abf8db51d9d4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d07ca32229c1209bb6abf8db51d9d4a">&#9670;&nbsp;</a></span>hasMathOperations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static boolean Interpretor.hasMathOperations </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Helper method to check if a string has any math operations </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>- String to check </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true (1 or more math operations) or false (no math operations) </dd></dl>
+
+</div>
+</div>
 <a id="addebbf9f1c82ed74233fcd9313ea027f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#addebbf9f1c82ed74233fcd9313ea027f">&#9670;&nbsp;</a></span>interpret()</h2>
 
@@ -204,6 +362,39 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_command.html">Command</a> object with the extracted data </dd></dl>
+
+</div>
+</div>
+<a id="ad91aa7f82ce4b7b194b3f4fb3e1518f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad91aa7f82ce4b7b194b3f4fb3e1518f7">&#9670;&nbsp;</a></span>interpretArr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static String Interpretor.interpretArr </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>vals</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Special helper method for parsing a string of values into an array NOTE; ONLY WORKS FOR JAVA AND C++ </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vals</td><td>- String of values (specified like in MATLAB - i.e [1 1]) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Explicit definition of an array </dd></dl>
 
 </div>
 </div>
@@ -299,6 +490,150 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_function.html">Function</a> object with instance variables set from the fcn string </dd></dl>
+
+</div>
+</div>
+<a id="aa2e9fe3b46a3cd6b7452f9e98f308d66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2e9fe3b46a3cd6b7452f9e98f308d66">&#9670;&nbsp;</a></span>interpretLogic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static String Interpretor.interpretLogic </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>logicExp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>lang</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Helper method to parse a Logic() expression </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">logicExp</td><td>- Logic() expression string to process </td></tr>
+    <tr><td class="paramname">lang</td><td>- The language the logic should be written in </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Parsed logical expression for the proper language </dd></dl>
+
+</div>
+</div>
+<a id="a829f4202f2137f5cc002729c2f221c58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a829f4202f2137f5cc002729c2f221c58">&#9670;&nbsp;</a></span>interpretMat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static String Interpretor.interpretMat </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>vals</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Special helper method for parsing a string of values into a 2D array (matrix) NOTE: ONLY WORKS FOR JAVA AND C++ </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vals</td><td>- String of values (specified like in MATLAB - i.e [1 1;2 2]) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Explicit definition of a 2D array (matrix) </dd></dl>
+
+</div>
+</div>
+<a id="aa3ca22bb49c8e524af87fd680024ad59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3ca22bb49c8e524af87fd680024ad59">&#9670;&nbsp;</a></span>interpretSubLogic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static String Interpretor.interpretSubLogic </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>lang</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Helper method to replace logic keywords with the proper characters/symbols (i.e and --&gt; &amp;&amp;, or --&gt; ||, not --&gt; !, equal --&gt; ==) for the specified language NOTE: This conversion is only for Java and C++. Python support most of the logic keywords already. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td></td></tr>
+    <tr><td class="paramname">lang</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a6dd93eb1643ab601e2fd76c7b06d878a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dd93eb1643ab601e2fd76c7b06d878a">&#9670;&nbsp;</a></span>cmds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">final String [] Interpretor.cmds = {&quot;display&quot;, &quot;var&quot;, &quot;arr&quot;, &quot;list&quot;, &quot;mat&quot;, &quot;<a class="el" href="class_for_loop.html">ForLoop</a>&quot;}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

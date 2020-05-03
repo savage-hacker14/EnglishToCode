@@ -14,6 +14,14 @@ var class_command =
     [ "setIndentLevel", "class_command.html#a80079c1667798d3a83a4d2b724752bff", null ],
     [ "setLanguage", "class_command.html#a67e286d5d6b2cc75b13f0b53629dbc34", null ],
     [ "setLineOfCode", "class_command.html#aea50670aba2cdd11029da936f07717fa", null ],
+    [ "setParameters", "class_command.html#a27cb8a0494104cddc6dcc8536fdc07e2", null ],
     [ "setType", "class_command.html#a1591818abe1e19c1bc288d6263b0663f", null ],
-    [ "toString", "class_command.html#a2a709554212524d6b014ef5e9ec0ed16", null ]
+    [ "toString", "class_command.html#a2a709554212524d6b014ef5e9ec0ed16", null ],
+    [ "command", "class_command.html#a1ccdf7301777c3ac1099823cf0b172e4", null ],
+    [ "indentLevel", "class_command.html#a05660961271ce5de162d363720ff0fb3", null ],
+    [ "lang", "class_command.html#afa41a3ce07caffe5a5e3138cb3156621", null ],
+    [ "lineOfCode", "class_command.html#ae274f4d391550f4f5886aba2e8b48259", null ],
+    [ "name", "class_command.html#afa8fe60e2b85e2530eabb068669ccab4", null ],
+    [ "params", "class_command.html#adcac74805893467dc2a18e2a95735ff6", null ],
+    [ "type", "class_command.html#a4022dc5056fde792fbb6e37fdb6d5deb", null ]
 ];

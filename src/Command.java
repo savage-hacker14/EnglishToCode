@@ -23,7 +23,7 @@ public class Command {
 		params = "";
 		lang = "";
 		lineOfCode = "";
-		setIndentLevel(0);				// Java default
+		indentLevel = 0;			
 	}
 	
 	/**
@@ -38,7 +38,7 @@ public class Command {
 		name = nameToSet;
 		type = typeToSet;
 		params = parametersToSet;
-		setIndentLevel(0);				// Java default
+		indentLevel = 0;
 	}
 	
 	/**
@@ -156,6 +156,11 @@ public class Command {
 		return params;
 	}
 	
+	/**
+	 * Set the parameters of the command
+	 * This is used when the parameter string is modified after parsing a Logic() expression
+	 * @param str
+	 */
 	public void setParameters(String str) {
 		params = str;
 	}

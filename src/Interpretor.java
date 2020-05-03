@@ -311,6 +311,12 @@ public class Interpretor {
 		return output;
 	}
 	
+	/**
+	 * Helper method to parse a Logic() expression
+	 * @param logicExp - Logic() expression string to process
+	 * @param lang - The language the logic should be written in
+	 * @return Parsed logical expression for the proper language
+	 */
 	private static String interpretLogic(String logicExp, String lang) {
 		// First obtain full logical expression
 		String exp = logicExp.substring(5); 			// 5 is first char after "Logic"
@@ -351,6 +357,14 @@ public class Interpretor {
 		return langExp;
 	}
 	
+	/**
+	 * Helper method to replace logic keywords with the proper characters/symbols 
+	 * (i.e and --> &&, or --> ||, not --> !, equal --> ==) for the specified language
+	 * NOTE: This conversion is only for Java and C++. Python support most of the logic keywords already.
+	 * @param str
+	 * @param lang
+	 * @return
+	 */
 	private static String interpretSubLogic(String str, String lang) {
 		String output = str;
 		
@@ -646,7 +660,7 @@ public class Interpretor {
 	}
 	
 	/**
-	 * Helper method to check if a string 
+	 * Helper method to check if a string has logic keywords
 	 * @param str - String to check
 	 * @return true (logic detected) or false (no logic detected)
 	 */

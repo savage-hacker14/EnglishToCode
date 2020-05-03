@@ -30,9 +30,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EnglishToCode
-   &#160;<span id="projectnumber">v2020.04.30</span>
+   &#160;<span id="projectnumber">v2020.05.02</span>
    </div>
-   <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to scratch, however the code can be later exported to Java, C++, and Python.</div>
+   <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to Scratch, however the code can be later exported to Java, C++, and Python.</div>
   </td>
  </tr>
  </tbody>
@@ -89,6 +89,7 @@ $(document).ready(function(){initNavTree('class_program.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_program-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Program Class Reference</div>  </div>
@@ -107,6 +108,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af1c3c2d8afbd81f6e6af0342f2b81046"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac19f8b1664bc59d72a2175806fe8cfda"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#ac19f8b1664bc59d72a2175806fe8cfda">numCommands</a> ()</td></tr>
 <tr class="separator:ac19f8b1664bc59d72a2175806fe8cfda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a95d2f493628126c86059c401dc76c76c"><td class="memItemLeft" align="right" valign="top">ArrayList&lt; <a class="el" href="class_command.html">Command</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#a95d2f493628126c86059c401dc76c76c">commands</a> = new ArrayList&lt;<a class="el" href="class_command.html">Command</a>&gt;()</td></tr>
+<tr class="separator:a95d2f493628126c86059c401dc76c76c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a936b28b4678a08d97d6b5fc1fd299a75"><td class="memItemLeft" align="right" valign="top">ArrayList&lt; <a class="el" href="class_function.html">Function</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#a936b28b4678a08d97d6b5fc1fd299a75">functions</a> = new ArrayList&lt;<a class="el" href="class_function.html">Function</a>&gt;()</td></tr>
+<tr class="separator:a936b28b4678a08d97d6b5fc1fd299a75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac409434b53f9838823043bd6ce0a8377"></a>
@@ -216,6 +224,51 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Returns the following: </p><dl class="section return"><dt>Returns</dt><dd>length of commands ArrayList </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a95d2f493628126c86059c401dc76c76c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95d2f493628126c86059c401dc76c76c">&#9670;&nbsp;</a></span>commands</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArrayList&lt;<a class="el" href="class_command.html">Command</a>&gt; Program.commands = new ArrayList&lt;<a class="el" href="class_command.html">Command</a>&gt;()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a936b28b4678a08d97d6b5fc1fd299a75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a936b28b4678a08d97d6b5fc1fd299a75">&#9670;&nbsp;</a></span>functions</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArrayList&lt;<a class="el" href="class_function.html">Function</a>&gt; Program.functions = new ArrayList&lt;<a class="el" href="class_function.html">Function</a>&gt;()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

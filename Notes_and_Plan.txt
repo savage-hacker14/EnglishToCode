@@ -3,27 +3,29 @@ Supported commands:
 - var (String, int, char, array, etc.)
 - mat
 - ForLoop
-- use (for importing packages/modules)
-- Function creation (ADD SOON)
+- include (for importing packages/modules) (to-do)
+- Function creation (work in progress)
 
 Supported languages:
 - Java
 - C++
 - Python
 
-Documentation
-- display [string, var, arr, or mat]: 	Prints the following items in the terminal
-- var [NAME] [VALUE: 					int, double, float?, or String]: Create and/or assign the VALUE to a variable named NAME 
-- arr [NAME] [VALUE]:  					Create array variable with VALUE
-- mat [NAME] [VALUE]: 					i.e mat a = [1 1;2 2] --> {{1,1},{2,2}} (for java at least)
-- ForLoop(var,start,end,increment):		Loop from start to end-1, increment is how much to increase the loop variable (NEED TO ADD SUPPORT FOR TYPE DOUBLE LOOPING)
+Documentation:
+- display [string, var, arr, or mat]: 		Prints the following items in the terminal
+- var [NAME] [VALUE: 						int, double, float?, or String]: Create and/or assign the VALUE to a variable named NAME 
+- arr [NAME] [VALUE]:  						Create array variable with VALUE
+- mat [NAME] [VALUE]: 						i.e mat a = [1 1;2 2] --> {{1,1},{2,2}} (for java at least)
+- ForLoop(var,start,end,increment):			Loop from start to end-1, increment is how much to increase the loop variable
+- Logic(var/logic test,var/logic test...)	Create a logical expression for a variable. A logic test includes keywords like not, equals, or, or and
 
 ***
 
 To-do list:
 - Add Doxygen comments for all methods and regenerate Doxygen Docs			DONE!!!
 - Add support for ForLoop of vars of type double							DONE!!!
-- Rebuild Doxygen
-- Add support for variables of type boolean
-- Add support for logic expression
-- Add support to create functions
+- Rebuild Doxygen															DONE!!!
+- Add support for variables of type boolean									DONE!!!
+- Add support for logic expression											DONE!!!
+- Add support to include packages											
+- Add support to create functions											Work in progress!!!

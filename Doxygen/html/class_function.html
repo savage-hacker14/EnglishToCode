@@ -30,9 +30,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EnglishToCode
-   &#160;<span id="projectnumber">v2020.04.30</span>
+   &#160;<span id="projectnumber">v2020.05.02</span>
    </div>
-   <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to scratch, however the code can be later exported to Java, C++, and Python.</div>
+   <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to Scratch, however the code can be later exported to Java, C++, and Python.</div>
   </td>
  </tr>
  </tbody>
@@ -89,6 +89,7 @@ $(document).ready(function(){initNavTree('class_function.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_function-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Function Class Reference</div>  </div>
@@ -103,6 +104,23 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a39aae9054a12823451e9e671960e6cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acaaffb18be54a54e27b9fa3e8fb92d59"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_function.html#acaaffb18be54a54e27b9fa3e8fb92d59">Function</a> (ArrayList&lt; <a class="el" href="class_command.html">Command</a> &gt; cmds, String nameToSet, String[] paramsToSet, String privacyLevelToSet, String returnTypeToSet, boolean staticFlag, String returnVarToSet)</td></tr>
 <tr class="separator:acaaffb18be54a54e27b9fa3e8fb92d59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a9f2375e1c01116525cf8e8f1d11602c8"><td class="memItemLeft" align="right" valign="top">ArrayList&lt; <a class="el" href="class_command.html">Command</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_function.html#a9f2375e1c01116525cf8e8f1d11602c8">commands</a></td></tr>
+<tr class="separator:a9f2375e1c01116525cf8e8f1d11602c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b68f0d3e9f78746178c06225ebdc9cd"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_function.html#a9b68f0d3e9f78746178c06225ebdc9cd">name</a></td></tr>
+<tr class="separator:a9b68f0d3e9f78746178c06225ebdc9cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af02ff97058f3ac1160bf688af8a339e7"><td class="memItemLeft" align="right" valign="top">String[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_function.html#af02ff97058f3ac1160bf688af8a339e7">params</a></td></tr>
+<tr class="separator:af02ff97058f3ac1160bf688af8a339e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb606c4e4ed6176d0e8d0124ea1e96c9"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_function.html#adb606c4e4ed6176d0e8d0124ea1e96c9">privacyLevel</a></td></tr>
+<tr class="separator:adb606c4e4ed6176d0e8d0124ea1e96c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48e0e41bfc0e0b2f27433a6447bcf63c"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_function.html#a48e0e41bfc0e0b2f27433a6447bcf63c">returnType</a></td></tr>
+<tr class="separator:a48e0e41bfc0e0b2f27433a6447bcf63c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af36f1fffdea2bdf098ae913e833df6c0"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_function.html#af36f1fffdea2bdf098ae913e833df6c0">staticOrNot</a></td></tr>
+<tr class="separator:af36f1fffdea2bdf098ae913e833df6c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e44a2ca7594e22dee0cd0324e5cd02b"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_function.html#a6e44a2ca7594e22dee0cd0324e5cd02b">returnVar</a></td></tr>
+<tr class="separator:a6e44a2ca7594e22dee0cd0324e5cd02b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4a5074ff4f36b8722f9e4355cebda456"></a>
@@ -119,6 +137,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Default constructor for a <a class="el" href="class_function.html">Function</a> object. Work in progress. </p>
 
 </div>
 </div>
@@ -159,6 +178,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Minimal constructor for a <a class="el" href="class_function.html">Function</a> object </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmds</td><td>- Commands to be included within the <a class="el" href="class_function.html">Function</a> </td></tr>
+    <tr><td class="paramname">nameToSet</td><td>- Name of the function </td></tr>
+    <tr><td class="paramname">paramsToSet</td><td>- Parameters of the function </td></tr>
+    <tr><td class="paramname">returnVarToSet</td><td>- The name of the variable to return from the function </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -216,6 +244,173 @@ Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+<p>Full constructor for a <a class="el" href="class_function.html">Function</a> object </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmds</td><td>- Commands to be included within the <a class="el" href="class_function.html">Function</a> </td></tr>
+    <tr><td class="paramname">nameToSet</td><td>- Name of the function </td></tr>
+    <tr><td class="paramname">paramsToSet</td><td>- Parameters of the function </td></tr>
+    <tr><td class="paramname">privacyLevelToSet</td><td>- Privacy level of the function (public, private, or protected - Only for Java and C++) </td></tr>
+    <tr><td class="paramname">returnTypeToSet</td><td>- Data type of the return variable (int, double, boolean, etc.) </td></tr>
+    <tr><td class="paramname">staticFlag</td><td>- </td></tr>
+    <tr><td class="paramname">returnVarToSet</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a9f2375e1c01116525cf8e8f1d11602c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f2375e1c01116525cf8e8f1d11602c8">&#9670;&nbsp;</a></span>commands</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArrayList&lt;<a class="el" href="class_command.html">Command</a>&gt; Function.commands</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9b68f0d3e9f78746178c06225ebdc9cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b68f0d3e9f78746178c06225ebdc9cd">&#9670;&nbsp;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">String Function.name</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af02ff97058f3ac1160bf688af8a339e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af02ff97058f3ac1160bf688af8a339e7">&#9670;&nbsp;</a></span>params</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">String [] Function.params</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adb606c4e4ed6176d0e8d0124ea1e96c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb606c4e4ed6176d0e8d0124ea1e96c9">&#9670;&nbsp;</a></span>privacyLevel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">String Function.privacyLevel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a48e0e41bfc0e0b2f27433a6447bcf63c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48e0e41bfc0e0b2f27433a6447bcf63c">&#9670;&nbsp;</a></span>returnType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">String Function.returnType</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6e44a2ca7594e22dee0cd0324e5cd02b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e44a2ca7594e22dee0cd0324e5cd02b">&#9670;&nbsp;</a></span>returnVar</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">String Function.returnVar</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af36f1fffdea2bdf098ae913e833df6c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af36f1fffdea2bdf098ae913e833df6c0">&#9670;&nbsp;</a></span>staticOrNot</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean Function.staticOrNot</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

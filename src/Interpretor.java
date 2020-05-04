@@ -417,7 +417,7 @@ public class Interpretor {
 			output += "import " + include;
 		}
 		else {
-			output += "#include " + include;
+			output += "#include <" + include + ">";
 		}
 		
 		return output;

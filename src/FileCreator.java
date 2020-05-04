@@ -62,6 +62,12 @@ public class FileCreator {
 		writer.write("// " + filename + "\n");
 		writer.write("// This program was auto-generated from your pseudocode on " + now.toString() + "\n\n");
 		
+		// Include any user specified packages
+		for (int i = 0; i < userCode.numIncludes(); i++) {
+			writer.write(userCode.getInclude(i) + "\n");
+		}
+		writer.write("\n");
+		
 		// Create header and main method
 		writer.write("public class " + nameOfClass + " {");
 		writer.write("\n\n\t");
@@ -114,6 +120,11 @@ public class FileCreator {
 		writer.write("// " + filename + "\n");
 		writer.write("// This program was auto-generated from your pseudocode on " + now.toString() + "\n\n");
 		
+		for (int i = 0; i < userCode.numIncludes(); i++) {
+			writer.write(userCode.getInclude(i) + "\n");
+		}
+		writer.write("\n");
+		
 		// Create header and main method
 		writer.write("#include <iostream>" + "\n");
 		writer.write("using namespace std;" + "\n\n");
@@ -164,6 +175,12 @@ public class FileCreator {
 		//String date = now.toString().substring(0, 10);
 		writer.write("# " + filename + "\n");
 		writer.write("# This program was auto-generated from your pseudocode on " + now.toString() + "\n\n");
+		
+		// Include any user specified packages
+		for (int i = 0; i < userCode.numIncludes(); i++) {
+			writer.write(userCode.getInclude(i) + "\n");
+		}
+		writer.write("\n");
 		
 		// Now add lines of code from Program object
 		for (int i = 0; i < userCode.numCommands(); i++) {

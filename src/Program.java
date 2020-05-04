@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Program {
 	// Instance variables
+	private ArrayList<String> includes = new ArrayList<String>();
 	private ArrayList<Command> commands = new ArrayList<Command>();
 	private ArrayList<Function> functions = new ArrayList<Function>();
 	
@@ -20,6 +21,23 @@ public class Program {
 	 */
 	public Program(ArrayList<Command> cmdArray) {
 		commands = cmdArray;
+	}
+	
+	public Program(ArrayList<Command> cmdArray, ArrayList<String> imports) {
+		commands = cmdArray;
+		includes = imports;
+	}
+	
+	public void addInclude(String inc) {
+		includes.add(inc);
+	}
+	
+	public String getInclude(int i) {
+		return includes.get(i);
+	}
+	
+	public int numIncludes() {
+		return includes.size();
 	}
 	
 	/**

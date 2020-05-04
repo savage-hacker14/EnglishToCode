@@ -31,21 +31,29 @@ public class Runner {
 				break;
 			}
 			
-			// Create all necessary objects
-			Command cmd = Interpretor.interpret(rawLine);
-			cmd.setLanguage(lang);
-			
-			if (!cmd.getCommand().equals("ForLoop")) {
-				Interpretor.createLineOfCode(cmd);
+			// Check if raw line is an include statement
+			if (rawLine.indexOf("Include") != -1) {
+				p.addInclude(Interpretor.interpretInclude(rawLine, lang));
 			}
 			else {
-				//System.out.println("for loop detected");
-				cmd = Interpretor.interpretForLoop(rawLine, lang, 0);
-				Interpretor.createLinesOfCodeForLoop((ForLoop) cmd);
+				// Interpret like any other command
+				
+				// Create all necessary objects
+				Command cmd = Interpretor.interpret(rawLine);
+				cmd.setLanguage(lang);
+				
+				if (!cmd.getCommand().equals("ForLoop")) {
+					Interpretor.createLineOfCode(cmd);
+				}
+				else {
+					//System.out.println("for loop detected");
+					cmd = Interpretor.interpretForLoop(rawLine, lang, 0);
+					Interpretor.createLinesOfCodeForLoop((ForLoop) cmd);
+				}
+				
+				//System.out.println(cmd.toString());
+				p.addCommand(cmd);
 			}
-			
-			//System.out.println(cmd.toString());
-			p.addCommand(cmd);
 		}
 	
 		// After program object has acquired all data from user, BUILD THE PROGRAM

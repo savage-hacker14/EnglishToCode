@@ -13,7 +13,7 @@ Supported languages:
 
 Documentation:
 - display [string, var, arr, or mat]: 		Prints the following items in the terminal
-- var [NAME] [VALUE: 						int, double, float?, or String]: Create and/or assign the VALUE to a variable named NAME 
+- var [NAME] [VALUE]: 						int, double, float?, or String]: Create and/or assign the VALUE to a variable named NAME 
 - arr [NAME] [VALUE]:  						Create array variable with VALUE
 - mat [NAME] [VALUE]: 						i.e mat a = [1 1;2 2] --> {{1,1},{2,2}} (for java at least)
 - ForLoop(var,start,end,increment):			Loop from start to end-1, increment is how much to increase the loop variable
@@ -27,5 +27,6 @@ To-do list:
 - Rebuild Doxygen															DONE!!!
 - Add support for variables of type boolean									DONE!!!
 - Add support for logic expression											DONE!!!
-- Add support to include packages											
+- Add support to include packages											DONE!!!
+- Fix array and mat interpretation for Python
 - Add support to create functions											Work in progress!!!

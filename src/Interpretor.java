@@ -401,6 +401,29 @@ public class Interpretor {
 	}
 	
 	/**
+	 * This method interpets an include ____ string for importing packages/modules/libraries
+	 * into the user created program
+	 * @param inc - The Include(package) statement
+	 * @return The proper line of code to include the package
+	 */
+	public static String interpretInclude(String inc, String lang) {
+		String include = inc.substring(8, inc.length() - 1);
+				
+		String output = "";
+		if (lang.equals("java")) {
+			output += "import " + include + ";";
+		}
+		else if (lang.equals("python")) {
+			output += "import " + include;
+		}
+		else {
+			output += "#include " + include;
+		}
+		
+		return output;
+	}
+	
+	/**
 	 * Helper method to determine if any character in a string is a digit
 	 * @param str - String
 	 * @return boolean true/false

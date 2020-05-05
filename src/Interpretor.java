@@ -440,6 +440,20 @@ public class Interpretor {
 		return output;
 	}
 	
+	private static String interpretIfElse(String ifelse, String lang) {
+		// First get content inside first set of parenthesis
+		String logicExp = ifelse.substring(ifelse.indexOf("(") + 1, ifelse.indexOf(")") + 1);
+		String logic = interpretLogic(logicExp, lang);
+		
+		// Get commands for true condition from second parenthesis
+		
+		// Get commands for true condition from third parenthesis
+		
+		// ** MAKE AN OBJECT/CLASS FOR THIS
+		
+		return null;
+	}
+	
 	/**
 	 * This method interpets an include ____ string for importing packages/modules/libraries
 	 * into the user created program

@@ -37,10 +37,10 @@ public class Runner {
 			else {
 				// Create all necessary objects
 				Command cmd = Interpretor.interpret(rawLine, lang);
-				Interpretor.createLineOfCode(cmd);
 				cmd.setLanguage(lang);
+				Interpretor.createLineOfCode(cmd);
 				
-				//System.out.println(cmd.toString());
+				System.out.println(cmd.toString());
 				p.addCommand(cmd);
 			}
 		}

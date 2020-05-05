@@ -151,10 +151,10 @@ public class Interpretor {
 		String lang = c.getLanguage();
 		
 		// Fix type if there is logic in the params string
-		if (lang.equals("java") && hasLogicKeywords(c.getParameters())) {
+		if (lang.equals("java") && c.getParameters().indexOf("Logic") != -1) {
 			c.setType("boolean");
 		}
-		if (lang.equals("c++") && hasLogicKeywords(c.getParameters())) {
+		if (lang.equals("c++") && c.getParameters().indexOf("Logic") != -1) {
 			c.setType("bool");
 		}
 		
@@ -351,11 +351,24 @@ public class Interpretor {
 		for (int j = 0; j < subExp.length; j++) {
 			if (!hasLogicKeywords(subExp[j])) {
 				// Only a variable detected in the subexpression
-				langExp += subExp[j];
+				// subexpression contains logic keywords
+				if (j != subExp.length - 1) {
+					langExp += langExp += subExp[j] + " ";
+				}
+				else {
+					// Dont add a space after the last expression
+					langExp += subExp[j];
+				}
 			}
 			else {
 				// subexpression contains logic keywords
-				langExp += interpretSubLogic(subExp[j], lang);
+				if (j != subExp.length - 1) {
+					langExp += interpretSubLogic(subExp[j], lang) + " ";
+				}
+				else {
+					// Dont add a space after the last expression
+					langExp += interpretSubLogic(subExp[j], lang);
+				}
 			}
 		}
 		
@@ -376,29 +389,51 @@ public class Interpretor {
 		if (lang.equals("java") || lang.equals("c++")) {
 			// Later fix to handle .equals for objects like String
 			// No spaces used due to white space removed during processing
-			output = output.replaceAll("not", "!");
 			output = output.replaceAll("and", " && ");
 			output = output.replaceAll("or", " || ");
-			output = output.replaceAll("isnot", " != ");
-			output = output.replaceAll("notequalto", " != ");
-			output = output.replaceAll("is", " == ");
-			output = output.replaceAll("equals", " == ");
-			output = output.replaceAll("equalto", " == ");
+			
+			if (str.indexOf("isnot") == -1) {
+				output = output.replaceAll("is", "==");
+				output = output.replaceAll("equals", "==");
+				output = output.replaceAll("equalto", "==");
+			}
+			else {
+				output = output.replaceAll("isnot", "!=");
+			}
+			
+			if (str.indexOf("is") == -1) {
+				output = output.replaceAll("not", "!");
+				output = output.replaceAll("isnot", " != ");
+				output = output.replaceAll("notequalto", " != ");
+			}
 		}
 		else {			
 			// Add in removed spaces
-			output = output.replaceAll("not", "not ");
 			output = output.replaceAll("and", " and ");
 			output = output.replaceAll("or", " or ");
-			output = output.replaceAll("isnot", " is not ");
-			output = output.replaceAll("notequalto", " is not ");
-			output = output.replaceAll("is", " is ");
-			output = output.replaceAll("equals", " is ");
-			output = output.replaceAll("equalto", " is ");
+			
+			if (str.indexOf("isnot") == -1) {
+				output = output.replaceAll("is", "is");
+				output = output.replaceAll("equals", "is");
+				output = output.replaceAll("equalto", "is");
+			}
+			else {
+				output = output.replaceAll("isnot", "is not");
+			}
+			
+			if (str.indexOf("is") == -1) { 
+				output = output.replaceAll("isnot", "is not");
+				output = output.replaceAll("notequalto", "is not");
+				output = output.replaceAll("not", "not ");
+			}
+				
+			// Also make sure true and false is capitalized
+			output = output.replaceAll("false", "False");
+			output = output.replaceAll("true", "True");
 		}
 		
-		// Only add parenthesis if other variables are in output
-		if (output.length() > 4) {
+		// Only add parenthesis if grouping is needed
+		if (output.length() > 4  && output.indexOf("is not") == -1) {
 			output = "(" + output + ")";
 		}
 		
@@ -702,6 +737,6 @@ public class Interpretor {
 	 */
 	private static boolean hasLogicKeywords(String str) {
 		return str.indexOf("and") != -1 || str.indexOf("or") != -1 || str.indexOf("not") != -1 
-				|| str.indexOf("equals") != -1 || str.indexOf("is") != -1;
+				|| str.indexOf("equals") != -1 || str.indexOf("is") != -1 || str.indexOf("true") != -1 || str.indexOf("false") != -1; 
 	}
 }

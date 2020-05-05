@@ -12,21 +12,17 @@ Supported languages:
 - Python
 
 Documentation:
-- display [string, var, arr, or mat]: 		Prints the following items in the terminal
-- var [NAME] [VALUE]: 						int, double, float?, or String]: Create and/or assign the VALUE to a variable named NAME 
-- arr [NAME] [VALUE]:  						Create array variable with VALUE
-- mat [NAME] [VALUE]: 						i.e mat a = [1 1;2 2] --> {{1,1},{2,2}} (for java at least)
-- ForLoop(var,start,end,increment):			Loop from start to end-1, increment is how much to increase the loop variable
-- Logic(var/logic test,var/logic test...)	Create a logical expression for a variable. A logic test includes keywords like not, equals, or, or and
-
+- display [string, var, arr, or mat]: 						Prints the following items in the terminal
+- var [NAME] [VALUE]: 										int, double, float?, or String]: Create and/or assign the VALUE to a variable named NAME 
+- arr [NAME] [VALUE]:  										Create array variable with VALUE
+- mat [NAME] [VALUE]: 										i.e mat a = [1 1;2 2] --> {{1,1},{2,2}} (for java at least)
+- ForLoop(var,start,end,increment):							For loop of variable var from start to end-1, increment is how much to increase the loop variable
+- Logic(var/logic test,var/logic test...)					Create a logical expression for a variable. A logic test includes keywords like not, equals, or, or and
+- If(Logic(var/logic test))(cmds if true)(cmds if false)	Create a simple if/else expression
+- Function("NAME",param1,param2,..)(cmds)(return var)		Create a function with name NAME and the following parameters. Commands are then specified. Lastly the name of the return variable is specified
+	
 ***
 
 To-do list:
-- Add Doxygen comments for all methods and regenerate Doxygen Docs			DONE!!!
-- Add support for ForLoop of vars of type double							DONE!!!
-- Rebuild Doxygen															DONE!!!
-- Add support for variables of type boolean									DONE!!!
-- Add support for logic expression											DONE!!!
-- Add support to include packages											DONE!!!
 - Fix array and mat interpretation for Python
 - Add support to create functions											Work in progress!!!

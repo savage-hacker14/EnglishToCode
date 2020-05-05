@@ -15,7 +15,7 @@ public class Interpretor {
 	 * @param input - Raw user string input
 	 * @return Command object with the extracted data
 	 */
-	public static Command interpret(String input) {
+	public static Command interpret(String input, String lang) {
 		// Find input string with all spaces removed
 		String inputNWS = input.replaceAll("\\s", "");
 		
@@ -133,7 +133,7 @@ public class Interpretor {
 		}
 		
 		if (command.equals("ForLoop")) {
-			return new ForLoop();
+			return interpretForLoop(input, lang, 0);
 		}
 		
 		// Then return the created Command object
@@ -226,6 +226,11 @@ public class Interpretor {
 		}
 		
 		c.setLineOfCode(code);
+		
+		// Check if command is a ForLoop command
+		if (c.getCommand().equals("ForLoop")) {
+			createLinesOfCodeForLoop((ForLoop) c);
+		}
 	}
 	
 	/**
@@ -446,7 +451,7 @@ public class Interpretor {
 	 * @param nestedNum - The nested number for the Command (used in the recursion process)
 	 * @return ForLoop object with all instance variables written
 	 */
-	public static ForLoop interpretForLoop(String cmd, String lang, int nestedNum) {
+	private static ForLoop interpretForLoop(String cmd, String lang, int nestedNum) {
 		// Determine proper indent level
 		int indentLevel = 0;
 		if (lang.equals("java")) {
@@ -522,7 +527,7 @@ public class Interpretor {
 				cmds = "";
 			}
 			else {
-				Command c = interpret(cmdToProcess);
+				Command c = interpret(cmdToProcess, lang);
 				c.setIndentLevel(numIndent + 1);
 				c.setLanguage(lang);
 				cmdList.add(c);
@@ -540,7 +545,7 @@ public class Interpretor {
 	 * This method sets the lineOfCode instance variable for a ForLoop object given the states of the other instance variables
 	 * @param fl - ForLoop object
 	 */
-	public static void createLinesOfCodeForLoop(ForLoop fl) {
+	private static void createLinesOfCodeForLoop(ForLoop fl) {
 		// Create header
 		
 		//System.out.println(fl.getIndentLevel());
@@ -602,18 +607,29 @@ public class Interpretor {
 	 */
 	public static Function interpretFunction(String fcn, String lang) {
 		// Obtain name of function
-		String params = fcn.substring(fcn.indexOf("("), fcn.indexOf(")") + 1);		// Retain parenthesis in string
-		int[] commaLocations = findAllCommas(params);
-		String name = params.substring(1, commaLocations[0]);
+		String info = fcn.substring(fcn.indexOf("("), fcn.indexOf(")") + 1);		// Retain parenthesis in string
+		int[] commaLocations = findAllCommas(info);
+		String name = info.substring(1, commaLocations[0]);
 		name = name.replaceAll("\"", "");									// Remove quotes
 		
 		// Get list of function parameters from string
 		String fcnParams = fcn.substring(fcn.indexOf(",") + 1, fcn.indexOf(")"));
 		commaLocations = findAllCommas(fcnParams);
-		int numParams = commaLocations.length + 1;
-		String[] allParams = new String[numParams];
-		for (int i = 0; i < numParams; i++) {
-			allParams[i] = fcnParams.substring(0, fcnParams.indexOf(","));			// BUG HERE
+		String[] params = new String[commaLocations.length + 1];
+		
+		int i = 0;
+		while (!(fcnParams.isEmpty())) {
+			int nextComma = fcnParams.indexOf(",");
+			// To handle end case
+			if (nextComma == -1) {
+				params[i] = fcnParams;
+				fcnParams = "";
+			}
+			else {
+				params[i] = fcnParams.substring(0, nextComma);
+				fcnParams = fcnParams.substring(nextComma + 1);
+			}
+			i++;
 		}
 		
 		// Get command list from 2nd set of parenthesis
@@ -623,7 +639,7 @@ public class Interpretor {
 		String returnVal = "";
 		String temp = "";
 		temp = fcn.replaceAll("Function", ""); 										// Remove "function" from string
-		temp = temp.replaceAll(params, "");											// Remove parameters string
+		temp = temp.replaceAll(fcnParams, "");										// Remove parameters string
 		temp = temp.replaceAll(cmds, "");											// Remove cmds string, now just left with last set of parenthesis
 		temp = temp.replaceAll("(", "");
 		temp = temp.replaceAll(")", "");
@@ -634,21 +650,18 @@ public class Interpretor {
 		ArrayList<Command> cmdList = new ArrayList<Command>();
 		cmds = cmds.substring(1);			// Ignore first parenthesis in string
 		while (!(cmds.isEmpty())) {
+			//System.out.println("hi");
 			int nextSemiCol = cmds.indexOf(";");
 			// To handle end case
 			if (nextSemiCol == -1) {
 				nextSemiCol = cmds.length() - 1;
 			}
 			
-			String cmdToProcess = cmds.substring(0, nextSemiCol);
-			Command c = interpret(cmdToProcess);
-			c.setLanguage(lang);
-			cmdList.add(c);
-			
-			cmds = cmds.substring(nextSemiCol + 1);
+			// Add processing code here
+			// Make sure to be careful with ForLoop() commands
 		}
 		
-		return new Function(cmdList, name, allParams, returnVal);
+		return new Function(cmdList, name, params, returnVal);
 	}
 	
 	/**

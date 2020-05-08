@@ -63,6 +63,13 @@ public class ForLoop extends Command {
 		setType(type);
 	}
 	
+	public void setIndentLevel(int i) {
+		super.setIndentLevel(i);
+		for (int j = 0; j < commands.size(); j++) {
+			commands.get(j).setIndentLevel(i + 1);
+		}
+	}
+	
 	/**
 	 * This method returns the commands instance variable
 	 * @return ArrayList of commands to be executed within the for loop

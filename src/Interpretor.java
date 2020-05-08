@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Interpretor {
 	// List of commands for string-based code creation
-	private static final String[] cmds = {"display", "var", "arr", "list", "mat", "ForLoop"};
+	private static final String[] cmds = {"var", "arr", "list", "mat", "display", "ForLoop", "If"};
 	
 	/**
 	 * This method takes the user code string and extracts its command, name, parameters, and type
@@ -136,6 +136,10 @@ public class Interpretor {
 			return interpretForLoop(input, lang, 0);
 		}
 		
+		if (command.equals("If")) {
+			return interpretIfElse(input, lang, 0);
+		}
+		
 		// Then return the created Command object
 		return new Command(command, name, type, paramStr);
 	}
@@ -149,6 +153,17 @@ public class Interpretor {
 		// Grab important variables from command c
 		String code = "";
 		String lang = c.getLanguage();
+		
+		// Check if command is a ForLoop of IfElse command
+		if (c.getCommand().equals("ForLoop")) {
+			createLinesOfCodeForLoop((ForLoop) c);
+			return;
+		}
+		
+		if (c.getCommand().equals("If")) {
+			createLinesOfCodeIfElse((IfElse) c);
+			return;
+		}
 		
 		// Fix type if there is logic in the params string
 		if (lang.equals("java") && c.getParameters().indexOf("Logic") != -1) {
@@ -226,11 +241,6 @@ public class Interpretor {
 		}
 		
 		c.setLineOfCode(code);
-		
-		// Check if command is a ForLoop command
-		if (c.getCommand().equals("ForLoop")) {
-			createLinesOfCodeForLoop((ForLoop) c);
-		}
 	}
 	
 	/**
@@ -440,20 +450,6 @@ public class Interpretor {
 		return output;
 	}
 	
-	private static String interpretIfElse(String ifelse, String lang) {
-		// First get content inside first set of parenthesis
-		String logicExp = ifelse.substring(ifelse.indexOf("(") + 1, ifelse.indexOf(")") + 1);
-		String logic = interpretLogic(logicExp, lang);
-		
-		// Get commands for true condition from second parenthesis
-		
-		// Get commands for true condition from third parenthesis
-		
-		// ** MAKE AN OBJECT/CLASS FOR THIS
-		
-		return null;
-	}
-	
 	/**
 	 * This method interpets an include ____ string for importing packages/modules/libraries
 	 * into the user created program
@@ -646,6 +642,173 @@ public class Interpretor {
 		// Create code string and return it
 		String code = header + cmds;
 		fl.setLineOfCode(code);
+	}
+	
+	private static IfElse interpretIfElse(String cmd, String lang, int nestedNum) {
+		// Determine proper indent level
+		int indentLevel = 0;
+		if (lang.equals("java")) {
+			indentLevel = 2;
+		}
+		else if (lang.equals("c++")) {
+			indentLevel = 1;
+		}
+		else {
+			// Python
+			indentLevel = 0;
+		}
+		int numIndent = indentLevel + nestedNum;
+		
+		// Get Logic() command from string and parse it
+		String logicCmd = cmd.substring(cmd.indexOf("{") + 1, cmd.indexOf("}"));
+		logicCmd = logicCmd.replaceAll("\\s", "");
+		String logic = interpretLogic(logicCmd, lang);
+		
+		// Get command strings for true condition from second parenthesis
+		String temp = cmd.substring(cmd.indexOf("}") + 2); 
+		String trueCmdsStr = temp.substring(0, temp.indexOf("}"));
+		
+		// Get command string for false condition from third parenthesis
+		String falseCmdsStr = temp.substring(temp.indexOf("}") + 2, temp.length() - 1);  		// length - 1 removes final parenthesis
+		
+		// Make command objects for true and false condition strings
+		ArrayList<Command> trueCmds = new ArrayList<Command>();
+		ArrayList<Command> falseCmds = new ArrayList<Command>();
+		while (!trueCmdsStr.isEmpty()) {
+			int nextSemiCol = trueCmdsStr.indexOf(";");
+			// To handle end case
+			if (nextSemiCol == -1) {
+				nextSemiCol = trueCmdsStr.length();
+			}
+			
+			// To handle single IfElse command
+			String cmdToProcess = "";
+			if (trueCmdsStr.indexOf("If") == 0) {
+				cmdToProcess = trueCmdsStr;
+			}
+			else {
+				cmdToProcess = trueCmdsStr.substring(0, nextSemiCol);
+			}
+			
+			// Nested for loop detected
+			if (cmdToProcess.indexOf("If") != -1) {
+				IfElse ie = interpretIfElse(cmdToProcess, lang, nestedNum + 1);				// Oo recursion?!			
+				
+				ie.setLanguage(lang);
+				trueCmds.add(ie);
+					
+				trueCmdsStr = "";
+			}
+			else {
+				Command c = interpret(cmdToProcess, lang);
+				c.setIndentLevel(numIndent + 1);
+				c.setLanguage(lang);
+				trueCmds.add(c);
+
+				trueCmdsStr = trueCmdsStr.substring(nextSemiCol);
+			}
+		}
+		while (!falseCmdsStr.isEmpty()) {
+			int nextSemiCol = falseCmdsStr.indexOf(";");
+			// To handle end case
+			if (nextSemiCol == -1) {
+				nextSemiCol = falseCmdsStr.length();
+			}
+			
+			// To handle single IfElse command
+			String cmdToProcess = "";
+			if (falseCmdsStr.indexOf("If") == 0) {
+				cmdToProcess = falseCmdsStr;
+			}
+			else {
+				cmdToProcess = falseCmdsStr.substring(0, nextSemiCol);
+			}
+			
+			// Nested for loop detected
+			if (cmdToProcess.indexOf("If") != -1) {
+				IfElse ie = interpretIfElse(cmdToProcess, lang, nestedNum + 1);				// Oo recursion?!			
+				
+				ie.setLanguage(lang);
+				falseCmds.add(ie);
+					
+				falseCmdsStr = "";
+			}
+			else {
+				Command c = interpret(cmdToProcess, lang);
+				c.setIndentLevel(numIndent + 1);
+				c.setLanguage(lang);
+				falseCmds.add(c);
+
+				falseCmdsStr = falseCmdsStr.substring(nextSemiCol);
+			}
+		}
+		
+		// ** MAKE AN OBJECT/CLASS FOR THIS
+		return new IfElse(lang, logic, trueCmds, falseCmds, nestedNum);
+	}
+	
+	private static void createLinesOfCodeIfElse(IfElse ie) {
+		String header = "";
+		String lang = ie.getLanguage();
+		
+		// Create header
+		if (lang.equals("java") || lang.equals("c++")) {
+			header = ie.indent() + "if (" + ie.getParameters() + ") {";
+		}
+		else {
+			// Python
+			header = ie.indent() + "if (" + ie.getParameters() + "):";
+		}
+		header += "\n";
+		
+		// Now process lines of code for the commands
+		String trueCmds = "";
+		String falseCmds = "";
+		for (int i = 0; i < ie.getIfTrueCommands().size(); i++) {
+			Command cmd = ie.getIfTrueCommands().get(i);
+			
+			if (cmd.getCommand().equals("If")) {
+				createLinesOfCodeIfElse((IfElse) cmd);
+				trueCmds += cmd.getLineOfCode() + "\n";
+			}
+			else {
+				createLineOfCode(cmd);
+				trueCmds += cmd.getLineOfCode() + "\n";
+			}
+		}
+		
+		if (lang.equals("java") || lang.equals("c++")) {
+			trueCmds += ie.indent() + "}" + "\n" + ie.indent() + "else {\n";
+		}
+		else {
+			// Python
+			trueCmds += ie.indent() + "else:\n";
+		}
+		
+		for (int i = 0; i < ie.getIfFalseCommands().size(); i++) {
+			Command cmd = ie.getIfFalseCommands().get(i);
+			
+			if (cmd.getCommand().equals("If")) {
+				createLinesOfCodeIfElse((IfElse) cmd);
+				falseCmds += cmd.getLineOfCode() + "\n";
+			}
+			else {
+				createLineOfCode(cmd);
+				falseCmds += cmd.indent() + cmd.getLineOfCode() + "\n";
+			}
+		}
+		
+		if (lang.equals("java") || lang.equals("c++")) {
+			falseCmds += ie.indent() + "}\n";
+		}
+		else {
+			// Python
+			falseCmds += "\n";
+		}
+		
+		// Final string creation
+		String linesOfCode = header + trueCmds + falseCmds;
+		ie.setLineOfCode(linesOfCode);
 	}
 	
 	/**

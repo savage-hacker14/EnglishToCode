@@ -16,9 +16,9 @@ Documentation:
 - var [NAME] [VALUE]: 										int, double, float?, or String]: Create and/or assign the VALUE to a variable named NAME 
 - arr [NAME] [VALUE]:  										Create array variable with VALUE
 - mat [NAME] [VALUE]: 										i.e mat a = [1 1;2 2] --> {{1,1},{2,2}} (for java at least)
-- ForLoop(var,start,end,increment):							For loop of variable var from start to end-1, increment is how much to increase the loop variable
+- ForLoop(var,start,end,increment)(commands):				For loop of variable var from start to end-1, increment is how much to increase the loop variable
 - Logic(var/logic test,var/logic test...)					Create a logical expression for a variable. A logic test includes keywords like not, equals, or, or and
-- If(Logic(var/logic test))(cmds if true)(cmds if false)	Create a simple if/else expression
+- If{Logic(var/logic test)}{cmds if true}{cmds if false}	Create a simple if/else expression
 - Function("NAME",param1,param2,..)(cmds)(return var)		Create a function with name NAME and the following parameters. Commands are then specified. Lastly the name of the return variable is specified
 	
 ***

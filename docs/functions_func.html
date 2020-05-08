@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EnglishToCode
-   &#160;<span id="projectnumber">v2020.05.02</span>
+   &#160;<span id="projectnumber">v2020.05.08</span>
    </div>
    <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to Scratch, however the code can be later exported to Java, C++, and Python.</div>
   </td>
@@ -93,6 +93,9 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>addCommand()
 : <a class="el" href="class_program.html#adde00531c5f9b63229d78d5dcde66965">Program</a>
 </li>
+<li>addInclude()
+: <a class="el" href="class_program.html#a8a8ecb136d3a11631555162ecc009597">Program</a>
+</li>
 </ul>
 
 
@@ -117,6 +120,9 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 </li>
 <li>createLinesOfCodeForLoop()
 : <a class="el" href="class_interpretor.html#aa65f440c5c760f2abd5da4097d891fd6">Interpretor</a>
+</li>
+<li>createLinesOfCodeIfElse()
+: <a class="el" href="class_interpretor.html#ab4ba9d5cd19e171b9f41b7af760df71d">Interpretor</a>
 </li>
 <li>createPythonFile()
 : <a class="el" href="class_file_creator.html#a47640c4a4983fd93608e816b985f48bb">FileCreator</a>
@@ -150,6 +156,15 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 </li>
 <li>getEnd()
 : <a class="el" href="class_for_loop.html#ac8fcd3bf84dd6b5e5ef5f03cd21e32b4">ForLoop</a>
+</li>
+<li>getIfFalseCommands()
+: <a class="el" href="class_if_else.html#a7c495fcd77d1b897a95e6e14d6b064fb">IfElse</a>
+</li>
+<li>getIfTrueCommands()
+: <a class="el" href="class_if_else.html#a53a1072f88b2e7272973c70b9fd7797f">IfElse</a>
+</li>
+<li>getInclude()
+: <a class="el" href="class_program.html#a2f6563f0c91ff1aefedad468a5526a20">Program</a>
 </li>
 <li>getIncrement()
 : <a class="el" href="class_for_loop.html#a1309dde05ddd22698afab77829bce567">ForLoop</a>
@@ -195,11 +210,14 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 
 
 <h3><a id="index_i"></a>- i -</h3><ul>
+<li>IfElse()
+: <a class="el" href="class_if_else.html#a9717c84ebc9e80e4a8be043bef11d42d">IfElse</a>
+</li>
 <li>indent()
 : <a class="el" href="class_command.html#a880468087902ea76ad88c04753031a1f">Command</a>
 </li>
 <li>interpret()
-: <a class="el" href="class_interpretor.html#addebbf9f1c82ed74233fcd9313ea027f">Interpretor</a>
+: <a class="el" href="class_interpretor.html#ae361a9a970ddcb355f9ed57d4ce4edcf">Interpretor</a>
 </li>
 <li>interpretArr()
 : <a class="el" href="class_interpretor.html#ad91aa7f82ce4b7b194b3f4fb3e1518f7">Interpretor</a>
@@ -209,6 +227,12 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 </li>
 <li>interpretFunction()
 : <a class="el" href="class_interpretor.html#a699dd349f144a3c287c3993f161bcaef">Interpretor</a>
+</li>
+<li>interpretIfElse()
+: <a class="el" href="class_interpretor.html#af25a27fe75e25bbe8f3cbdf3fbb4d55c">Interpretor</a>
+</li>
+<li>interpretInclude()
+: <a class="el" href="class_interpretor.html#aa251e9fded6668a9c70ddc5af9588195">Interpretor</a>
 </li>
 <li>interpretLogic()
 : <a class="el" href="class_interpretor.html#aa2e9fe3b46a3cd6b7452f9e98f308d66">Interpretor</a>
@@ -235,6 +259,9 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 <li>numCommands()
 : <a class="el" href="class_program.html#ac19f8b1664bc59d72a2175806fe8cfda">Program</a>
 </li>
+<li>numIncludes()
+: <a class="el" href="class_program.html#a22cd475770adcc76d0cc6338466f6ca5">Program</a>
+</li>
 </ul>
 
 
@@ -251,6 +278,7 @@ $(document).ready(function(){initNavTree('functions_func.html','');});
 </li>
 <li>setIndentLevel()
 : <a class="el" href="class_command.html#a80079c1667798d3a83a4d2b724752bff">Command</a>
+, <a class="el" href="class_for_loop.html#a967f8a39f504c5319d3c2abc0fca5b77">ForLoop</a>
 </li>
 <li>setLanguage()
 : <a class="el" href="class_command.html#a67e286d5d6b2cc75b13f0b53629dbc34">Command</a>

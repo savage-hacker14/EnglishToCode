@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EnglishToCode
-   &#160;<span id="projectnumber">v2020.05.02</span>
+   &#160;<span id="projectnumber">v2020.05.08</span>
    </div>
    <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to Scratch, however the code can be later exported to Java, C++, and Python.</div>
   </td>
@@ -102,6 +102,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac409434b53f9838823043bd6ce0a8377"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3b3ecbcd41d68f994e3888b8a18a3bd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#ad3b3ecbcd41d68f994e3888b8a18a3bd">Program</a> (ArrayList&lt; <a class="el" href="class_command.html">Command</a> &gt; cmdArray)</td></tr>
 <tr class="separator:ad3b3ecbcd41d68f994e3888b8a18a3bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab84a124445e03bff116fb113ae7881ac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#ab84a124445e03bff116fb113ae7881ac">Program</a> (ArrayList&lt; <a class="el" href="class_command.html">Command</a> &gt; cmdArray, ArrayList&lt; String &gt; imports)</td></tr>
+<tr class="separator:ab84a124445e03bff116fb113ae7881ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a8ecb136d3a11631555162ecc009597"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#a8a8ecb136d3a11631555162ecc009597">addInclude</a> (String inc)</td></tr>
+<tr class="separator:a8a8ecb136d3a11631555162ecc009597"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f6563f0c91ff1aefedad468a5526a20"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#a2f6563f0c91ff1aefedad468a5526a20">getInclude</a> (int i)</td></tr>
+<tr class="separator:a2f6563f0c91ff1aefedad468a5526a20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22cd475770adcc76d0cc6338466f6ca5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#a22cd475770adcc76d0cc6338466f6ca5">numIncludes</a> ()</td></tr>
+<tr class="separator:a22cd475770adcc76d0cc6338466f6ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adde00531c5f9b63229d78d5dcde66965"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#adde00531c5f9b63229d78d5dcde66965">addCommand</a> (<a class="el" href="class_command.html">Command</a> c)</td></tr>
 <tr class="separator:adde00531c5f9b63229d78d5dcde66965"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1c3c2d8afbd81f6e6af0342f2b81046"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_command.html">Command</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#af1c3c2d8afbd81f6e6af0342f2b81046">getCommand</a> (int i)</td></tr>
@@ -111,6 +119,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:a213b659f45872022be02d2072f6c4fb1"><td class="memItemLeft" align="right" valign="top">ArrayList&lt; String &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#a213b659f45872022be02d2072f6c4fb1">includes</a> = new ArrayList&lt;String&gt;()</td></tr>
+<tr class="separator:a213b659f45872022be02d2072f6c4fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95d2f493628126c86059c401dc76c76c"><td class="memItemLeft" align="right" valign="top">ArrayList&lt; <a class="el" href="class_command.html">Command</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#a95d2f493628126c86059c401dc76c76c">commands</a> = new ArrayList&lt;<a class="el" href="class_command.html">Command</a>&gt;()</td></tr>
 <tr class="separator:a95d2f493628126c86059c401dc76c76c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a936b28b4678a08d97d6b5fc1fd299a75"><td class="memItemLeft" align="right" valign="top">ArrayList&lt; <a class="el" href="class_function.html">Function</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#a936b28b4678a08d97d6b5fc1fd299a75">functions</a> = new ArrayList&lt;<a class="el" href="class_function.html">Function</a>&gt;()</td></tr>
@@ -118,7 +128,7 @@ Private Attributes</h2></td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac409434b53f9838823043bd6ce0a8377"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac409434b53f9838823043bd6ce0a8377">&#9670;&nbsp;</a></span>Program() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac409434b53f9838823043bd6ce0a8377">&#9670;&nbsp;</a></span>Program() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -136,7 +146,7 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a id="ad3b3ecbcd41d68f994e3888b8a18a3bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3b3ecbcd41d68f994e3888b8a18a3bd">&#9670;&nbsp;</a></span>Program() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3b3ecbcd41d68f994e3888b8a18a3bd">&#9670;&nbsp;</a></span>Program() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,6 +166,34 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ab84a124445e03bff116fb113ae7881ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab84a124445e03bff116fb113ae7881ac">&#9670;&nbsp;</a></span>Program() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Program.Program </td>
+          <td>(</td>
+          <td class="paramtype">ArrayList&lt; <a class="el" href="class_command.html">Command</a> &gt;&#160;</td>
+          <td class="paramname"><em>cmdArray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ArrayList&lt; String &gt;&#160;</td>
+          <td class="paramname"><em>imports</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -184,6 +222,24 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a8a8ecb136d3a11631555162ecc009597"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a8ecb136d3a11631555162ecc009597">&#9670;&nbsp;</a></span>addInclude()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Program.addInclude </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>inc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af1c3c2d8afbd81f6e6af0342f2b81046"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af1c3c2d8afbd81f6e6af0342f2b81046">&#9670;&nbsp;</a></span>getCommand()</h2>
 
@@ -209,6 +265,24 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a2f6563f0c91ff1aefedad468a5526a20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f6563f0c91ff1aefedad468a5526a20">&#9670;&nbsp;</a></span>getInclude()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">String Program.getInclude </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac19f8b1664bc59d72a2175806fe8cfda"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac19f8b1664bc59d72a2175806fe8cfda">&#9670;&nbsp;</a></span>numCommands()</h2>
 
@@ -224,6 +298,23 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Returns the following: </p><dl class="section return"><dt>Returns</dt><dd>length of commands ArrayList </dd></dl>
+
+</div>
+</div>
+<a id="a22cd475770adcc76d0cc6338466f6ca5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22cd475770adcc76d0cc6338466f6ca5">&#9670;&nbsp;</a></span>numIncludes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Program.numIncludes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -261,6 +352,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">ArrayList&lt;<a class="el" href="class_function.html">Function</a>&gt; Program.functions = new ArrayList&lt;<a class="el" href="class_function.html">Function</a>&gt;()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a213b659f45872022be02d2072f6c4fb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a213b659f45872022be02d2072f6c4fb1">&#9670;&nbsp;</a></span>includes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArrayList&lt;String&gt; Program.includes = new ArrayList&lt;String&gt;()</td>
         </tr>
       </table>
   </td>

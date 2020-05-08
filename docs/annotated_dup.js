@@ -6,6 +6,7 @@ var annotated_dup =
     [ "Function", "class_function.html", "class_function" ],
     [ "FunctionParameter", "class_function_parameter.html", "class_function_parameter" ],
     [ "HelloWorld", "class_hello_world.html", null ],
+    [ "IfElse", "class_if_else.html", "class_if_else" ],
     [ "Interpretor", "class_interpretor.html", null ],
     [ "Program", "class_program.html", "class_program" ],
     [ "Runner", "class_runner.html", null ],

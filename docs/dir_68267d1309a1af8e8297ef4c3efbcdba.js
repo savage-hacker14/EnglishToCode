@@ -18,6 +18,9 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "HelloWorld.java", "_hello_world_8java.html", [
       [ "HelloWorld", "class_hello_world.html", null ]
     ] ],
+    [ "IfElse.java", "_if_else_8java.html", [
+      [ "IfElse", "class_if_else.html", "class_if_else" ]
+    ] ],
     [ "Interpretor.java", "_interpretor_8java.html", [
       [ "Interpretor", "class_interpretor.html", null ]
     ] ],

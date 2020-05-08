@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EnglishToCode
-   &#160;<span id="projectnumber">v2020.05.02</span>
+   &#160;<span id="projectnumber">v2020.05.08</span>
    </div>
    <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to Scratch, however the code can be later exported to Java, C++, and Python.</div>
   </td>
@@ -99,14 +99,12 @@ $(document).ready(function(){initNavTree('class_interpretor.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:addebbf9f1c82ed74233fcd9313ea027f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_command.html">Command</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#addebbf9f1c82ed74233fcd9313ea027f">interpret</a> (String input)</td></tr>
-<tr class="separator:addebbf9f1c82ed74233fcd9313ea027f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae361a9a970ddcb355f9ed57d4ce4edcf"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_command.html">Command</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#ae361a9a970ddcb355f9ed57d4ce4edcf">interpret</a> (String input, String lang)</td></tr>
+<tr class="separator:ae361a9a970ddcb355f9ed57d4ce4edcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ea176fd44730b3b7c2a4340dfe18b4f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a4ea176fd44730b3b7c2a4340dfe18b4f">createLineOfCode</a> (<a class="el" href="class_command.html">Command</a> c)</td></tr>
 <tr class="separator:a4ea176fd44730b3b7c2a4340dfe18b4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ff6adc592d822e74853e252ae03162b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_for_loop.html">ForLoop</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a0ff6adc592d822e74853e252ae03162b">interpretForLoop</a> (String cmd, String lang, int nestedNum)</td></tr>
-<tr class="separator:a0ff6adc592d822e74853e252ae03162b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa65f440c5c760f2abd5da4097d891fd6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#aa65f440c5c760f2abd5da4097d891fd6">createLinesOfCodeForLoop</a> (<a class="el" href="class_for_loop.html">ForLoop</a> fl)</td></tr>
-<tr class="separator:aa65f440c5c760f2abd5da4097d891fd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa251e9fded6668a9c70ddc5af9588195"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#aa251e9fded6668a9c70ddc5af9588195">interpretInclude</a> (String inc, String lang)</td></tr>
+<tr class="separator:aa251e9fded6668a9c70ddc5af9588195"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a699dd349f144a3c287c3993f161bcaef"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_function.html">Function</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a699dd349f144a3c287c3993f161bcaef">interpretFunction</a> (String fcn, String lang)</td></tr>
 <tr class="separator:a699dd349f144a3c287c3993f161bcaef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -122,6 +120,14 @@ Static Private Member Functions</h2></td></tr>
 <tr class="separator:aa3ca22bb49c8e524af87fd680024ad59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82884415b18eb9053df5f0a744c50917"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a82884415b18eb9053df5f0a744c50917">containsANumber</a> (String str)</td></tr>
 <tr class="separator:a82884415b18eb9053df5f0a744c50917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ff6adc592d822e74853e252ae03162b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_for_loop.html">ForLoop</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a0ff6adc592d822e74853e252ae03162b">interpretForLoop</a> (String cmd, String lang, int nestedNum)</td></tr>
+<tr class="separator:a0ff6adc592d822e74853e252ae03162b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa65f440c5c760f2abd5da4097d891fd6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#aa65f440c5c760f2abd5da4097d891fd6">createLinesOfCodeForLoop</a> (<a class="el" href="class_for_loop.html">ForLoop</a> fl)</td></tr>
+<tr class="separator:aa65f440c5c760f2abd5da4097d891fd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af25a27fe75e25bbe8f3cbdf3fbb4d55c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_if_else.html">IfElse</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#af25a27fe75e25bbe8f3cbdf3fbb4d55c">interpretIfElse</a> (String cmd, String lang, int nestedNum)</td></tr>
+<tr class="separator:af25a27fe75e25bbe8f3cbdf3fbb4d55c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4ba9d5cd19e171b9f41b7af760df71d"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#ab4ba9d5cd19e171b9f41b7af760df71d">createLinesOfCodeIfElse</a> (<a class="el" href="class_if_else.html">IfElse</a> ie)</td></tr>
+<tr class="separator:ab4ba9d5cd19e171b9f41b7af760df71d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1e56617f67f5f77573fcceddf25b293"><td class="memItemLeft" align="right" valign="top">static int[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#ac1e56617f67f5f77573fcceddf25b293">findAllCommas</a> (String str)</td></tr>
 <tr class="separator:ac1e56617f67f5f77573fcceddf25b293"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d07ca32229c1209bb6abf8db51d9d4a"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a5d07ca32229c1209bb6abf8db51d9d4a">hasMathOperations</a> (String str)</td></tr>
@@ -131,7 +137,7 @@ Static Private Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
-<tr class="memitem:a6dd93eb1643ab601e2fd76c7b06d878a"><td class="memItemLeft" align="right" valign="top">static final String[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a6dd93eb1643ab601e2fd76c7b06d878a">cmds</a> = {&quot;display&quot;, &quot;var&quot;, &quot;arr&quot;, &quot;list&quot;, &quot;mat&quot;, &quot;<a class="el" href="class_for_loop.html">ForLoop</a>&quot;}</td></tr>
+<tr class="memitem:a6dd93eb1643ab601e2fd76c7b06d878a"><td class="memItemLeft" align="right" valign="top">static final String[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_interpretor.html#a6dd93eb1643ab601e2fd76c7b06d878a">cmds</a> = {&quot;var&quot;, &quot;arr&quot;, &quot;list&quot;, &quot;mat&quot;, &quot;display&quot;, &quot;<a class="el" href="class_for_loop.html">ForLoop</a>&quot;, &quot;If&quot;}</td></tr>
 <tr class="separator:a6dd93eb1643ab601e2fd76c7b06d878a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -219,7 +225,7 @@ Static Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -230,6 +236,38 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 <p>Java/C++ header</p>
+
+</div>
+</div>
+<a id="ab4ba9d5cd19e171b9f41b7af760df71d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4ba9d5cd19e171b9f41b7af760df71d">&#9670;&nbsp;</a></span>createLinesOfCodeIfElse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void Interpretor.createLinesOfCodeIfElse </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_if_else.html">IfElse</a>&#160;</td>
+          <td class="paramname"><em>ie</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Helper method to create and set the necessary lines of code from a given <a class="el" href="class_if_else.html">IfElse</a> object </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ie</td><td>- The <a class="el" href="class_if_else.html">IfElse</a> object to use </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -332,8 +370,8 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="addebbf9f1c82ed74233fcd9313ea027f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#addebbf9f1c82ed74233fcd9313ea027f">&#9670;&nbsp;</a></span>interpret()</h2>
+<a id="ae361a9a970ddcb355f9ed57d4ce4edcf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae361a9a970ddcb355f9ed57d4ce4edcf">&#9670;&nbsp;</a></span>interpret()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -345,8 +383,18 @@ Static Private Attributes</h2></td></tr>
           <td class="memname">static <a class="el" href="class_command.html">Command</a> Interpretor.interpret </td>
           <td>(</td>
           <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>input</em></td><td>)</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>lang</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -358,6 +406,7 @@ Static Private Attributes</h2></td></tr>
 <p>This method takes the user code string and extracts its command, name, parameters, and type </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">input</td><td>- Raw user string input </td></tr>
+    <tr><td class="paramname">lang</td><td>- Language for the <a class="el" href="class_command.html">Command</a> object </td></tr>
   </table>
   </dd>
 </dl>
@@ -433,7 +482,7 @@ Static Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -490,6 +539,101 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_function.html">Function</a> object with instance variables set from the fcn string </dd></dl>
+
+</div>
+</div>
+<a id="af25a27fe75e25bbe8f3cbdf3fbb4d55c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af25a27fe75e25bbe8f3cbdf3fbb4d55c">&#9670;&nbsp;</a></span>interpretIfElse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_if_else.html">IfElse</a> Interpretor.interpretIfElse </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>cmd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>lang</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nestedNum</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Helper method to create an <a class="el" href="class_if_else.html">IfElse</a> command object from the raw user input </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmd</td><td>- The raw user input/command </td></tr>
+    <tr><td class="paramname">lang</td><td>- The language for the <a class="el" href="class_if_else.html">IfElse</a> object </td></tr>
+    <tr><td class="paramname">nestedNum</td><td>- The number that the <a class="el" href="class_if_else.html">IfElse</a> command is nested (used for recursion) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>processed <a class="el" href="class_if_else.html">IfElse</a> object </dd></dl>
+
+</div>
+</div>
+<a id="aa251e9fded6668a9c70ddc5af9588195"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa251e9fded6668a9c70ddc5af9588195">&#9670;&nbsp;</a></span>interpretInclude()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static String Interpretor.interpretInclude </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>inc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>lang</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>This method interpets an include ____ string for importing packages/modules/libraries into the user created program </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inc</td><td>- The Include(package) statement </td></tr>
+    <tr><td class="paramname">lang</td><td>- The language to write the include statement </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The proper line of code to include the package </dd></dl>
 
 </div>
 </div>
@@ -625,7 +769,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">final String [] Interpretor.cmds = {&quot;display&quot;, &quot;var&quot;, &quot;arr&quot;, &quot;list&quot;, &quot;mat&quot;, &quot;<a class="el" href="class_for_loop.html">ForLoop</a>&quot;}</td>
+          <td class="memname">final String [] Interpretor.cmds = {&quot;var&quot;, &quot;arr&quot;, &quot;list&quot;, &quot;mat&quot;, &quot;display&quot;, &quot;<a class="el" href="class_for_loop.html">ForLoop</a>&quot;, &quot;If&quot;}</td>
         </tr>
       </table>
   </td>

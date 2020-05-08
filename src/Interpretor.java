@@ -13,6 +13,7 @@ public class Interpretor {
 	/**
 	 * This method takes the user code string and extracts its command, name, parameters, and type
 	 * @param input - Raw user string input
+	 * @param lang - Language for the Command object
 	 * @return Command object with the extracted data
 	 */
 	public static Command interpret(String input, String lang) {
@@ -454,6 +455,7 @@ public class Interpretor {
 	 * This method interpets an include ____ string for importing packages/modules/libraries
 	 * into the user created program
 	 * @param inc - The Include(package) statement
+	 * @param lang - The language to write the include statement
 	 * @return The proper line of code to include the package
 	 */
 	public static String interpretInclude(String inc, String lang) {
@@ -644,6 +646,13 @@ public class Interpretor {
 		fl.setLineOfCode(code);
 	}
 	
+	/** 
+	 * Helper method to create an IfElse command object from the raw user input
+	 * @param cmd - The raw user input/command
+	 * @param lang - The language for the IfElse object
+	 * @param nestedNum - The number that the IfElse command is nested (used for recursion)
+	 * @return processed IfElse object
+	 */
 	private static IfElse interpretIfElse(String cmd, String lang, int nestedNum) {
 		// Determine proper indent level
 		int indentLevel = 0;
@@ -747,6 +756,10 @@ public class Interpretor {
 		return new IfElse(lang, logic, trueCmds, falseCmds, nestedNum);
 	}
 	
+	/**
+	 * Helper method to create and set the necessary lines of code from a given IfElse object
+	 * @param ie - The IfElse object to use
+	 */
 	private static void createLinesOfCodeIfElse(IfElse ie) {
 		String header = "";
 		String lang = ie.getLanguage();

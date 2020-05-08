@@ -1,7 +1,8 @@
 var hierarchy =
 [
     [ "Command", "class_command.html", [
-      [ "ForLoop", "class_for_loop.html", null ]
+      [ "ForLoop", "class_for_loop.html", null ],
+      [ "IfElse", "class_if_else.html", null ]
     ] ],
     [ "FileCreator", "class_file_creator.html", null ],
     [ "Function", "class_function.html", null ],

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['interpretor_88',['Interpretor',['../class_interpretor.html',1,'']]]
+  ['ifelse_101',['IfElse',['../class_if_else.html',1,'']]],
+  ['interpretor_102',['Interpretor',['../class_interpretor.html',1,'']]]
 ];

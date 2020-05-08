@@ -25,4 +25,5 @@ Documentation:
 
 To-do list:
 - Fix array and mat interpretation for Python
+- Fix nested if/else command support
 - Add support to create functions											Work in progress!!!

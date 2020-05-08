@@ -8,6 +8,7 @@ var class_for_loop =
     [ "getLoopVar", "class_for_loop.html#a3a84a05997fc08b43bbec8f530f8996e", null ],
     [ "getNumCommands", "class_for_loop.html#aeb3307722d5c40286156a2fecdfceada", null ],
     [ "getStart", "class_for_loop.html#a899267ec13871f2bb7fdef5d694b89e7", null ],
+    [ "setIndentLevel", "class_for_loop.html#a967f8a39f504c5319d3c2abc0fca5b77", null ],
     [ "commands", "class_for_loop.html#a942e9007de53e4baeb05f33dfacaa12d", null ],
     [ "end", "class_for_loop.html#a9a707baeba2da46e96f99288e2b58002", null ],
     [ "increment", "class_for_loop.html#a4388278e2a71a00a9e395c4a56e9f66a", null ],

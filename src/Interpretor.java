@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Interpretor {
 	// List of commands for string-based code creation
-	private static final String[] cmds = {"var", "arr", "list", "mat", "display", "ForLoop", "If"};
+	public static final String[] cmds = {"var", "arr", "list", "mat", "display", "ForLoop", "If"};
 	
 	/**
 	 * This method takes the user code string and extracts its command, name, parameters, and type

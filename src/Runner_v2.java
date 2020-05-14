@@ -9,9 +9,18 @@ import javax.swing.*;
 
 public class Runner_v2 {
 	private static JFrame initWindow = new JFrame("Init Window");
-	private static JFrame cmdsWindow = new JFrame("Commands ");
+	private static JFrame cmdsWindow = new JFrame("Commands");
+	
 	private static JFrame cmdInputWindow = new JFrame("Command Input");
 	private static JFrame cmdDetailsWindow = new JFrame("Command Details");
+	
+	private static JFrame forLoopSetupWindow = new JFrame("For Loop Setup");
+	private static JFrame forLoopCmdsWindow = new JFrame("For Loop Commands");
+	
+	private static JFrame ifElseSetupWindow = new JFrame("If Else Setup");
+	private static JFrame ifElseTrueCmdsWindow = new JFrame("If Else True Commands");
+	private static JFrame ifElseFalseCmdsWindow = new JFrame("If Else False Commands");
+	
 	
 	private static String[] programParams;				// 0 - Name, 1 - Language, 3 - Number of commands
 	private static CommandButton[] cmdButtons;			// Command buttons displayed in "Commands" window
@@ -47,9 +56,9 @@ public class Runner_v2 {
         programParams = new String[3];
     	
     	// Create text field for necessary inputs on init window
-    	JTextField nameofProgram = new JTextField();
-    	JTextField language = new JTextField();
-    	JTextField numCommands = new JTextField();
+    	JTextField nameofProgram = new JTextField("");
+    	JTextField language = new JTextField("");
+    	JTextField numCommands = new JTextField("");
     	
     	// Create submit button
     	JButton submit = new JButton("SUBMIT");
@@ -158,6 +167,11 @@ public class Runner_v2 {
             	if (!(currentCmd.equals("ForLoop") || currentCmd.equals("If"))) {
             		createRegCommandDetailWindow();
             	}
+            	else {
+            		if (currentCmd.equals("ForLoop")) {
+            			createForLoopSetupWindow();
+            		}
+            	}
             }
     	});
     	
@@ -184,9 +198,12 @@ public class Runner_v2 {
     	JPanel inputs = new JPanel();
     	inputs.setLayout(new GridLayout(2,2));
     	
-    	JTextField varName = new JTextField();
-    	JTextField params = new JTextField();
+    	JTextField varName = new JTextField("");
+    	JTextField params = new JTextField("");
     	JButton submit = new JButton("SUBMIT");
+    	
+    	varName.setText("");
+    	params.setText("");
     	
     	inputs.add(new JLabel("Variable Name"));
     	inputs.add(varName);
@@ -211,6 +228,10 @@ public class Runner_v2 {
             	userCmds.add(currentCmdIdx, c);
             	//System.out.println(c.toString());
             	
+            	// Clear any old text
+            	varName.setText("");
+            	params.setText("");
+  	
             	// Close this window along with the command input window
             	cmdDetailsWindow.setVisible(false);
             	cmdInputWindow.setVisible(false);
@@ -225,6 +246,50 @@ public class Runner_v2 {
     	cmdDetailsWindow.getContentPane().add(submit, BorderLayout.SOUTH);
     	cmdDetailsWindow.pack();
     	cmdDetailsWindow.setVisible(true);
+    }
+    
+    private static void createForLoopSetupWindow() {
+    	forLoopSetupWindow.setPreferredSize(new Dimension(300,175));
+    	forLoopSetupWindow.setLocation(100,225);
+    	
+    	JPanel inputs = new JPanel();
+    	inputs.setLayout(new GridLayout(5,2));
+    	
+    	JTextField loopVarName = new JTextField("");
+    	JTextField startVal = new JTextField("");
+    	JTextField endVal = new JTextField("");
+    	JTextField incVal = new JTextField("");
+    	JTextField numCmds = new JTextField("");
+    	JButton submit = new JButton("SUBMIT");
+    	
+    	inputs.add(new JLabel("Loop variable name:"));
+    	inputs.add(loopVarName);
+    	inputs.add(new JLabel("Start value:"));
+    	inputs.add(startVal);
+    	inputs.add(new JLabel("End value (excl):"));
+    	inputs.add(endVal);
+    	inputs.add(new JLabel("Increment Value:"));
+    	inputs.add(incVal);
+    	inputs.add(new JLabel("Number of commands:"));
+    	inputs.add(numCmds);
+    	
+    	submit.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e){
+    			// Get all values from text fields
+    			String loopVar = loopVarName.getText();
+    			String start = startVal.getText();
+    			String end = endVal.getText();
+    			String inc = incVal.getText();
+    			int numCommands = Integer.parseInt(numCmds.getText());
+    			
+    			// Call command input window (tweak it first so that it can work with this)
+            }
+    	});
+    	
+    	forLoopSetupWindow.getContentPane().add(inputs, BorderLayout.NORTH);
+    	forLoopSetupWindow.getContentPane().add(submit, BorderLayout.SOUTH);
+    	forLoopSetupWindow.pack();
+    	forLoopSetupWindow.setVisible(true);
     }
 	
 	private static void removeCommandButton(int idx) {

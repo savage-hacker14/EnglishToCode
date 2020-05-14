@@ -13,10 +13,10 @@ public class Runner_v2 {
 	private static JFrame cmdInputWindow = new JFrame("Command Input");
 	private static JFrame cmdDetailsWindow = new JFrame("Command Details");
 	
-	private static String[] programParams;
-	private static CommandButton[] cmdButtons;
+	private static String[] programParams;				// 0 - Name, 1 - Language, 3 - Number of commands
+	private static CommandButton[] cmdButtons;			// Command buttons displayed in "Commands" window
 	
-	private static int currentCmdIdx;
+	private static int currentCmdIdx;					// Int used to control which command is being modified
 	private static String currentCmd = "";
 	private static String currentName = "";
 	private static String currentParams = "";

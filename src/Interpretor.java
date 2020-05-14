@@ -73,12 +73,13 @@ public class Interpretor {
 		
 		// Find type (only for var, list, arr. and mat)
 		String type = "";
+		System.out.println(paramStr);
 		
 		if (!command.equals("display")) {
 			// If the command is not "display"
 			if (!(command.equals("mat") || command.contentEquals("arr"))) {
 				// If the command is not "mat" or "arr"
-				if (containsANumber(paramStr) && inputNWS.indexOf(".") == -1) {
+				if (containsANumber(paramStr) && inputNWS.indexOf(".") == -1 && !hasMathOperations(paramStr)) {
 					// The line contains an integer
 					type = "int";
 					

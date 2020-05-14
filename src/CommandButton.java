@@ -11,26 +11,23 @@ public class CommandButton extends JButton {
 	private String cmd;
 	private String name;
 	private String params;
-	private Command c;
 	
 	public CommandButton(String str) {
 		super(str);
 		cmdNum = 0;
 	}
 	
-	public CommandButton(String str, String langToSet, int idx) {
+	public CommandButton(String str, int idx) {
 		super(str);
-		lang = langToSet;
 		cmdNum = idx;
 	}
 	
-	public void createCommand() {
+	public Command createCommand() {
 		String strToProcess = cmd + " " + name + " = " + params;
-		c = Interpretor.interpret(strToProcess, lang);
+		Command c = Interpretor.interpret(strToProcess, lang);
+		c.setLanguage(lang);
 		Interpretor.createLineOfCode(c);
-	}
-	
-	public Command getCommand() {
+		
 		return c;
 	}
 	
@@ -70,7 +67,11 @@ public class CommandButton extends JButton {
 		return params;
 	}
 	
-	public void SetParams(String p) {
+	public void setParams(String p) {
 		params = p;
+	}
+	
+	public void setLanguage(String language) {
+		lang = language;
 	}
 }

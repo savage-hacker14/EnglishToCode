@@ -36,6 +36,7 @@ public class Runner {
 			}
 			else {
 				// Create all necessary objects
+				//System.out.println(rawLine);
 				Command cmd = Interpretor.interpret(rawLine, lang);
 				cmd.setLanguage(lang);
 				Interpretor.createLineOfCode(cmd);

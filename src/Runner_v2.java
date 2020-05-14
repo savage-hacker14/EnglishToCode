@@ -3,6 +3,8 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class Runner_v2 {
@@ -11,6 +13,19 @@ public class Runner_v2 {
 	private static JFrame cmdInputWindow = new JFrame("Command Input");
 	private static JFrame cmdDetailsWindow = new JFrame("Command Details");
 	
+	private static String[] programParams;
+	private static CommandButton[] cmdButtons;
+	
+	private static int currentCmdIdx;
+	private static String currentCmd = "";
+	private static String currentName = "";
+	private static String currentParams = "";
+	
+	// Program variables
+	private static ArrayList<Command> userCmds = new ArrayList<Command>();
+	private static ArrayList<String> userIncludes = new ArrayList<String>();
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		createAndShowAllGUIs();
@@ -18,18 +33,18 @@ public class Runner_v2 {
 	
     private static void createAndShowAllGUIs() {       
         // Set up and display init window
-    	String[] programParams = createInitWindow();
+    	createInitWindow();
         initWindow.setPreferredSize(new Dimension(300,150));
         initWindow.pack();
         initWindow.setVisible(true);
     }
     
-    private static String[] createInitWindow() {
+    private static void createInitWindow() {
     	// Create and set up the window.
         initWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         // Create String array to store use inputs in GUI
-        String[] programParams = new String[3];
+        programParams = new String[3];
     	
     	// Create text field for necessary inputs on init window
     	JTextField nameofProgram = new JTextField();
@@ -61,49 +76,62 @@ public class Runner_v2 {
             	programParams[0] = nameofProgram.getText();
             	programParams[1] = (String)langDropDown.getSelectedItem();
             	programParams[2] = numCommands.getText();
-            	System.out.print(programParams[0] + "\t" + programParams[1] + "\t" + programParams[2] + "\n");
+            	//System.out.print(programParams[0] + "\t" + programParams[1] + "\t" + programParams[2] + "\n");
             	
             	// Close init window
             	initWindow.setVisible(false);
             	
             	// Open up command input window
-            	createCommandsWindow(programParams);
+            	createCommandsWindow();
             }
         });
     	
     	// Add JPanel to pane
     	initWindow.getContentPane().add(inputs, BorderLayout.NORTH);
     	initWindow.getContentPane().add(submit, BorderLayout.SOUTH);
-    	
-    	// Return program parameters
-    	return programParams;
     }
     
-    private static void createCommandsWindow(String[] programParams) {
+    private static void createCommandsWindow() {
     	// Set up the command window
     	cmdsWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	
-    	System.out.print(programParams[0] + "\t" + programParams[1] + "\t" + programParams[2] + "\n");
     	
     	// Create JPanel to put the add command buttons on
     	JPanel cmds = new JPanel();
     	
     	int numCommands = Integer.parseInt(programParams[2]);
-
-    	cmdsWindow.setPreferredSize(new Dimension(numCommands * 125,100));
+    	cmdButtons = new CommandButton[numCommands];
+    	userCmds = new ArrayList<Command>();
+    	for (int i = 0; i < numCommands; i++) {
+    		// Set size properly
+    		userCmds.add(new Command());
+    	}
+    	
+    	cmdsWindow.setPreferredSize(new Dimension(numCommands * 150,100));
     	
 	    cmds.setLayout(new GridLayout(1,numCommands));
 	    for (int i = 0; i < numCommands; i++ ) {
-	    	JButton addCmd = new JButton("+");
-	    	cmds.add(addCmd);
+	    	cmdButtons[i] = new CommandButton(Integer.toString(i), i);
 	    	
-	    	addCmd.addActionListener(new ActionListener(){
-	    		public void actionPerformed(ActionEvent e){
-	            	createCommandInputWindow();
-	            }
-	    	});
+	    	cmdButtons[i].addActionListener();
+	    	
+	    	cmds.add(cmdButtons[i]);
 	    }
-	    cmds.add(new JButton("EXPORT"));
+	    JButton export = new JButton("EXPORT");
+	    cmds.add(export);
+	    
+    	export.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e){
+    			Program p = new Program(userCmds, userIncludes);
+    			FileCreator f = new FileCreator(programParams[0], programParams[1], p);
+    			try {
+					f.createCodeFile();
+					System.exit(0);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+            }
+    	});
 	    
 	    cmdsWindow.getContentPane().add(cmds);
 	    cmdsWindow.setLocation(100, 0);
@@ -112,7 +140,11 @@ public class Runner_v2 {
 	    cmdsWindow.setVisible(true);
     }
     
-    private static void createCommandInputWindow() {
+    public static void createCommandInputWindow(int idx) {
+    	System.out.println("cmdInputWindow " + idx);
+    	
+    	currentCmdIdx = idx;
+    	
     	JPanel inputs = new JPanel();
     	inputs.setLayout(new GridLayout(2,2));
     	
@@ -121,9 +153,9 @@ public class Runner_v2 {
     	
     	submit.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){
-            	String cmd = (String)cmds.getSelectedItem();
+            	currentCmd = (String)cmds.getSelectedItem();
             	
-            	if (!(cmd.equals("ForLoop") || cmd.equals("If"))) {
+            	if (!(currentCmd.equals("ForLoop") || currentCmd.equals("If"))) {
             		createRegCommandDetailWindow();
             	}
             }
@@ -142,12 +174,12 @@ public class Runner_v2 {
     	cmdInputWindow.setVisible(true);
     }
     
-    private static String[] createRegCommandDetailWindow() {
+    private static void createRegCommandDetailWindow() {
+    	System.out.println("regCmdDetailWindow " + currentCmdIdx);
+    	
     	//cmdDetailsWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	cmdDetailsWindow.setPreferredSize(new Dimension(300,110));
     	cmdDetailsWindow.setLocation(100,225);
-    	
-    	String[] output = new String[2];
     	
     	JPanel inputs = new JPanel();
     	inputs.setLayout(new GridLayout(2,2));
@@ -164,12 +196,28 @@ public class Runner_v2 {
     	// Add action listener for submit button
     	submit.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-            	output[0] = varName.getText();
-            	output[1] = params.getText();
+            	currentName = varName.getText();
+            	currentParams = params.getText();
+            	
+            	// Set instance variables of command button
+            	cmdButtons[currentCmdIdx].setCmdNum(currentCmdIdx);
+            	cmdButtons[currentCmdIdx].setCommand(currentCmd);
+            	cmdButtons[currentCmdIdx].setName(currentName);
+            	cmdButtons[currentCmdIdx].setParams(currentParams);
+            	cmdButtons[currentCmdIdx].setLanguage(programParams[1]);
+            	
+            	// Now process command
+            	Command c = cmdButtons[currentCmdIdx].createCommand();
+            	userCmds.add(currentCmdIdx, c);
+            	//System.out.println(c.toString());
             	
             	// Close this window along with the command input window
             	cmdDetailsWindow.setVisible(false);
             	cmdInputWindow.setVisible(false);
+            	
+            	// Remove + button and replace it with toString string
+            	//removeCommandButton(idx);
+            	cmdButtons[currentCmdIdx].setVisible(false);
             }
         });
     	
@@ -177,8 +225,33 @@ public class Runner_v2 {
     	cmdDetailsWindow.getContentPane().add(submit, BorderLayout.SOUTH);
     	cmdDetailsWindow.pack();
     	cmdDetailsWindow.setVisible(true);
-	    
-	    return output;
     }
-
+	
+	private static void removeCommandButton(int idx) {
+		System.out.println("removing button");
+		
+		Container newPane = new Container();
+		JPanel newButtons = new JPanel();
+		int numCommands = Integer.parseInt(programParams[2]);
+		newButtons.setLayout(new GridLayout(1, numCommands));
+		
+		int counter = 0;
+		for (int i = 0; i < numCommands; i++) {
+			if (i == idx) {
+				newButtons.add(new JLabel(userCmds.get(idx).getLineOfCode()));
+			}
+			else {
+				CommandButton cb = new CommandButton("+", idx);
+				cb.addActionListener();
+				newButtons.add(cb);
+			}
+		}
+		newPane.add(newButtons);
+		
+		cmdsWindow.removeAll();
+		cmdsWindow.getContentPane().add(newPane);
+		cmdsWindow.setVisible(false);
+		cmdsWindow.repaint();
+		cmdsWindow.setVisible(true);
+	}
 }

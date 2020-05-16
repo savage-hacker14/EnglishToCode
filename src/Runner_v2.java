@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardEndHandler;
 
 public class Runner_v2 {
 	private static JFrame initWindow = new JFrame("Init Window");
@@ -79,6 +80,7 @@ public class Runner_v2 {
     	inputs.add(numCommands);
     	
     	// Add ActionListener for submit button
+    	
         submit.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
             	// Get data from user
@@ -94,6 +96,8 @@ public class Runner_v2 {
             	createCommandsWindow();
             }
         });
+        submit.setMnemonic('X');
+
     	
     	// Add JPanel to pane
     	initWindow.getContentPane().add(inputs, BorderLayout.NORTH);
@@ -174,6 +178,7 @@ public class Runner_v2 {
             	}
             }
     	});
+    	submit.setMnemonic('X');
     	
     	inputs.add(new JLabel("Command:"));
     	inputs.add(cmds);
@@ -241,6 +246,7 @@ public class Runner_v2 {
             	cmdButtons[currentCmdIdx].setVisible(false);
             }
         });
+    	submit.setMnemonic('X');
     	
     	cmdDetailsWindow.getContentPane().add(inputs, BorderLayout.NORTH);
     	cmdDetailsWindow.getContentPane().add(submit, BorderLayout.SOUTH);
@@ -283,40 +289,18 @@ public class Runner_v2 {
     			int numCommands = Integer.parseInt(numCmds.getText());
     			
     			// Call command input window (tweak it first so that it can work with this)
+    			//createSubCommandsWindow("ForLoop", numCommands);
             }
     	});
+    	submit.setMnemonic('X');
     	
     	forLoopSetupWindow.getContentPane().add(inputs, BorderLayout.NORTH);
     	forLoopSetupWindow.getContentPane().add(submit, BorderLayout.SOUTH);
     	forLoopSetupWindow.pack();
     	forLoopSetupWindow.setVisible(true);
     }
-	
-	private static void removeCommandButton(int idx) {
-		System.out.println("removing button");
-		
-		Container newPane = new Container();
-		JPanel newButtons = new JPanel();
-		int numCommands = Integer.parseInt(programParams[2]);
-		newButtons.setLayout(new GridLayout(1, numCommands));
-		
-		int counter = 0;
-		for (int i = 0; i < numCommands; i++) {
-			if (i == idx) {
-				newButtons.add(new JLabel(userCmds.get(idx).getLineOfCode()));
-			}
-			else {
-				CommandButton cb = new CommandButton("+", idx);
-				cb.addActionListener();
-				newButtons.add(cb);
-			}
-		}
-		newPane.add(newButtons);
-		
-		cmdsWindow.removeAll();
-		cmdsWindow.getContentPane().add(newPane);
-		cmdsWindow.setVisible(false);
-		cmdsWindow.repaint();
-		cmdsWindow.setVisible(true);
-	}
+    
+    private static void createIfElseSetupWindow() {
+    	
+    }
 }

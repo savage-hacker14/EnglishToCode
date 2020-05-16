@@ -8,25 +8,23 @@ import javax.swing.JButton;
 public class CommandButton extends JButton {
 	private int cmdNum;			// This stores the command number for the CommandButton
 	private String lang;
-	private String cmd;
-	private String name;
-	private String params;
+	private Command c;
 	
 	public CommandButton(String str) {
 		super(str);
 		cmdNum = 0;
 	}
 	
-	public CommandButton(String str, int idx) {
+	public CommandButton(String str, String langToSet, int idx) {
 		super(str);
+		lang = langToSet;
 		cmdNum = idx;
 	}
 	
 	public Command createCommand() {
-		String strToProcess = cmd + " " + name + " = " + params;
-		Command c = Interpretor.interpret(strToProcess, lang);
 		c.setLanguage(lang);
 		Interpretor.createLineOfCode(c);
+		//System.out.println(c.toString());
 		
 		return c;
 	}
@@ -51,27 +49,7 @@ public class CommandButton extends JButton {
 		cmdNum = num;
 	}
 	
-	public void setCommand(String command) {
-		cmd = command;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String nameToSet) {
-		name = nameToSet;
-	}
-	
-	public String getParams() {
-		return params;
-	}
-	
-	public void setParams(String p) {
-		params = p;
-	}
-	
-	public void setLanguage(String language) {
-		lang = language;
+	public void setCommand(Command cToSet) {
+		c = cToSet;
 	}
 }

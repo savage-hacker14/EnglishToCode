@@ -86,6 +86,14 @@ public class Command {
 	}
 	
 	/**
+	 * Sets the name of the command (e.g a variable name)
+	 * @param nameToSet
+	 */
+	public void setName(String nameToSet) {
+		name = nameToSet;
+	}
+	
+	/**
 	 * Get the name of the command (in the proper language) 
 	 * Used for code generation
 	 * @return lineOfCode

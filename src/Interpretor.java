@@ -72,67 +72,7 @@ public class Interpretor {
 		}
 		
 		// Find type (only for var, list, arr. and mat)
-		String type = "";
-		System.out.println(paramStr);
-		
-		if (!command.equals("display")) {
-			// If the command is not "display"
-			if (!(command.equals("mat") || command.contentEquals("arr"))) {
-				// If the command is not "mat" or "arr"
-				if (containsANumber(paramStr) && inputNWS.indexOf(".") == -1 && !hasMathOperations(paramStr)) {
-					// The line contains an integer
-					type = "int";
-					
-				}
-				else if ((containsANumber(paramStr) && inputNWS.indexOf(".") != -1) || 
-						 (command.equals("var") && hasMathOperations(paramStr))) {
-					// The line contains a double or float
-					type = "double";
-				}
-				else {
-					// The line contains a string (i.e "ab") 
-					type = "String";
-					
-					// HOWEVER THIS MAY BE CONFUSED WITH JUST REGULAR EXPRESSIONS
-					// So add this
-					if (command.equals("")) {
-						type = "";
-					}
-				}
-			}
-			else {
-				// Command is "mat" or "arr"
-				if (command.equals("mat")) {
-					if (Character.isDigit(paramStr.charAt(2)) && paramStr.indexOf(".") == -1) {
-						// Integers only
-						type = "int[][]";
-					}
-					else if (Character.isDigit(paramStr.charAt(2)) && paramStr.indexOf(".") != -1) {
-						// There is a double somewhere in the mat definition
-						type = "double[][]";
-					}
-					else {
-						// The mat is a mat of strings
-						type = "String[][]";
-					}
-				}
-				else {
-					// "arr" command
-					if (Character.isDigit(paramStr.charAt(1)) && paramStr.indexOf(".") == -1) {
-						// Integers only
-						type = "int[]";
-					}
-					else if (Character.isDigit(paramStr.charAt(1)) && paramStr.indexOf(".") != -1) {
-						// There is a double somewhere in the arr definition
-						type = "double[]";
-					}
-					else {
-						// The array is a array of strings
-						type = "String[]";
-					}
-				}
-			}
-		}
+		String type = findType(command, paramStr, inputNWS);	
 		
 		if (command.equals("ForLoop")) {
 			return interpretForLoop(input, lang, 0);
@@ -888,6 +828,71 @@ public class Interpretor {
 		}
 		
 		return new Function(cmdList, name, params, returnVal);
+	}
+	
+	public static String findType(String command, String paramStr, String inputNWS) {
+		String type = "";
+		
+		if (!command.equals("display")) {
+			// If the command is not "display"
+			if (!(command.equals("mat") || command.contentEquals("arr"))) {
+				// If the command is not "mat" or "arr"
+				if (containsANumber(paramStr) && inputNWS.indexOf(".") == -1 && !hasMathOperations(paramStr)) {
+					// The line contains an integer
+					type = "int";
+					
+				}
+				else if ((containsANumber(paramStr) && inputNWS.indexOf(".") != -1) || 
+						 (command.equals("var") && hasMathOperations(paramStr))) {
+					// The line contains a double or float
+					type = "double";
+				}
+				else {
+					// The line contains a string (i.e "ab") 
+					type = "String";
+					
+					// HOWEVER THIS MAY BE CONFUSED WITH JUST REGULAR EXPRESSIONS
+					// So add this
+					if (command.equals("")) {
+						type = "";
+					}
+				}
+			}
+			else {
+				// Command is "mat" or "arr"
+				if (command.equals("mat")) {
+					if (Character.isDigit(paramStr.charAt(2)) && paramStr.indexOf(".") == -1) {
+						// Integers only
+						type = "int[][]";
+					}
+					else if (Character.isDigit(paramStr.charAt(2)) && paramStr.indexOf(".") != -1) {
+						// There is a double somewhere in the mat definition
+						type = "double[][]";
+					}
+					else {
+						// The mat is a mat of strings
+						type = "String[][]";
+					}
+				}
+				else {
+					// "arr" command
+					if (Character.isDigit(paramStr.charAt(1)) && paramStr.indexOf(".") == -1) {
+						// Integers only
+						type = "int[]";
+					}
+					else if (Character.isDigit(paramStr.charAt(1)) && paramStr.indexOf(".") != -1) {
+						// There is a double somewhere in the arr definition
+						type = "double[]";
+					}
+					else {
+						// The array is a array of strings
+						type = "String[]";
+					}
+				}
+			}
+		}
+		
+		return type;
 	}
 	
 	/**

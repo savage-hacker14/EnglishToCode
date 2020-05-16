@@ -6,7 +6,6 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardEndHandler;
 
 public class Runner_v2 {
 	private static JFrame initWindow = new JFrame("Init Window");
@@ -27,9 +26,7 @@ public class Runner_v2 {
 	private static CommandButton[] cmdButtons;			// Command buttons displayed in "Commands" window
 	
 	private static int currentCmdIdx;					// Int used to control which command is being modified
-	private static String currentCmd = "";
-	private static String currentName = "";
-	private static String currentParams = "";
+	private static Command currentCommand = new Command();
 	
 	// Program variables
 	private static ArrayList<Command> userCmds = new ArrayList<Command>();
@@ -123,7 +120,7 @@ public class Runner_v2 {
     	
 	    cmds.setLayout(new GridLayout(1,numCommands));
 	    for (int i = 0; i < numCommands; i++ ) {
-	    	cmdButtons[i] = new CommandButton(Integer.toString(i), i);
+	    	cmdButtons[i] = new CommandButton(Integer.toString(i), programParams[1], i);
 	    	
 	    	cmdButtons[i].addActionListener();
 	    	
@@ -166,13 +163,13 @@ public class Runner_v2 {
     	
     	submit.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){
-            	currentCmd = (String)cmds.getSelectedItem();
+    			currentCommand.setCommand((String)cmds.getSelectedItem());
             	
-            	if (!(currentCmd.equals("ForLoop") || currentCmd.equals("If"))) {
+            	if (!(currentCommand.getCommand().equals("ForLoop") || currentCommand.getCommand().equals("If"))) {
             		createRegCommandDetailWindow();
             	}
             	else {
-            		if (currentCmd.equals("ForLoop")) {
+            		if (currentCommand.getCommand().equals("ForLoop")) {
             			createForLoopSetupWindow();
             		}
             	}
@@ -218,20 +215,22 @@ public class Runner_v2 {
     	// Add action listener for submit button
     	submit.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-            	currentName = varName.getText();
-            	currentParams = params.getText();
+            	currentCommand.setName(varName.getText());
+            	currentCommand.setParameters(params.getText());
+            	currentCommand.setType(Interpretor.findType(currentCommand.getCommand(), currentCommand.getParameters(), currentCommand.getParameters()));
+            	
+            	System.out.println(currentCmdIdx);
             	
             	// Set instance variables of command button
             	cmdButtons[currentCmdIdx].setCmdNum(currentCmdIdx);
-            	cmdButtons[currentCmdIdx].setCommand(currentCmd);
-            	cmdButtons[currentCmdIdx].setName(currentName);
-            	cmdButtons[currentCmdIdx].setParams(currentParams);
-            	cmdButtons[currentCmdIdx].setLanguage(programParams[1]);
+            	cmdButtons[currentCmdIdx].setCommand(currentCommand);
             	
             	// Now process command
             	Command c = cmdButtons[currentCmdIdx].createCommand();
-            	userCmds.add(currentCmdIdx, c);
-            	//System.out.println(c.toString());
+            	System.out.println("setting command");
+            	userCmds.set(currentCmdIdx, c);
+            	
+            	System.out.println(userCmds.toString());
             	
             	// Clear any old text
             	varName.setText("");
@@ -244,6 +243,9 @@ public class Runner_v2 {
             	// Remove + button and replace it with toString string
             	//removeCommandButton(idx);
             	cmdButtons[currentCmdIdx].setVisible(false);
+            	
+            	// Clear old command data
+            	currentCommand = new Command();
             }
         });
     	submit.setMnemonic('X');

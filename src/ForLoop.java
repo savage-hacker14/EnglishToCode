@@ -63,8 +63,9 @@ public class ForLoop extends Command {
 		setType(type);
 	}
 	
-	public void setIndentLevel(int i) {
+	public void setIndentLevels(int i) {
 		super.setIndentLevel(i);
+
 		for (int j = 0; j < commands.size(); j++) {
 			commands.get(j).setIndentLevel(i + 1);
 		}
@@ -78,12 +79,23 @@ public class ForLoop extends Command {
 		return commands;
 	}
 	
+	public void setNumCommands(int numCmds) {
+		commands = new ArrayList<Command>(numCmds);
+		for (int i = 0; i < numCmds; i++) {
+			commands.add(new Command());
+		}
+	}
+	
 	/**
 	 * This method returns the size of the commands instance variable
 	 * @return The size of the commands ArrayList (the number of commands to be placed in the for loop)
 	 */
 	public int getNumCommands() {
 		return commands.size();
+	}
+	
+	public void setLoopVar(String varName) {
+		loopVar = varName;
 	}
 	
 	/**
@@ -94,12 +106,20 @@ public class ForLoop extends Command {
 		return loopVar;
 	}
 	
+	public void setStart(String value) {
+		start = value;
+	}
+	
 	/**
 	 * This method returns the start instance variable
 	 * @return The number on which the looping variable starts at
 	 */
 	public String getStart() {
 		return start;
+	}
+	
+	public void setEnd(String endToSet) {
+		end = endToSet;
 	}
 	
 	/**
@@ -110,11 +130,19 @@ public class ForLoop extends Command {
 		return end;
 	}
 	
+	public void setIncrement(String incToSet) {
+		increment = incToSet;
+	}
+	
 	/**
 	 * This methods return the increment variable
 	 * @return The number at which the looping variable is incremented during each iteration of the for loop
 	 */
 	public String getIncrement() {
 		return increment;
+	}
+
+	public void setCommand(int pos, Command c) {
+		commands.set(pos, c);
 	}
 }

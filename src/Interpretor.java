@@ -895,6 +895,21 @@ public class Interpretor {
 		return type;
 	}
 	
+	public static String findForLoopType(String startStr) {
+		String type = "";
+		
+		if (startStr.indexOf(".") != -1 || startStr.indexOf(".") != -1) {
+			// period detected in either
+			type = "double";
+		}
+		if (startStr.indexOf(".") == -1 && startStr.indexOf(".") == -1) {
+			// No period detected in both start and end strings
+			type = "int";
+		}
+		
+		return type;
+	}
+	
 	/**
 	 * Helper method to find the indexes/locations of all the commas in a given string
 	 * This comes in handy when parsing strings that are part of the ForLoop command or Function object

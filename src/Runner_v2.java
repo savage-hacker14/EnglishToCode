@@ -29,6 +29,7 @@ public class Runner_v2 {
 	private static int currentCmdIdx;					// Int used to control which command is being modified
 	private static String currentCmdType;			
 	private static boolean isSubCmd;
+	private static boolean firstClick = true;
 	private static String currentCommandString = "";	// STICK TO STRING BUILDING AND NOT OBJECT MUTATIONS FOR COMMAND PROCESSING
 	
 	// Program variables
@@ -284,8 +285,8 @@ public class Runner_v2 {
     	inputs.add(new JLabel("Add commands:"));
     	inputs.add(addCmds);
     	
-    	// Add placeholder to command string for parameters
-    	currentCommandString += "&&&";
+    	// First addCmd click coming
+    	firstClick = true;
     	
     	submit.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){
@@ -295,15 +296,18 @@ public class Runner_v2 {
     			String end = endVal.getText();
     			String inc = incVal.getText();
     			
-    			// Fill the place holder with for loop parameters
-    			String flParamStr = "(\"" + loopVar + "\"" + "," + start + "," + end + "," + inc + ")(";
-    			currentCommandString = currentCommandString.replaceAll("&&&", flParamStr);
-    			
     			// Add final parenthesis
-    			currentCommandString += ")";
+    			int numLeftParenthesis = numOcurranceOfChar('(', currentCommandString);
+    			int numRightParenthesis = numOcurranceOfChar(')', currentCommandString);
+    			int missingRight = numLeftParenthesis - numRightParenthesis;
+    			for (int i = 0; i < missingRight; i++) {
+        			currentCommandString += ")";
+    			}
     			
     			// Clean up final semicolon from last sub command
     			currentCommandString = currentCommandString.replaceAll(";\\)", "\\)");
+    			
+    			System.out.println(currentCommandString);
     			
             	// Create Command object from currentCommandString
             	Command c = Interpretor.interpret(currentCommandString, programParams[1]);
@@ -338,6 +342,15 @@ public class Runner_v2 {
     	
     	addCmds.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){
+    			if (firstClick) {
+        			String loopVar = loopVarName.getText();
+        			String start = startVal.getText();
+        			String end = endVal.getText();
+        			String inc = incVal.getText();
+    				
+    				currentCommandString += "(\"" + loopVar + "\"" + "," + start + "," + end + "," + inc + ")(";
+    				firstClick = false;
+    			}
     			createCommandInputWindow();
             }
     	});
@@ -350,5 +363,16 @@ public class Runner_v2 {
     
     private static void createIfElseSetupWindow() {
     	
+    }
+    
+    private static int numOcurranceOfChar(char c, String str) {
+    	int num = 0;
+    	for (int i = 0; i < str.length(); i++) {
+    		if (str.charAt(i) == c) {
+    			num++;
+    		}
+    	}
+    	
+    	return num;
     }
 }

@@ -29,25 +29,12 @@ public class CommandButton extends JButton {
 		return c;
 	}
 	
-	public void addActionListener(String commandType) {
-		ActionListener al = null;
-		
-		if (commandType.equals("RegCommand")) {
-			al = new ActionListener(){
-	            public void actionPerformed(ActionEvent e){
-	            	Runner_v2.createCommandInputWindow(cmdNum, "RegCommand");
-	            }
-	        };
-		}
-		else {
-			if (commandType.equals("ForLoop")) {
-				al = new ActionListener(){
-		            public void actionPerformed(ActionEvent e){
-		            	Runner_v2.createCommandInputWindow(cmdNum, "ForLoop");
-		            }
-		        };
-			}
-		}
+	public void addActionListener() {
+		ActionListener al = new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+            	Runner_v2.createCommandInputWindow();
+            }
+        };
 		
         super.addActionListener(al);
 	}

@@ -15,7 +15,7 @@ public class Runner_v2 {
 	private static JFrame cmdDetailsWindow = new JFrame("Command Details");
 	
 	private static JFrame forLoopSetupWindow = new JFrame("For Loop Setup");
-	private static JFrame forLoopCmdsWindow = new JFrame("For Loop Commands");
+	//private static JFrame[] forLoopCmdsWindow = new JFrame[5];  // This is an array bc there can be nested for loops
 	
 	private static JFrame ifElseSetupWindow = new JFrame("If Else Setup");
 	private static JFrame ifElseTrueCmdsWindow = new JFrame("If Else True Commands");
@@ -24,12 +24,12 @@ public class Runner_v2 {
 	
 	private static String[] programParams;				// 0 - Name, 1 - Language, 3 - Number of commands
 	private static CommandButton[] cmdButtons;			// Command buttons displayed in "Commands" window
-	private static CommandButton[] subCmdButtons;
+	private static CommandButton[][] subCmdButtons;		// 2D array because nested commands each have a set of command buttons
 	
 	private static int currentCmdIdx;					// Int used to control which command is being modified
-	private static String currentCommandType = "";
-	private static Command currentCommand = new Command();
-	private static Command currentSubCommand = new Command();
+	private static String currentCmdType;			
+	private static boolean isSubCmd;
+	private static String currentCommandString = "";	// STICK TO STRING BUILDING AND NOT OBJECT MUTATIONS FOR COMMAND PROCESSING
 	
 	// Program variables
 	private static ArrayList<Command> userCmds = new ArrayList<Command>();
@@ -125,8 +125,7 @@ public class Runner_v2 {
 	    for (int i = 0; i < numCommands; i++ ) {
 	    	cmdButtons[i] = new CommandButton(Integer.toString(i), programParams[1], i);
 	    	
-	    	currentCommandType = "RegCommand";
-	    	cmdButtons[i].addActionListener(currentCommandType);
+	    	cmdButtons[i].addActionListener();
 	    	
 	    	cmds.add(cmdButtons[i]);
 	    }
@@ -154,13 +153,7 @@ public class Runner_v2 {
 	    cmdsWindow.setVisible(true);
     }
     
-    public static void createCommandInputWindow(int idx, String commandType) {
-    	//System.out.println("cmdInputWindow " + idx);
-    	System.out.println("cmdInputWindow " + commandType);
-    	
-    	currentCmdIdx = idx;
-    	currentCommandType = commandType;
-    	
+    public static void createCommandInputWindow() {   	
     	JPanel inputs = new JPanel();
     	inputs.setLayout(new GridLayout(2,2));
     	
@@ -169,31 +162,18 @@ public class Runner_v2 {
     	
     	submit.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){
-    			if (currentCommandType.equals("RegCommand")) {
-    				currentCommand.setCommand((String)cmds.getSelectedItem());
-    				
-                	if (!(currentCommand.getCommand().equals("ForLoop") || currentCommand.getCommand().equals("If"))) {
-                		createRegCommandDetailWindow();
-                	}
-                	else {
-                		if (currentCommand.getCommand().equals("ForLoop")) {
-                			createForLoopSetupWindow();
-                		}
-                	}
+    			String cmd = (String)cmds.getSelectedItem();
+    			currentCmdType = cmd;
+    			
+    			currentCommandString += (String)cmds.getSelectedItem();
+    			
+    			if (!(cmd.equals("ForLoop"))) {
+        			createRegCommandDetailWindow();
     			}
-				// Never getting into this loop wtf
-				if (currentCommandType.equals("ForLoop")) {
-					currentSubCommand.setCommand((String)cmds.getSelectedItem());
-					
-                	if (!(currentSubCommand.getCommand().equals("ForLoop") || currentSubCommand.getCommand().equals("If"))) {
-                		createRegCommandDetailWindow();
-                	}
-                	else {
-                		if (currentSubCommand.getCommand().equals("ForLoop")) {
-                			createForLoopSetupWindow();
-                		}
-                	}
-				}
+    			else {
+    				createForLoopSetupWindow();
+    				isSubCmd = true;
+    			}
 			}
     	});
     	submit.setMnemonic('X');
@@ -213,8 +193,7 @@ public class Runner_v2 {
     
     private static void createRegCommandDetailWindow() {
     	//System.out.println("regCmdDetailWindow " + currentCmdIdx);
-    	System.out.println("cmdDetailsWindow " + currentCommandType);
-    	
+
     	//cmdDetailsWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	cmdDetailsWindow.setPreferredSize(new Dimension(300,110));
     	cmdDetailsWindow.setLocation(100,225);
@@ -236,84 +215,40 @@ public class Runner_v2 {
     	
     	// Add action listener for submit button
     	submit.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){        	
-            	if (currentCommandType.equals("RegCommand")) {
-                	currentCommand.setName(varName.getText());
-                	currentCommand.setParameters(params.getText());
-                	currentCommand.setType(Interpretor.findType(currentCommand.getCommand(), currentCommand.getParameters(), currentCommand.getParameters()));
-            		
-                	// Set instance variables of command button
-                	cmdButtons[currentCmdIdx].setCmdNum(currentCmdIdx);
-                	cmdButtons[currentCmdIdx].setCommand(currentCommand);
-            		
-                	Command c = cmdButtons[currentCmdIdx].createCommand();
-                	
-	            	// Only add regular commands to the userCmds array list
-	            	userCmds.set(currentCmdIdx, c);
-	            	
-	            	// Close this window along with the command input window
-	            	cmdDetailsWindow.setVisible(false);
-	            	cmdInputWindow.setVisible(false);
-	            	
-	            	// Remove + button and replace it with toString string
-	            	//removeCommandButton(idx);
-	            	cmdButtons[currentCmdIdx].setVisible(false);
+            public void actionPerformed(ActionEvent e){  
+            	if (currentCmdType.equals("var")) {
+            		currentCommandString += " " + varName.getText() + " = " + params.getText();
             	}
-        		if (currentCommandType.equals("ForLoop")) {            			
-                	currentSubCommand.setName(varName.getText());
-                	currentSubCommand.setParameters(params.getText());
-                	currentSubCommand.setType(Interpretor.findType(currentSubCommand.getCommand(), currentSubCommand.getParameters(), currentSubCommand.getParameters()));
-            		
-                	// Set instance variables of command button
-                	subCmdButtons[currentCmdIdx].setCmdNum(currentCmdIdx);
-                	subCmdButtons[currentCmdIdx].setCommand(currentSubCommand);
-            		
-                	Command c = subCmdButtons[currentCmdIdx].createCommand();
+            	else if (currentCmdType.equals("display")) {
+            		currentCommandString += " " + varName.getText() + params.getText();
+            	}
+            	
+            	if (currentCommandString.indexOf("ForLoop") != -1) {
+            		currentCommandString += ";";
+            	}
+            	
+    			System.out.println(currentCommandString);       	
+            	
+    			if (!isSubCmd) {
+                	// Create Command object from currentCommandString
+                	Command c = Interpretor.interpret(currentCommandString, programParams[1]);
+                	c.setLanguage(programParams[1]);
+                	Interpretor.createLineOfCode(c);
+                		
+                	// Only add regular commands to the userCmds array list
+                	userCmds.set(currentCmdIdx, c);
                 	
-        			// Add the the sub command to the commands array list of the ForLoop object
-        			((ForLoop) currentCommand).setCommand(currentCmdIdx, c);
-        			
-        			//Command flCmd = currentCommand;
-        			
-	            	// Close this window along with the command input window
-	            	cmdDetailsWindow.setVisible(false);
-	            	cmdInputWindow.setVisible(false);
-	            	
-	            	// Remove + button and replace it with toString string
-	            	subCmdButtons[currentCmdIdx].setVisible(false);
-	            	
-	            	// Hide ForLoop command button in main commands menu once all sub commands are inputted
-	            	if (currentCmdIdx == subCmdButtons.length - 1) {
-	            		cmdButtons[currentCmdIdx].setVisible(false);
-	            		
-	            		// Properly indent the ForLoop command and its sub commands
-	           			currentCommand.setLanguage(programParams[1]);
-	        			String lan = currentCommand.getLanguage();
-	        			if (lan.equals("java")) {
-	        				((ForLoop) currentCommand).setIndentLevels(2);
-	        			}
-	        			else if (lan.equals("c++")) {
-	        				((ForLoop) currentCommand).setIndentLevels(1);
-	        			}
-	        			else {
-	        				// Python
-	        				((ForLoop) currentCommand).setIndentLevels(0);
-	        			}
-	        			
-	        			// Create lines of code for ForLoop object
-	        			Interpretor.createLineOfCode(currentCommand);
-	            		
-	        			// Add ForLoop command to the main program commands list
-	            		userCmds.set(currentCmdIdx, currentCommand);
-	            	}
-        		}
-        	
+                	// Clear old command data
+                	currentCommandString = "";
+                	currentCmdType = "";
+                	isSubCmd = false;
+    			}
+    			
+            	cmdDetailsWindow.setVisible(false);
+            	
             	// Clear any old text
             	varName.setText("");
             	params.setText("");
-            	
-            	// Clear old command data
-            	currentCommand = new Command();
             }
         });
     	submit.setMnemonic('X');
@@ -325,7 +260,7 @@ public class Runner_v2 {
     }
     
     private static void createForLoopSetupWindow() {
-    	forLoopSetupWindow.setPreferredSize(new Dimension(300,175));
+    	forLoopSetupWindow.setPreferredSize(new Dimension(300,200));
     	forLoopSetupWindow.setLocation(100,225);
     	
     	JPanel inputs = new JPanel();
@@ -335,7 +270,7 @@ public class Runner_v2 {
     	JTextField startVal = new JTextField("");
     	JTextField endVal = new JTextField("");
     	JTextField incVal = new JTextField("");
-    	JTextField numCmds = new JTextField("");
+    	JButton addCmds = new JButton("+");
     	JButton submit = new JButton("SUBMIT");
     	
     	inputs.add(new JLabel("Loop variable name:"));
@@ -346,64 +281,71 @@ public class Runner_v2 {
     	inputs.add(endVal);
     	inputs.add(new JLabel("Increment Value:"));
     	inputs.add(incVal);
-    	inputs.add(new JLabel("Number of commands:"));
-    	inputs.add(numCmds);
+    	inputs.add(new JLabel("Add commands:"));
+    	inputs.add(addCmds);
+    	
+    	// Add placeholder to command string for parameters
+    	currentCommandString += "&&&";
     	
     	submit.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){
-    			// Get all values from text fields
+	   			// Get all values from text fields
     			String loopVar = loopVarName.getText();
     			String start = startVal.getText();
     			String end = endVal.getText();
     			String inc = incVal.getText();
-    			int numCommands = Integer.parseInt(numCmds.getText());
     			
-    			// Set up basics for ForLoop
-    			currentCommand = new ForLoop();
-    			currentCommand.setLanguage(programParams[1]);
+    			// Fill the place holder with for loop parameters
+    			String flParamStr = "(\"" + loopVar + "\"" + "," + start + "," + end + "," + inc + ")(";
+    			currentCommandString = currentCommandString.replaceAll("&&&", flParamStr);
     			
-    			((ForLoop) currentCommand).setLoopVar(loopVar);
-    			((ForLoop) currentCommand).setStart(start);
-    			((ForLoop) currentCommand).setEnd(end);
-    			((ForLoop) currentCommand).setIncrement(inc);
-    			((ForLoop) currentCommand).setNumCommands(numCommands);
-    			currentCommand.setType(Interpretor.findForLoopType(start));
+    			// Add final parenthesis
+    			currentCommandString += ")";
     			
-    			// Call command input window (tweak it first so that it can work with this)
-    			createSubCommandsWindow("ForLoop", numCommands);
+    			// Clean up final semicolon from last sub command
+    			currentCommandString = currentCommandString.replaceAll(";\\)", "\\)");
+    			
+            	// Create Command object from currentCommandString
+            	Command c = Interpretor.interpret(currentCommandString, programParams[1]);
+            	c.setLanguage(programParams[1]);
+            	Interpretor.createLineOfCode(c);
+            		
+            	// Add command to the userCmds array list
+            	userCmds.set(currentCmdIdx, c);
+            	
+            	currentCommandString = "";
+            	currentCmdType = "";
+            	isSubCmd = false;
+    			
+            	// Clear any old text
+            	loopVarName.setText("");
+            	startVal.setText("");
+            	endVal.setText("");
+            	incVal.setText("");
+            	
+            	// Close this window
+            	forLoopSetupWindow.setVisible(false);
+            	
+            	// Close the command input window
+            	cmdInputWindow.setVisible(false);
+            	
+            	// Remove + button and replace it with toString string
+            	//removeCommandButton(idx);
+            	cmdButtons[currentCmdIdx].setVisible(false);
             }
     	});
     	submit.setMnemonic('X');
     	
+    	addCmds.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e){
+    			createCommandInputWindow();
+            }
+    	});
+
     	forLoopSetupWindow.getContentPane().add(inputs, BorderLayout.NORTH);
     	forLoopSetupWindow.getContentPane().add(submit, BorderLayout.SOUTH);
     	forLoopSetupWindow.pack();
     	forLoopSetupWindow.setVisible(true);
-    }
-    
-    private static void createSubCommandsWindow(String subCmdType, int numCommands) {
-    	// Create JPanel to put the add command buttons on
-    	JPanel cmds = new JPanel();
-    	
-    	if (subCmdType.equals("ForLoop")) {       	
-      	  	subCmdButtons = new CommandButton[numCommands];
-        	
-        	forLoopCmdsWindow.setPreferredSize(new Dimension(numCommands * 150,100));
-        	
-    	    cmds.setLayout(new GridLayout(1,numCommands));
-    	    for (int i = 0; i < numCommands; i++ ) {
-    	    	subCmdButtons[i] = new CommandButton(Integer.toString(i), programParams[1], i);
-    	    	
-    	    	subCmdButtons[i].addActionListener("ForLoop");
-    	    	
-    	    	cmds.add(subCmdButtons[i]);
-    	    }
-    	}
-    	
-    	forLoopCmdsWindow.getContentPane().add(cmds);
-    	forLoopCmdsWindow.setLocation(100,400);
-    	forLoopCmdsWindow.pack();
-    	forLoopCmdsWindow.setVisible(true);
     }
     
     private static void createIfElseSetupWindow() {

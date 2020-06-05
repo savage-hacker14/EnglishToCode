@@ -583,7 +583,7 @@ public class Interpretor {
 		}
 		
 		// Create code string and return it
-		String code = header + cmds;
+		String code = header + cmds + "\n";
 		fl.setLineOfCode(code);
 	}
 	
@@ -640,7 +640,7 @@ public class Interpretor {
 				cmdToProcess = trueCmdsStr.substring(0, nextSemiCol);
 			}
 			
-			// Nested for loop detected
+			// Nested IfElse detected
 			if (cmdToProcess.indexOf("If") != -1) {
 				IfElse ie = interpretIfElse(cmdToProcess, lang, nestedNum + 1);				// Oo recursion?!			
 				
@@ -674,7 +674,7 @@ public class Interpretor {
 				cmdToProcess = falseCmdsStr.substring(0, nextSemiCol);
 			}
 			
-			// Nested for loop detected
+			// Nested IfElse detected
 			if (cmdToProcess.indexOf("If") != -1) {
 				IfElse ie = interpretIfElse(cmdToProcess, lang, nestedNum + 1);				// Oo recursion?!			
 				
@@ -727,7 +727,7 @@ public class Interpretor {
 			}
 			else {
 				createLineOfCode(cmd);
-				trueCmds += cmd.getLineOfCode() + "\n";
+				trueCmds += cmd.indent() + cmd.getLineOfCode() + "\n";
 			}
 		}
 		
@@ -916,10 +916,26 @@ public class Interpretor {
 	 * @param str - String
 	 * @return int array with all the locations
 	 */
-	private static int[] findAllCommas(String str) {
+	public static int[] findAllCommas(String str) {
 		ArrayList<Integer> locations = new ArrayList<Integer>();
 		for (int i = 0; i < str.length(); i++) {
 			if (str.charAt(i) == ',') {
+				locations.add(i);
+			}
+		}
+		
+		int[] output = new int[locations.size()];
+		for (int i = 0; i < locations.size(); i++) {
+			output[i] = locations.get(i).intValue();
+		}
+		
+		return output;
+	}
+	
+	public static int[] findAllSemicolons(String str) {
+		ArrayList<Integer> locations = new ArrayList<Integer>();
+		for (int i = 0; i < str.length(); i++) {
+			if (str.charAt(i) == ';') {
 				locations.add(i);
 			}
 		}

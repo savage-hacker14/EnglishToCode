@@ -32,7 +32,7 @@ public class CommandButton extends JButton {
 	public void addActionListener() {
 		ActionListener al = new ActionListener(){
             public void actionPerformed(ActionEvent e){
-            	Runner_v2.createCommandInputWindow();
+            	Runner_v2.createCommandInputWindow(cmdNum);
             }
         };
 		

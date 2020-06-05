@@ -18,9 +18,9 @@ public class Runner_v2 {
 	//private static JFrame[] forLoopCmdsWindow = new JFrame[5];  // This is an array bc there can be nested for loops
 	
 	private static JFrame ifElseSetupWindow = new JFrame("If Else Setup");
-	private static JFrame ifElseTrueCmdsWindow = new JFrame("If Else True Commands");
-	private static JFrame ifElseFalseCmdsWindow = new JFrame("If Else False Commands");
-	
+	private static JFrame ifElseLogicExp = new JFrame("Sublogic Expression");
+	private static int numTrueCmds;
+	private static int numFalseCmds;
 	
 	private static String[] programParams;				// 0 - Name, 1 - Language, 3 - Number of commands
 	private static CommandButton[] cmdButtons;			// Command buttons displayed in "Commands" window
@@ -154,26 +154,40 @@ public class Runner_v2 {
 	    cmdsWindow.setVisible(true);
     }
     
-    public static void createCommandInputWindow() {   	
+    public static void createCommandInputWindow(int cmdIdx) {   	
     	JPanel inputs = new JPanel();
     	inputs.setLayout(new GridLayout(2,2));
     	
     	JComboBox cmds = new JComboBox(Interpretor.cmds);
     	JButton submit = new JButton("SUBMIT");
     	
+    	// Set proper command index
+    	currentCmdIdx = cmdIdx;
+    	
+    	//  Used for IfElse objects
+    	numTrueCmds = 0;
+    	numFalseCmds = 0;
+    	
     	submit.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){
     			String cmd = (String)cmds.getSelectedItem();
     			currentCmdType = cmd;
+    			//System.out.println(cmd);
     			
     			currentCommandString += (String)cmds.getSelectedItem();
     			
-    			if (!(cmd.equals("ForLoop"))) {
+    			if (!(cmd.equals("ForLoop") || cmd.equals("If"))) {
         			createRegCommandDetailWindow();
     			}
     			else {
-    				createForLoopSetupWindow();
-    				isSubCmd = true;
+        			if (cmd.equals("ForLoop")) {
+        				createForLoopSetupWindow();
+        				isSubCmd = true;
+        			}
+        			
+        			if (cmd.equals("If")) {
+        				createIfElseSetupWindow();
+        			}
     			}
 			}
     	});
@@ -195,7 +209,6 @@ public class Runner_v2 {
     private static void createRegCommandDetailWindow() {
     	//System.out.println("regCmdDetailWindow " + currentCmdIdx);
 
-    	//cmdDetailsWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	cmdDetailsWindow.setPreferredSize(new Dimension(300,110));
     	cmdDetailsWindow.setLocation(100,225);
     	
@@ -224,27 +237,36 @@ public class Runner_v2 {
             		currentCommandString += " " + varName.getText() + params.getText();
             	}
             	
-            	if (currentCommandString.indexOf("ForLoop") != -1) {
+            	if (currentCommandString.indexOf("ForLoop") != -1 || currentCommandString.indexOf("If") != -1) {
             		currentCommandString += ";";
             	}
             	
-    			System.out.println(currentCommandString);       	
+    			System.out.println(currentCommandString);   
             	
     			if (!isSubCmd) {
+    				// Don't interpret current command string until user hits submit on window
+    				
                 	// Create Command object from currentCommandString
                 	Command c = Interpretor.interpret(currentCommandString, programParams[1]);
                 	c.setLanguage(programParams[1]);
                 	Interpretor.createLineOfCode(c);
                 		
                 	// Only add regular commands to the userCmds array list
-                	userCmds.set(currentCmdIdx, c);
-                	
+                	System.out.println(currentCmdIdx);
+                	userCmds.set(currentCmdIdx, c); 
+
                 	// Clear old command data
                 	currentCommandString = "";
                 	currentCmdType = "";
                 	isSubCmd = false;
+                	
+                	cmdButtons[currentCmdIdx].setVisible(false);
+    			}
+    			else {
+    				cmdInputWindow.setVisible(false);
     			}
     			
+              	// Close command input window and clear command button
             	cmdDetailsWindow.setVisible(false);
             	
             	// Clear any old text
@@ -334,7 +356,6 @@ public class Runner_v2 {
             	cmdInputWindow.setVisible(false);
             	
             	// Remove + button and replace it with toString string
-            	//removeCommandButton(idx);
             	cmdButtons[currentCmdIdx].setVisible(false);
             }
     	});
@@ -350,8 +371,10 @@ public class Runner_v2 {
     				
     				currentCommandString += "(\"" + loopVar + "\"" + "," + start + "," + end + "," + inc + ")(";
     				firstClick = false;
+    				
+    				isSubCmd = true;
     			}
-    			createCommandInputWindow();
+    			createCommandInputWindow(currentCmdIdx);
             }
     	});
 
@@ -362,7 +385,142 @@ public class Runner_v2 {
     }
     
     private static void createIfElseSetupWindow() {
+    	ifElseSetupWindow.setPreferredSize(new Dimension(300,150));
+    	ifElseSetupWindow.setLocation(100,225);
     	
+    	JPanel inputs = new JPanel();
+    	inputs.setLayout(new GridLayout(3,2));
+    	
+    	JButton addSubLogicExp = new JButton("+");
+    	JButton addTrueCmds = new JButton("+");
+    	JButton addFalseCmds = new JButton("+");
+    	JButton submit = new JButton("SUBMIT");
+    	
+    	inputs.add(new JLabel("Sublogic Expressions:"));
+    	inputs.add(addSubLogicExp);
+    	inputs.add(new JLabel("True Commands:"));
+    	inputs.add(addTrueCmds);
+    	inputs.add(new JLabel("False Commands:"));
+    	inputs.add(addFalseCmds);
+    	
+    	// First addCmd click coming
+    	firstClick = true;
+    	
+    	// Action Listener for adding sublogic expression to the IfElse command
+    	addSubLogicExp.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e){
+    			if (firstClick) {			
+    				currentCommandString += "{Logic(";
+    				
+    				firstClick = false;
+    			}
+    			createSubLogicExpWindow();
+            }
+    	});
+    	
+    	// Action Listener for adding the commands to be executed if the logic evaluates to true
+    	addTrueCmds.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e){
+    			if (numTrueCmds == 0) {
+	    			// Add finalized text for logic expression in ifElse statement ONCE 
+	    			int[] allCommaLocations = Interpretor.findAllCommas(currentCommandString);
+	    			int lastCommaLocation = allCommaLocations[allCommaLocations.length - 1];
+	    			String tempCommandString = currentCommandString.substring(lastCommaLocation);
+	    			currentCommandString = currentCommandString.substring(0, lastCommaLocation) + tempCommandString.replaceFirst(",", ")}{");
+	    			
+	    			isSubCmd = true;
+	    			
+	    			numTrueCmds++;
+    			}
+    			else {
+    				createCommandInputWindow(currentCmdIdx);
+    			}
+            }
+    	});
+    	
+    	// Action Listener for adding the commands to be executed if the logic evaluates to false
+    	addFalseCmds.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e){
+    			if (numFalseCmds == 0) {
+	    			// Add finalized text for logic expression in ifElse statement ONCE 
+	    			int[] allSemiColLocations = Interpretor.findAllSemicolons(currentCommandString);
+	    			int lastSemiColLocation = allSemiColLocations[allSemiColLocations.length - 1];
+	    			String tempCommandString = currentCommandString.substring(lastSemiColLocation);
+	    			currentCommandString = currentCommandString.substring(0, lastSemiColLocation) + tempCommandString.replaceFirst(";", "}{");
+	    			
+	    			isSubCmd = true;
+	    			
+    				cmdInputWindow.setVisible(true);
+	    			
+	    			numFalseCmds++;
+    			}
+    			else {
+    				createCommandInputWindow(currentCmdIdx);
+    			}
+            }
+    	});
+    	
+    	// Action Listener for submitting the whole IfElse command to be interpreted
+    	submit.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e){
+    			// Fix final string formatting
+    			int[] allSemiColLocations = Interpretor.findAllSemicolons(currentCommandString);
+    			int lastSemiColLocation = allSemiColLocations[allSemiColLocations.length - 1];
+    			String tempCommandString = currentCommandString.substring(lastSemiColLocation);
+    			currentCommandString = currentCommandString.substring(0, lastSemiColLocation) + tempCommandString.replaceFirst(";", "}");
+    			
+            	// Create Command object from currentCommandString
+            	Command c = Interpretor.interpret(currentCommandString, programParams[1]);
+            	c.setLanguage(programParams[1]);
+            	Interpretor.createLineOfCode(c);
+            		
+            	// Add command to the userCmds array list
+            	userCmds.set(currentCmdIdx, c);
+            	
+            	currentCommandString = "";
+            	currentCmdType = "";
+            	isSubCmd = false;
+            	
+            	// Hide this window
+            	ifElseSetupWindow.setVisible(false);
+            }
+    	});
+    	
+    	
+    	ifElseSetupWindow.getContentPane().add(inputs, BorderLayout.NORTH);
+    	ifElseSetupWindow.getContentPane().add(submit, BorderLayout.SOUTH);
+    	ifElseSetupWindow.pack();
+    	ifElseSetupWindow.setVisible(true);
+    }
+    
+    private static void createSubLogicExpWindow() {
+    	ifElseLogicExp.setPreferredSize(new Dimension(300,100));
+    	ifElseLogicExp.setLocation(100,375);
+    	
+    	JPanel inputs = new JPanel();
+    	inputs.setLayout(new GridLayout(1,2));
+    	
+    	JTextField subLogicExp = new JTextField();
+    	JButton submit = new JButton("SUBMIT");
+    	
+    	inputs.add(new JLabel("Sub logic expression:"));
+    	inputs.add(subLogicExp);
+    	
+    	submit.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e){
+    			currentCommandString += subLogicExp.getText() + ",";
+    			System.out.println(currentCommandString);
+    			ifElseLogicExp.setVisible(false);
+    			
+    	    	// Clear text field for next use
+    	    	subLogicExp.setText("");  			
+            }
+    	});
+    	
+    	ifElseLogicExp.getContentPane().add(inputs, BorderLayout.NORTH);
+    	ifElseLogicExp.getContentPane().add(submit, BorderLayout.SOUTH);
+    	ifElseLogicExp.pack();
+    	ifElseLogicExp.setVisible(true);
     }
     
     private static int numOcurranceOfChar(char c, String str) {

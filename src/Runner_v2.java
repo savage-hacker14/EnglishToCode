@@ -244,7 +244,7 @@ public class Runner_v2 {
     			System.out.println(currentCommandString);   
             	
     			if (!isSubCmd) {
-    				// Don't interpret current command string until user hits submit on window
+    				// Don't interpret current command string until user clicks submit on window
     				
                 	// Create Command object from currentCommandString
                 	Command c = Interpretor.interpret(currentCommandString, programParams[1]);
@@ -260,6 +260,8 @@ public class Runner_v2 {
                 	currentCmdType = "";
                 	isSubCmd = false;
                 	
+                	// Close command input window and remove command button button
+                	cmdInputWindow.setVisible(false);
                 	cmdButtons[currentCmdIdx].setVisible(false);
     			}
     			else {
@@ -481,8 +483,12 @@ public class Runner_v2 {
             	currentCmdType = "";
             	isSubCmd = false;
             	
-            	// Hide this window
+            	// Hide necessary windows
             	ifElseSetupWindow.setVisible(false);
+            	cmdInputWindow.setVisible(false);
+            	
+            	// Hide command button
+            	cmdButtons[currentCmdIdx].setVisible(false);
             }
     	});
     	

@@ -547,16 +547,19 @@ public class Runner_v2 {
     }
     
     private static void createMatSetupWindow() {
-    	matSetup.setPreferredSize(new Dimension(300,110));
+    	matSetup.setPreferredSize(new Dimension(300,130));
     	matSetup.setLocation(100,225);
     	
     	JPanel inputs = new JPanel();
-    	inputs.setLayout(new GridLayout(2, 2));
+    	inputs.setLayout(new GridLayout(3, 2));
     	
+    	JTextField varName = new JTextField();
     	JTextField numRows = new JTextField();
     	JTextField numCols = new JTextField();
     	JButton submit = new JButton("SUBMIT");
     	
+    	inputs.add(new JLabel(" Matrix Name"));
+    	inputs.add(varName);
     	inputs.add(new JLabel(" # of Rows"));
     	inputs.add(numRows);
     	inputs.add(new JLabel(" # of Columns"));
@@ -564,14 +567,16 @@ public class Runner_v2 {
     	
     	submit.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){
+    			String varNameString = varName.getText();
     			int nRows = Integer.parseInt(numRows.getText());
     			int nCols = Integer.parseInt(numCols.getText());
     			
     			matSetup.setVisible(false);
+    			varName.setText("");
     			numRows.setText("");
     			numCols.setText("");
     			
-    			createMatValueWindow(nRows, nCols);
+    			createMatValueWindow(varNameString, nRows, nCols);
             }
     	});
     	submit.setMnemonic('X');
@@ -582,7 +587,7 @@ public class Runner_v2 {
     	matSetup.setVisible(true);
     }
     
-    private static void createMatValueWindow(int nRows, int nCols) {
+    private static void createMatValueWindow(String varName, int nRows, int nCols) {
     	matValues.setPreferredSize(new Dimension(60*nCols,38*nRows));
     	matValues.setLocation(100,225);
     	
@@ -599,12 +604,51 @@ public class Runner_v2 {
     	}
     	
     	// WORK IN PROGRESS
-//    	submit.addActionListener(new ActionListener(){
-//    		public void actionPerformed(ActionEvent e){
-//    			
-//            }
-//    	});
-//    	submit.setMnemonic('X');
+    	submit.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e){    	    	
+    	    	// Build the command string
+    	    	currentCommandString = "mat " + varName + " = [";
+    	    	for (int i = 1; i <= numValues; i++) {
+    	    		if (i % nCols == 0 && i != numValues) {
+    	    			// Add semicolon after the completion of one row
+    	    			currentCommandString += valueTextField[i - 1].getText() +  ";";
+    	    		}
+    	    		else {
+    	    			if (i != numValues) {
+    	    				// Add value followed by space
+    	    				currentCommandString += valueTextField[i - 1].getText() +  " ";
+    	    			}
+    	    			else {
+    	    				// Add final bracket
+    	    				currentCommandString += valueTextField[i - 1].getText() +  "]";
+    	    			}
+    	    		}
+    	    	}
+    	    	//System.out.println(currentCommandString);
+    	    	
+            	// Create Command object from currentCommandString
+            	Command c = Interpretor.interpret(currentCommandString, programParams[1]);
+            	c.setLanguage(programParams[1]);
+            	Interpretor.createLineOfCode(c);
+            		
+            	// Add command to the userCmds array list
+            	userCmds.set(currentCmdIdx, c);
+            	
+            	// Clear variables
+            	currentCommandString = "";
+            	currentCmdType = "";
+            	isSubCmd = false;
+            	
+            	// Hide windows
+            	matValues.setVisible(false);
+            	matSetup.setVisible(false);
+            	cmdInputWindow.setVisible(false);
+            	
+            	// Hide button
+            	cmdButtons[currentCmdIdx].setVisible(false);
+            }
+    	});
+    	submit.setMnemonic('X');
     	
     	matValues.getContentPane().add(values, BorderLayout.NORTH);
     	matValues.getContentPane().add(submit, BorderLayout.SOUTH);

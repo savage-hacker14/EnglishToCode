@@ -22,6 +22,9 @@ public class Runner_v2 {
 	private static int numTrueCmds;
 	private static int numFalseCmds;
 	
+	private static JFrame matSetup = new JFrame("Array/Matrix Setup");
+	private static JFrame matValues = new JFrame("Array/Matrix Values");
+	
 	private static String[] programParams;				// 0 - Name, 1 - Language, 3 - Number of commands
 	private static CommandButton[] cmdButtons;			// Command buttons displayed in "Commands" window
 	private static CommandButton[][] subCmdButtons;		// 2D array because nested commands each have a set of command buttons
@@ -176,19 +179,33 @@ public class Runner_v2 {
     			
     			currentCommandString += (String)cmds.getSelectedItem();
     			
-    			if (!(cmd.equals("ForLoop") || cmd.equals("If"))) {
-        			createRegCommandDetailWindow();
+    			if (cmd.equals("var") || cmd.contentEquals("display")) {
+    				createRegCommandDetailWindow();
     			}
-    			else {
-        			if (cmd.equals("ForLoop")) {
-        				createForLoopSetupWindow();
-        				isSubCmd = true;
-        			}
-        			
-        			if (cmd.equals("If")) {
-        				createIfElseSetupWindow();
-        			}
+    			
+    			if (cmd.equals("ForLoop")) {
+    				createForLoopSetupWindow();
+    				isSubCmd = true;
     			}
+    			
+    			if (cmd.equals("If")) {
+    				createIfElseSetupWindow();
+    			}
+    			
+    			if (cmd.equals("mat")) {
+    				createMatSetupWindow();
+    			}
+    			
+//    			if (!(cmd.equals("ForLoop") || cmd.equals("If"))) {
+//        			createRegCommandDetailWindow();
+//    			}
+//    			else {
+//        			if (cmd.equals("ForLoop")) {
+//        				createForLoopSetupWindow();
+//        				isSubCmd = true;
+//        			}
+//        			
+//    			}
 			}
     	});
     	submit.setMnemonic('X');
@@ -527,6 +544,72 @@ public class Runner_v2 {
     	ifElseLogicExp.getContentPane().add(submit, BorderLayout.SOUTH);
     	ifElseLogicExp.pack();
     	ifElseLogicExp.setVisible(true);
+    }
+    
+    private static void createMatSetupWindow() {
+    	matSetup.setPreferredSize(new Dimension(300,110));
+    	matSetup.setLocation(100,225);
+    	
+    	JPanel inputs = new JPanel();
+    	inputs.setLayout(new GridLayout(2, 2));
+    	
+    	JTextField numRows = new JTextField();
+    	JTextField numCols = new JTextField();
+    	JButton submit = new JButton("SUBMIT");
+    	
+    	inputs.add(new JLabel(" # of Rows"));
+    	inputs.add(numRows);
+    	inputs.add(new JLabel(" # of Columns"));
+    	inputs.add(numCols);
+    	
+    	submit.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e){
+    			int nRows = Integer.parseInt(numRows.getText());
+    			int nCols = Integer.parseInt(numCols.getText());
+    			
+    			matSetup.setVisible(false);
+    			numRows.setText("");
+    			numCols.setText("");
+    			
+    			createMatValueWindow(nRows, nCols);
+            }
+    	});
+    	submit.setMnemonic('X');
+    	
+    	matSetup.getContentPane().add(inputs, BorderLayout.NORTH);
+    	matSetup.getContentPane().add(submit, BorderLayout.SOUTH);
+    	matSetup.pack();
+    	matSetup.setVisible(true);
+    }
+    
+    private static void createMatValueWindow(int nRows, int nCols) {
+    	matValues.setPreferredSize(new Dimension(60*nCols,38*nRows));
+    	matValues.setLocation(100,225);
+    	
+    	JPanel values = new JPanel();
+    	values.setLayout(new GridLayout(nRows, nCols));
+    	
+    	JButton submit = new JButton("SUBMIT");
+    	
+    	int numValues = nRows * nCols;
+    	JTextField[] valueTextField = new JTextField[numValues];
+    	for (int i = 0; i < numValues; i++) {
+    		valueTextField[i] = new JTextField();
+    		values.add(valueTextField[i]);
+    	}
+    	
+    	// WORK IN PROGRESS
+//    	submit.addActionListener(new ActionListener(){
+//    		public void actionPerformed(ActionEvent e){
+//    			
+//            }
+//    	});
+//    	submit.setMnemonic('X');
+    	
+    	matValues.getContentPane().add(values, BorderLayout.NORTH);
+    	matValues.getContentPane().add(submit, BorderLayout.SOUTH);
+    	matValues.pack();
+    	matValues.setVisible(true);
     }
     
     private static int numOcurranceOfChar(char c, String str) {

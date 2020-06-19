@@ -3,7 +3,7 @@
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -118,16 +118,21 @@ public class Runner_v2 {
     	int numCommands = Integer.parseInt(programParams[2]);
     	cmdButtons = new CommandButton[numCommands];
     	userCmds = new ArrayList<Command>();
+    	
+    	// Set layout depending on # of commands
+    	int rows = (int) Math.ceil(numCommands / 4.0);
+    	int cols = 4;
+    	cmds.setLayout(new GridLayout(rows, cols));
+    	
     	for (int i = 0; i < numCommands; i++) {
     		// Set size properly
     		userCmds.add(new Command());
     	}
     	
-    	cmdsWindow.setPreferredSize(new Dimension(numCommands * 150,100));
+    	cmdsWindow.setPreferredSize(new Dimension(cols * 75, rows * 50));
     	
-	    cmds.setLayout(new GridLayout(1,numCommands));
 	    for (int i = 0; i < numCommands; i++ ) {
-	    	cmdButtons[i] = new CommandButton(Integer.toString(i), programParams[1], i);
+	    	cmdButtons[i] = new CommandButton(Integer.toString(i + 1), programParams[1], i);
 	    	
 	    	cmdButtons[i].addActionListener();
 	    	
@@ -138,6 +143,34 @@ public class Runner_v2 {
 	    
     	export.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){
+    			// WORK IN PROGRESS
+    			// Create a file chooser and display the window
+//    			final JFileChooser fc = new JFileChooser();
+//    			fc.validate();
+//    			fc.setVisible(true);
+//    			fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+//    			
+//    			// Get file result
+//    			int result = fc.showOpenDialog(cmds);
+//    			
+//    		    if (result == JFileChooser.APPROVE_OPTION) {
+//    		        // Save the user code to a specified folder
+//    		        File targetFile = fc.getSelectedFile();
+//
+//    		        try {
+//    		            if (!targetFile.exists()) {
+//    		                targetFile.createNewFile();
+//    		            }
+//
+//    		            FileWriter fw = new FileWriter(targetFile);
+//
+//    		            fw.write(jText.getText());
+//    		            fw.close();
+//    		        } catch (IOException e) {
+//    		            e.printStackTrace();
+//    		        }
+//    		    }
+    			
     			Program p = new Program(userCmds, userIncludes);
     			FileCreator f = new FileCreator(programParams[0], programParams[1], p);
     			try {
@@ -603,7 +636,6 @@ public class Runner_v2 {
     		values.add(valueTextField[i]);
     	}
     	
-    	// WORK IN PROGRESS
     	submit.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){    	    	
     	    	// Build the command string

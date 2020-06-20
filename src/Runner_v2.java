@@ -9,6 +9,11 @@ import javax.swing.*;
 
 public class Runner_v2 {
 	private static JFrame initWindow = new JFrame("Init Window");
+	private static JCheckBox chooseSaveDirectory = new JCheckBox("Specify code destination after export");
+	
+	private static JFrame inclWindowButton = new JFrame("Add Include");
+	private static JFrame inclWindow = new JFrame("Include Packages");
+	
 	private static JFrame cmdsWindow = new JFrame("Commands");
 	
 	private static JFrame cmdInputWindow = new JFrame("Command Input");
@@ -48,7 +53,7 @@ public class Runner_v2 {
     private static void createAndShowAllGUIs() {       
         // Set up and display init window
     	createInitWindow();
-        initWindow.setPreferredSize(new Dimension(300,150));
+        initWindow.setPreferredSize(new Dimension(300,170));
         initWindow.pack();
         initWindow.setVisible(true);
     }
@@ -76,35 +81,40 @@ public class Runner_v2 {
     	String[] languages = {"java", "c++", "python"};
     	JComboBox langDropDown = new JComboBox(languages);
     	
-    	inputs.add(new JLabel("Name of Program:"));
-    	inputs.add(nameofProgram);
-    	inputs.add(new JLabel("Language:"));
+    	// Add 3 fields to window
+    	inputs.add(new JLabel(" Name of Program:"));
+    	inputs.add(nameofProgram);  	
+    	inputs.add(new JLabel(" Language:"));
     	inputs.add(langDropDown);
-    	inputs.add(new JLabel("Number of Commands:"));
+    	inputs.add(new JLabel(" Number of Commands:"));
     	inputs.add(numCommands);
     	
-    	// Add ActionListener for submit button
+    	// Add checkbox to specify code file save location
+    	JPanel setDestinationLoc = new JPanel();
+    	setDestinationLoc.add(chooseSaveDirectory);
     	
+    	// Add ActionListener for submit button
         submit.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
             	// Get data from user
             	programParams[0] = nameofProgram.getText();
             	programParams[1] = (String)langDropDown.getSelectedItem();
             	programParams[2] = numCommands.getText();
-            	//System.out.print(programParams[0] + "\t" + programParams[1] + "\t" + programParams[2] + "\n");
             	
             	// Close init window
             	initWindow.setVisible(false);
             	
-            	// Open up command input window
+            	// Open up command input window and includes button window
             	createCommandsWindow();
+            	createIncludeButtonWindow();
             }
         });
         submit.setMnemonic('X');
 
-    	
+
     	// Add JPanel to pane
     	initWindow.getContentPane().add(inputs, BorderLayout.NORTH);
+    	initWindow.getContentPane().add(setDestinationLoc, BorderLayout.CENTER);
     	initWindow.getContentPane().add(submit, BorderLayout.SOUTH);
     }
     
@@ -129,7 +139,7 @@ public class Runner_v2 {
     		userCmds.add(new Command());
     	}
     	
-    	cmdsWindow.setPreferredSize(new Dimension(cols * 75, rows * 50));
+    	cmdsWindow.setPreferredSize(new Dimension(cols * 75, rows * 65));
     	
 	    for (int i = 0; i < numCommands; i++ ) {
 	    	cmdButtons[i] = new CommandButton(Integer.toString(i + 1), programParams[1], i);
@@ -143,33 +153,23 @@ public class Runner_v2 {
 	    
     	export.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){
-    			// WORK IN PROGRESS
-    			// Create a file chooser and display the window
-//    			final JFileChooser fc = new JFileChooser();
-//    			fc.validate();
-//    			fc.setVisible(true);
-//    			fc.setCurrentDirectory(new File(System.getProperty("user.home")));
-//    			
-//    			// Get file result
-//    			int result = fc.showOpenDialog(cmds);
-//    			
-//    		    if (result == JFileChooser.APPROVE_OPTION) {
-//    		        // Save the user code to a specified folder
-//    		        File targetFile = fc.getSelectedFile();
-//
-//    		        try {
-//    		            if (!targetFile.exists()) {
-//    		                targetFile.createNewFile();
-//    		            }
-//
-//    		            FileWriter fw = new FileWriter(targetFile);
-//
-//    		            fw.write(jText.getText());
-//    		            fw.close();
-//    		        } catch (IOException e) {
-//    		            e.printStackTrace();
-//    		        }
-//    		    }
+    			if (chooseSaveDirectory.isSelected()) {
+    				System.out.println("Hello");
+    				
+	    			// Create a file chooser and display the window
+	    			final JFileChooser fc = new JFileChooser();
+	    			fc.setLocation(100, 0);
+	    			fc.setVisible(true);
+	    			fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+	    			
+	    			// Get file result
+	    			int result = fc.showOpenDialog(cmds);
+//	    			
+//	    		    if (result == JFileChooser.APPROVE_OPTION) {
+//	    		        // Save the user code to a specified folder
+//	    		    	System.out.println("Hello");
+//	    		    }
+    			}
     			
     			Program p = new Program(userCmds, userIncludes);
     			FileCreator f = new FileCreator(programParams[0], programParams[1], p);
@@ -188,6 +188,56 @@ public class Runner_v2 {
 	    
 	    cmdsWindow.pack();
 	    cmdsWindow.setVisible(true);
+    }
+    
+    public static void createIncludeButtonWindow() {
+    	JButton addInclude = new JButton("+");
+    	
+    	addInclude.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e){
+    			createIncludeDetailWindow();
+			}
+    	});
+
+    	inclWindowButton.getContentPane().add(addInclude);
+    	inclWindowButton.setPreferredSize(new Dimension(275, 75));
+    	inclWindowButton.setLocation(cmdsWindow.getX() + cmdsWindow.getWidth(), 0);
+    	
+    	inclWindowButton.pack();
+    	inclWindowButton.setVisible(true);
+    }
+    
+    public static void createIncludeDetailWindow() {
+    	JPanel inputs = new JPanel();
+    	inputs.setLayout(new GridLayout(1,2));
+    	
+    	JTextField libraryName = new JTextField();
+    	JButton submit = new JButton("SUBMIT");
+    	
+    	inputs.add(new JLabel(" Name of library"));
+    	inputs.add(libraryName);
+    	
+    	submit.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e){
+    			String libName_StrCommand = "Include(" + libraryName.getText() + ")";
+    			String libName_IncludeCode = Interpretor.interpretInclude(libName_StrCommand, programParams[1]);
+    			
+    			userIncludes.add(libName_IncludeCode);
+    			
+    			libraryName.setText("");
+    			
+    			inclWindow.setVisible(false);
+			}
+    	});
+    	submit.setMnemonic('X');
+    	
+	    inclWindow.getContentPane().add(inputs, BorderLayout.NORTH);
+	    inclWindow.getContentPane().add(submit, BorderLayout.SOUTH);
+	    inclWindow.setPreferredSize(new Dimension(275,85));
+	    inclWindow.setLocation(inclWindowButton.getX(), inclWindowButton.getHeight());
+	    
+	    inclWindow.pack();
+	    inclWindow.setVisible(true);
     }
     
     public static void createCommandInputWindow(int cmdIdx) {   	

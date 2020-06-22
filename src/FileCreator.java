@@ -5,6 +5,7 @@
 // Import required packages
 import java.time.LocalDateTime;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -31,16 +32,36 @@ public class FileCreator {
 	 * @throws IOException
 	 */
 	public void createCodeFile() throws IOException {
+		File currentDirFile = null;
+		
 		// Determine the proper code to generate based on language parameter
 		switch (lang) {
 			case "java":
-				createJavaFile(userCode);
+				currentDirFile = new File("ExportedCode/" + nameOfClass + ".java");
+				createJavaFile(userCode, currentDirFile);
 				break;
 			case "c++":
-				createCPPFile(userCode);
+				currentDirFile = new File("ExportedCode/" + nameOfClass + ".cpp");
+				createCPPFile(userCode, currentDirFile);
 				break;
 			case "python":
-				createPythonFile(userCode);
+				currentDirFile = new File("ExportedCode/" + nameOfClass + ".py");
+				createPythonFile(userCode, currentDirFile);
+				break;
+		}
+	}
+	
+	public void createCodeFile(File saveFile) throws IOException {
+		// Determine the proper code to generate based on language parameter
+		switch (lang) {
+			case "java":
+				createJavaFile(userCode, saveFile);
+				break;
+			case "c++":
+				createCPPFile(userCode, saveFile);
+				break;
+			case "python":
+				createPythonFile(userCode, saveFile);
 				break;
 		}
 	}
@@ -50,10 +71,10 @@ public class FileCreator {
 	 * @param p - A Program object
 	 * @throws IOException
 	 */
-	private void createJavaFile(Program p) throws IOException {
+	private void createJavaFile(Program p, File saveFile) throws IOException {
 		// Create new file and writer object
 		String filename = nameOfClass + ".java";
-		BufferedWriter writer = new BufferedWriter(new FileWriter("ExportedCode/" + filename));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(saveFile));
 		
 		// Create name and date title
 		// Acquire time date from system
@@ -108,10 +129,10 @@ public class FileCreator {
 	 * @param p - A Program object
 	 * @throws IOException
 	 */
-	private void createCPPFile(Program p) throws IOException {
+	private void createCPPFile(Program p, File saveFile) throws IOException {
 		// Create new file and writer object
 		String filename = nameOfClass + ".cpp";
-		BufferedWriter writer = new BufferedWriter(new FileWriter("ExportedCode/" + filename));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(saveFile));
 		
 		// Create name and date title
 		// Acquire time date from system
@@ -164,10 +185,10 @@ public class FileCreator {
 	 * @param p - A Program object
 	 * @throws IOException
 	 */
-	private void createPythonFile(Program p) throws IOException {
+	private void createPythonFile(Program p, File saveFile) throws IOException {
 		// Create new file and writer object
 		String filename = nameOfClass + ".py";
-		BufferedWriter writer = new BufferedWriter(new FileWriter("ExportedCode/" + filename));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(saveFile));
 		
 		// Create name and date title
 		// Acquire time date from system

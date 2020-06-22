@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public class Runner_v2 {
 	private static JFrame initWindow = new JFrame("Init Window");
-	private static JCheckBox chooseSaveDirectory = new JCheckBox("Specify code destination after export");
+	private static JCheckBox chooseSaveDirectory = new JCheckBox("Specify code destination before export");
 	
 	private static JFrame inclWindowButton = new JFrame("Add Include");
 	private static JFrame inclWindow = new JFrame("Include Packages");
@@ -153,33 +153,58 @@ public class Runner_v2 {
 	    
     	export.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){
+    			// Create Program and FileCreator objects
+    			Program p = new Program(userCmds, userIncludes);
+    			FileCreator f = new FileCreator(programParams[0], programParams[1], p);
+    			
+    			// Check if user specified a directory to save the code file in
     			if (chooseSaveDirectory.isSelected()) {
-    				System.out.println("Hello");
-    				
-	    			// Create a file chooser and display the window
+	    			// Create a directory chooser and display the window
 	    			final JFileChooser fc = new JFileChooser();
+	    			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 	    			fc.setLocation(100, 0);
 	    			fc.setVisible(true);
 	    			fc.setCurrentDirectory(new File(System.getProperty("user.home")));
 	    			
 	    			// Get file result
 	    			int result = fc.showOpenDialog(cmds);
-//	    			
-//	    		    if (result == JFileChooser.APPROVE_OPTION) {
-//	    		        // Save the user code to a specified folder
-//	    		    	System.out.println("Hello");
-//	    		    }
+	    			
+	    		    if (result == JFileChooser.APPROVE_OPTION) {
+	    		    	// Save code file to user-specified directory
+	    		    	String lang = programParams[1];
+	    		    	String fileType = "";
+	    				switch (lang) {
+		    				case "java":
+		    					fileType = ".java";
+		    					break;
+		    				case "c++":
+		    					fileType = ".cpp";
+		    					break;
+		    				case "python":
+		    					fileType = ".py";
+		    					break;
+	    				}
+	    		    	File saveFile = new File(fc.getSelectedFile().toString() + "\\"+ programParams[0] + fileType);
+	    		    	System.out.println(saveFile.toString());
+	    		    	try {
+							f.createCodeFile(saveFile);
+							System.exit(0);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+	    		    }
     			}
-    			
-    			Program p = new Program(userCmds, userIncludes);
-    			FileCreator f = new FileCreator(programParams[0], programParams[1], p);
-    			try {
-					f.createCodeFile();
-					System.exit(0);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+    			else { 
+    				// Save code to current directory (mainly used in testing)
+	    			try {
+						f.createCodeFile();
+						System.exit(0);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+    			}
             }
     	});
 	    

@@ -184,7 +184,17 @@ public class Runner_v2 {
 		    					fileType = ".py";
 		    					break;
 	    				}
-	    		    	File saveFile = new File(fc.getSelectedFile().toString() + "\\"+ programParams[0] + fileType);
+	    				
+	    				File saveFile = null;
+	    				if (System.getProperty("os.name").indexOf("Windows") != -1) {
+	    					// Windows filesystem
+	    					saveFile = new File(fc.getSelectedFile().toString() + "\\"+ programParams[0] + fileType);
+	    				}
+	    				else {
+	    					// Linux/Mac filesystem
+	    					saveFile = new File(fc.getSelectedFile().toString() + "/"+ programParams[0] + fileType);
+	    				}
+	    		    	
 	    		    	System.out.println(saveFile.toString());
 	    		    	try {
 							f.createCodeFile(saveFile);

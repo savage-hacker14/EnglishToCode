@@ -32,7 +32,6 @@ public class Runner_v2 {
 	
 	private static String[] programParams;				// 0 - Name, 1 - Language, 3 - Number of commands
 	private static CommandButton[] cmdButtons;			// Command buttons displayed in "Commands" window
-	private static CommandButton[][] subCmdButtons;		// 2D array because nested commands each have a set of command buttons
 	
 	private static int currentCmdIdx;					// Int used to control which command is being modified
 	private static String currentCmdType;			
@@ -41,8 +40,13 @@ public class Runner_v2 {
 	private static String currentCommandString = "";	// STICK TO STRING BUILDING AND NOT OBJECT MUTATIONS FOR COMMAND PROCESSING
 	
 	// Program variables
-	private static ArrayList<Command> userCmds = new ArrayList<Command>();
-	private static ArrayList<String> userIncludes = new ArrayList<String>();
+	private static boolean allLanguages = false;
+	private static ArrayList<Command> userCmdsJava = new ArrayList<Command>();
+	private static ArrayList<Command> userCmdsCPP = new ArrayList<Command>();
+	private static ArrayList<Command> userCmdsPython = new ArrayList<Command>();
+	private static ArrayList<String> userIncludesJava = new ArrayList<String>();
+	private static ArrayList<String> userIncludesCPP = new ArrayList<String>();
+	private static ArrayList<String> userIncludesPython = new ArrayList<String>();
 	
 	
 	public static void main(String[] args) {
@@ -78,7 +82,7 @@ public class Runner_v2 {
     	inputs.setLayout(new GridLayout(3,2));
     	
     	// Create dropdown options for Language
-    	String[] languages = {"java", "c++", "python"};
+    	String[] languages = {"java", "c++", "python", "ALL"};
     	JComboBox langDropDown = new JComboBox(languages);
     	
     	// Add 3 fields to window
@@ -101,6 +105,10 @@ public class Runner_v2 {
             	programParams[1] = (String)langDropDown.getSelectedItem();
             	programParams[2] = numCommands.getText();
             	
+            	if (programParams[1].equals("ALL")) {
+            		allLanguages = true;
+            	}
+            	         	
             	// Close init window
             	initWindow.setVisible(false);
             	
@@ -127,7 +135,6 @@ public class Runner_v2 {
     	
     	int numCommands = Integer.parseInt(programParams[2]);
     	cmdButtons = new CommandButton[numCommands];
-    	userCmds = new ArrayList<Command>();
     	
     	// Set layout depending on # of commands
     	int rows = (int) Math.ceil(numCommands / 4.0);
@@ -136,7 +143,9 @@ public class Runner_v2 {
     	
     	for (int i = 0; i < numCommands; i++) {
     		// Set size properly
-    		userCmds.add(new Command());
+    		userCmdsJava.add(new Command());
+    		userCmdsCPP.add(new Command());
+    		userCmdsPython.add(new Command());
     	}
     	
     	cmdsWindow.setPreferredSize(new Dimension(cols * 75, rows * 65));
@@ -153,9 +162,13 @@ public class Runner_v2 {
 	    
     	export.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){
-    			// Create Program and FileCreator objects
-    			Program p = new Program(userCmds, userIncludes);
-    			FileCreator f = new FileCreator(programParams[0], programParams[1], p);
+    			// Create Program and FileCreator objects for ALL languages
+    			Program pJava = new Program(userCmdsJava, userIncludesJava);
+    			FileCreator fJava = new FileCreator(programParams[0], "java", pJava);
+    			Program pCPP = new Program(userCmdsCPP, userIncludesCPP);
+    			FileCreator fCPP = new FileCreator(programParams[0], "c++", pCPP);
+    			Program pPython = new Program(userCmdsPython, userIncludesPython);
+    			FileCreator fPython = new FileCreator(programParams[0], "python", pPython);
     			
     			// Check if user specified a directory to save the code file in
     			if (chooseSaveDirectory.isSelected()) {
@@ -169,51 +182,139 @@ public class Runner_v2 {
 	    			// Get file result
 	    			int result = fc.showOpenDialog(cmds);
 	    			
-	    		    if (result == JFileChooser.APPROVE_OPTION) {
-	    		    	// Save code file to user-specified directory
+	    		    if (result == JFileChooser.APPROVE_OPTION) {    		    	
+	    		    	if (allLanguages == false) {
+	    		    		// Save code files for SPECIFIED language to user-selected directory
+		    		    	String lang = programParams[1];
+		    		    	String fileType = "";
+		    				switch (lang) {
+			    				case "java":
+			    					fileType = ".java";
+			    					break;
+			    				case "c++":
+			    					fileType = ".cpp";
+			    					break;
+			    				case "python":
+			    					fileType = ".py";
+			    					break;
+		    				}
+		    				
+		    				File saveFile = null;
+		    				if (System.getProperty("os.name").indexOf("Windows") != -1) {
+		    					// Windows filesystem
+		    					saveFile = new File(fc.getSelectedFile().toString() + "\\"+ programParams[0] + fileType);
+		    				}
+		    				else {
+		    					// Linux/Mac filesystem
+		    					saveFile = new File(fc.getSelectedFile().toString() + "/"+ programParams[0] + fileType);
+		    				}
+	    		    		
+	    		    		// Determine which Program and FileCreator object to use and then create code file
+		    				switch (lang) {
+			    				case "java":
+									try {
+										fJava.createCodeFile(saveFile);
+									} catch (IOException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+			    					break;
+			    				case "c++":
+									try {
+										fCPP.createCodeFile(saveFile);
+									} catch (IOException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+			    					break;
+			    				case "python":
+									try {
+										fPython.createCodeFile(saveFile);
+									} catch (IOException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+			    					break;
+		    				}
+	    		    	}
+	    		    	else {
+	    		    		// Save code files for ALL languages to selected directory
+		    				File saveFileJava = null;
+		    				File saveFileCPP = null;
+		    				File saveFilePython = null;
+		    				
+		    				// Create File objects to save to
+		    				if (System.getProperty("os.name").indexOf("Windows") != -1) {
+		    					// Windows filesystem
+		    					saveFileJava = new File(fc.getSelectedFile().toString() + "\\"+ programParams[0] + ".java");
+		    					saveFileCPP = new File(fc.getSelectedFile().toString() + "\\"+ programParams[0] + ".cpp");
+		    					saveFilePython = new File(fc.getSelectedFile().toString() + "\\"+ programParams[0] + ".py");
+		    				}
+		    				else {
+		    					// Linux/Mac filesystem
+		    					saveFileJava = new File(fc.getSelectedFile().toString() + "/" + programParams[0] + ".java");
+		    					saveFileCPP = new File(fc.getSelectedFile().toString() + "/" + programParams[0] + ".cpp");
+		    					saveFilePython = new File(fc.getSelectedFile().toString() + "/" + programParams[0] + ".py");
+		    				}
+		    				
+		    				// Write code to the File objects
+		    				try {
+								fJava.createCodeFile(saveFileJava);
+			    				fCPP.createCodeFile(saveFileCPP);
+			    				fPython.createCodeFile(saveFilePython);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+	    		    	}
+	    		    }
+	    		    
+	    		    // Exit program
+	    		    System.exit(0);
+    			}
+    			else { 
+    				// Save code to current directory (mainly used in testing)
+    				if (allLanguages == false) {
+    					// Save code for SPECIFIED language to current directory (mainly used in testing)
 	    		    	String lang = programParams[1];
-	    		    	String fileType = "";
 	    				switch (lang) {
 		    				case "java":
-		    					fileType = ".java";
+								try {
+									fJava.createCodeFile();
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 		    					break;
 		    				case "c++":
-		    					fileType = ".cpp";
+								try {
+									fCPP.createCodeFile();
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 		    					break;
 		    				case "python":
-		    					fileType = ".py";
+								try {
+									fPython.createCodeFile();
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 		    					break;
 	    				}
-	    				
-	    				File saveFile = null;
-	    				if (System.getProperty("os.name").indexOf("Windows") != -1) {
-	    					// Windows filesystem
-	    					saveFile = new File(fc.getSelectedFile().toString() + "\\"+ programParams[0] + fileType);
-	    				}
-	    				else {
-	    					// Linux/Mac filesystem
-	    					saveFile = new File(fc.getSelectedFile().toString() + "/"+ programParams[0] + fileType);
-	    				}
-	    		    	
-	    		    	System.out.println(saveFile.toString());
-	    		    	try {
-							f.createCodeFile(saveFile);
-							System.exit(0);
+    				}
+    				else {
+    					// Save code for ALL languages to current directory (mainly used in testing)
+    					try {
+							fJava.createCodeFile();
+	    					fCPP.createCodeFile();
+	    					fPython.createCodeFile();
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-	    		    }
-    			}
-    			else { 
-    				// Save code to current directory (mainly used in testing)
-	    			try {
-						f.createCodeFile();
-						System.exit(0);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+    				}
     			}
             }
     	});
@@ -255,9 +356,13 @@ public class Runner_v2 {
     	submit.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){
     			String libName_StrCommand = "Include(" + libraryName.getText() + ")";
-    			String libName_IncludeCode = Interpretor.interpretInclude(libName_StrCommand, programParams[1]);
+    			String libName_IncludeCode_Java = Interpretor.interpretInclude(libName_StrCommand, "java");
+    			String libName_IncludeCode_CPP = Interpretor.interpretInclude(libName_StrCommand, "c++");
+    			String libName_IncludeCode_Python = Interpretor.interpretInclude(libName_StrCommand, "python");
     			
-    			userIncludes.add(libName_IncludeCode);
+    			userIncludesJava.add(libName_IncludeCode_Java);
+    			userIncludesCPP.add(libName_IncludeCode_CPP);
+    			userIncludesPython.add(libName_IncludeCode_Python);
     			
     			libraryName.setText("");
     			
@@ -382,13 +487,18 @@ public class Runner_v2 {
     				// Don't interpret current command string until user clicks submit on window
     				
                 	// Create Command object from currentCommandString
-                	Command c = Interpretor.interpret(currentCommandString, programParams[1]);
-                	c.setLanguage(programParams[1]);
-                	Interpretor.createLineOfCode(c);
+                	Command cJava = Interpretor.interpret(currentCommandString, "java");
+                	Interpretor.createLineOfCode(cJava);
+                	Command cCPP = Interpretor.interpret(currentCommandString, "c++");
+                	Interpretor.createLineOfCode(cCPP);
+                	Command cPython = Interpretor.interpret(currentCommandString, "python");
+                	Interpretor.createLineOfCode(cPython);
                 		
                 	// Only add regular commands to the userCmds array list
-                	System.out.println(currentCmdIdx);
-                	userCmds.set(currentCmdIdx, c); 
+                	//System.out.println(currentCmdIdx);
+                	userCmdsJava.set(currentCmdIdx, cJava); 
+                	userCmdsCPP.set(currentCmdIdx, cCPP);
+                	userCmdsPython.set(currentCmdIdx, cPython);
 
                 	// Clear old command data
                 	currentCommandString = "";
@@ -469,12 +579,17 @@ public class Runner_v2 {
     			System.out.println(currentCommandString);
     			
             	// Create Command object from currentCommandString
-            	Command c = Interpretor.interpret(currentCommandString, programParams[1]);
-            	c.setLanguage(programParams[1]);
-            	Interpretor.createLineOfCode(c);
+            	Command cJava = Interpretor.interpret(currentCommandString, "java");
+            	Interpretor.createLineOfCode(cJava);
+            	Command cCPP = Interpretor.interpret(currentCommandString, "c++");
+            	Interpretor.createLineOfCode(cCPP);
+            	Command cPython = Interpretor.interpret(currentCommandString, "python");
+            	Interpretor.createLineOfCode(cPython);
             		
-            	// Add command to the userCmds array list
-            	userCmds.set(currentCmdIdx, c);
+            	// Only add regular commands to the userCmds array lists
+            	userCmdsJava.set(currentCmdIdx, cJava); 
+            	userCmdsCPP.set(currentCmdIdx, cCPP);
+            	userCmdsPython.set(currentCmdIdx, cPython);
             	
             	currentCommandString = "";
             	currentCmdType = "";
@@ -607,12 +722,17 @@ public class Runner_v2 {
     			currentCommandString = currentCommandString.substring(0, lastSemiColLocation) + tempCommandString.replaceFirst(";", "}");
     			
             	// Create Command object from currentCommandString
-            	Command c = Interpretor.interpret(currentCommandString, programParams[1]);
-            	c.setLanguage(programParams[1]);
-            	Interpretor.createLineOfCode(c);
+            	Command cJava = Interpretor.interpret(currentCommandString, "java");
+            	Interpretor.createLineOfCode(cJava);
+            	Command cCPP = Interpretor.interpret(currentCommandString, "c++");
+            	Interpretor.createLineOfCode(cCPP);
+            	Command cPython = Interpretor.interpret(currentCommandString, "python");
+            	Interpretor.createLineOfCode(cPython);
             		
-            	// Add command to the userCmds array list
-            	userCmds.set(currentCmdIdx, c);
+            	// Only add regular commands to the userCmds array list
+            	userCmdsJava.set(currentCmdIdx, cJava); 
+            	userCmdsCPP.set(currentCmdIdx, cCPP);
+            	userCmdsPython.set(currentCmdIdx, cPython);
             	
             	currentCommandString = "";
             	currentCmdType = "";
@@ -744,12 +864,17 @@ public class Runner_v2 {
     	    	//System.out.println(currentCommandString);
     	    	
             	// Create Command object from currentCommandString
-            	Command c = Interpretor.interpret(currentCommandString, programParams[1]);
-            	c.setLanguage(programParams[1]);
-            	Interpretor.createLineOfCode(c);
+            	Command cJava = Interpretor.interpret(currentCommandString, "java");
+            	Interpretor.createLineOfCode(cJava);
+            	Command cCPP = Interpretor.interpret(currentCommandString, "c++");
+            	Interpretor.createLineOfCode(cCPP);
+            	Command cPython = Interpretor.interpret(currentCommandString, "python");
+            	Interpretor.createLineOfCode(cPython);
             		
-            	// Add command to the userCmds array list
-            	userCmds.set(currentCmdIdx, c);
+            	// Only add regular commands to the userCmds array list
+            	userCmdsJava.set(currentCmdIdx, cJava); 
+            	userCmdsCPP.set(currentCmdIdx, cCPP);
+            	userCmdsPython.set(currentCmdIdx, cPython);
             	
             	// Clear variables
             	currentCommandString = "";

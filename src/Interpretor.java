@@ -83,7 +83,9 @@ public class Interpretor {
 		}
 		
 		// Then return the created Command object
-		return new Command(command, name, type, paramStr);
+		Command c = new Command(command, name, type, paramStr);
+		c.setLanguage(lang);
+		return c;
 	}
 	
 	/**

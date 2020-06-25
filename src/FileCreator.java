@@ -111,12 +111,22 @@ public class FileCreator {
 				writer.write(userCode.getCommand(i).getLineOfCode() + "\n");
 			}
 		}
-		
-		// Add functions from Program object
-		
-		// Finalize all brackets and EOF
+		// Finalize all brackets for main method
 		writer.write("\n\t");
 		writer.write("}");
+		
+		// Add functions from Program object
+		writer.write("\n\n");
+		for (int i = 0; i < userCode.numFunctions(); i++) {
+			if (userCode.numFunctions() == 1) {
+				writer.write(userCode.getFunction(i).getLineOfCode() + "\n");
+			}
+			else {
+				writer.write(userCode.getFunction(i).getLineOfCode());
+			}
+		}
+		
+		// Add EOF brackets
 		writer.write("\n");
 		writer.write("}");
 		

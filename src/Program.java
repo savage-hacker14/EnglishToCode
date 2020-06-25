@@ -57,6 +57,18 @@ public class Program {
 		return commands.get(i);
 	}
 	
+	public void addFunction(Function f) {
+		functions.add(f);
+	}
+	
+	public Function getFunction(int i) {
+		return functions.get(i);
+	}
+	
+	public int numFunctions() {
+		return functions.size();
+	}
+	
 	/**
 	 * Returns the following:
 	 * @return length of commands ArrayList

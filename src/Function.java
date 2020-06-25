@@ -5,61 +5,107 @@
 // Import necessary packages
 import java.util.ArrayList;
 
-public class Function {
+public class Function extends Command {
 	// Instance variables
-	private ArrayList<Command> commands;
-	private String name; 
-	private String[] params;
-	private String privacyLevel; 			// Public, Private, and Protected - Only applies to Java and C++
+	private ArrayList<Command> commands;	// Commands to be run inside of the function
 	private String returnType;				// Type of variable returned by the function (int, double, void) - Only applies to Java and C++
-	private boolean staticOrNot;			// Is the method static or not - Only applies to Java and C++
 	private String returnVar;				// The variable to be returned from the function (i.e return a --> a)
 	
 	/**
-	 * Default constructor for a Function object.
-	 * Work in progress.
+	 * Minimal constructor for a Function object.
 	 */
 	public Function() {
+		super();
+		super.setCommand("Function");
+		
 		commands = new ArrayList<Command>();
-		name = "Function";
-		params = new String[1];
-		privacyLevel = "public";
-		returnType = "String";
-		staticOrNot = true;
+		returnType = "";
 		returnVar = "";
 	}
 	
 	/**
-	 * Minimal constructor for a Function object
+	 * Default constructor for a Function object
+	 * @param langToSet - Language to set for the function
 	 * @param cmds - Commands to be included within the Function
 	 * @param nameToSet - Name of the function
-	 * @param paramsToSet - Parameters of the function
+	 * @param paramsToSet - Parameters of the function (as a string)
 	 * @param returnVarToSet - The name of the variable to return from the function
 	 */
-	public Function(ArrayList<Command> cmds, String nameToSet, String[] paramsToSet, String returnVarToSet) {
+	public Function(String langToSet, ArrayList<Command> cmds, String nameToSet, String paramsToSet, String returnVarToSet) {
+		super.setCommand("Function");
+		super.setLanguage(langToSet);
 		commands = cmds;
-		name = nameToSet;
-		params = paramsToSet;
+		super.setName(nameToSet);
+		super.setParameters(paramsToSet);
 		returnVar = returnVarToSet;
 	}
 	
 	/**
 	 * Full constructor for a Function object
-	 * @param cmds - Commands to be included within the Function
 	 * @param nameToSet - Name of the function
 	 * @param paramsToSet - Parameters of the function
-	 * @param privacyLevelToSet - Privacy level of the function (public, private, or protected - Only for Java and C++)
+	 * @param cmds - Commands to be included within the Function
 	 * @param returnTypeToSet - Data type of the return variable (int, double, boolean, etc.)
-	 * @param staticFlag - 
-	 * @param returnVarToSet
+	 * @param returnVarToSet - The name of the variable to return from the function
 	 */
-	public Function(ArrayList<Command> cmds, String nameToSet, String[] paramsToSet, String privacyLevelToSet, String returnTypeToSet, boolean staticFlag, String returnVarToSet) {
+	public Function(String langToSet, ArrayList<Command> cmds, String nameToSet, String paramsToSet, String returnTypeToSet, String returnVarToSet) {
+		super.setCommand("Function");
+		super.setLanguage(langToSet);
 		commands = cmds;
-		name = nameToSet;
-		params = paramsToSet;
-		privacyLevel = privacyLevelToSet;
+		super.setName(nameToSet);
+		super.setParameters(paramsToSet);
 		returnType = returnTypeToSet;
-		staticOrNot = staticFlag;
 		returnVar = returnVarToSet;
+	}
+	
+	public ArrayList<Command> getCommands() {
+		return commands;
+	}
+	
+	public String getReturnVar() {
+		return returnVar;
+	}
+	
+	public String getReturnType() {
+		return returnType;
+	}
+	
+	public void setReturnType(String retType) {
+		returnType = retType;
+	}
+	
+	public String toString() {
+		String output = "";
+		
+		output += "Function details:\n";
+		output += "Name:\t\t" + super.getName() + "\n";
+		output += "Language:\t" + super.getLanguage() + "\n";
+		output += "Parameters:\t" + super.getParameters() + "\n";
+		output += "Num commands:\t" + commands.size() + "\n";
+		output += "Return var:\t" + returnVar + "\n";
+		output += "Return type:\t" + returnType + "\n";
+		output += "Code:\n" + super.getLineOfCode();
+		
+		return output;
+	}
+	
+	public String[] convertParametersToArray() {
+		String params = super.getParameters();
+		
+		int[] commaLocations = Interpretor.findAllCommas(params);
+		String[] paramsArr = new String[commaLocations.length + 1];
+		
+		for (int i = 0; i < paramsArr.length; i++) {
+			if (i == paramsArr.length - 1) {
+				paramsArr[i] = params;
+			}
+			else {
+				paramsArr[i] = params.substring(0, params.indexOf(","));
+			}
+			
+			params = params.substring(params.indexOf(",") + 1);
+		}
+		
+		return paramsArr;
 	}
 }

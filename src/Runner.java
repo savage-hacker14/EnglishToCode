@@ -37,12 +37,21 @@ public class Runner {
 			else {
 				// Create all necessary objects
 				//System.out.println(rawLine);
+				
+				// Interpret command
 				Command cmd = Interpretor.interpret(rawLine, lang);
 				cmd.setLanguage(lang);
 				Interpretor.createLineOfCode(cmd);
 				
 				System.out.println(cmd.toString());
-				p.addCommand(cmd);
+				if (!cmd.getCommand().equals("Function")) {
+					// Regular command - add to Program p command list
+					p.addCommand(cmd);
+				}
+				else {
+					// Function command - add to Program p function list
+					p.addFunction((Function) cmd);
+				}
 			}
 		}
 	

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Interpretor {
 	// List of commands for string-based code creation
-	public static final String[] cmds = {"var", "arr", "list", "mat", "display", "ForLoop", "If"};
+	public static final String[] cmds = {"var", "arr", "list", "mat", "display", "ForLoop", "If", "Function"};
 	
 	/**
 	 * This method takes the user code string and extracts its command, name, parameters, and type
@@ -82,6 +82,10 @@ public class Interpretor {
 			return interpretIfElse(input, lang, 0);
 		}
 		
+		if (command.equals("Function")) {
+			return interpretFunction(input, lang);
+		}
+		
 		// Then return the created Command object
 		Command c = new Command(command, name, type, paramStr);
 		c.setLanguage(lang);
@@ -98,14 +102,17 @@ public class Interpretor {
 		String code = "";
 		String lang = c.getLanguage();
 		
-		// Check if command is a ForLoop of IfElse command
+		// Check if command is a ForLoop, IfElse, or Function command
 		if (c.getCommand().equals("ForLoop")) {
 			createLinesOfCodeForLoop((ForLoop) c);
 			return;
 		}
-		
 		if (c.getCommand().equals("If")) {
 			createLinesOfCodeIfElse((IfElse) c);
+			return;
+		}
+		if (c.getCommand().equals("Function")) {
+			createLinesOfCodeFunction((Function) c);
 			return;
 		}
 		
@@ -768,68 +775,121 @@ public class Interpretor {
 	}
 	
 	/**
-	 * NOTE: This method is a WORK IN PROGRESS
 	 * @param fcn - Raw user input to process
 	 * @param lang - The language for the Function object
 	 * @return Function object with instance variables set from the fcn string
 	 */
 	public static Function interpretFunction(String fcn, String lang) {
+		// First determine indent level
+		int fIndentLevel = 0;
+		if (lang.equals("java")) {
+			fIndentLevel = 1;
+		}
+		else {
+			// C++ or Python
+			fIndentLevel = 0;
+		}
+		
 		// Obtain name of function
 		String info = fcn.substring(fcn.indexOf("("), fcn.indexOf(")") + 1);		// Retain parenthesis in string
 		int[] commaLocations = findAllCommas(info);
-		String name = info.substring(1, commaLocations[0]);
-		name = name.replaceAll("\"", "");									// Remove quotes
+		String name = info.substring(2, commaLocations[0] - 1);								// Remove quotes
 		
-		// Get list of function parameters from string
-		String fcnParams = fcn.substring(fcn.indexOf(",") + 1, fcn.indexOf(")"));
-		commaLocations = findAllCommas(fcnParams);
-		String[] params = new String[commaLocations.length + 1];
-		
-		int i = 0;
-		while (!(fcnParams.isEmpty())) {
-			int nextComma = fcnParams.indexOf(",");
-			// To handle end case
-			if (nextComma == -1) {
-				params[i] = fcnParams;
-				fcnParams = "";
-			}
-			else {
-				params[i] = fcnParams.substring(0, nextComma);
-				fcnParams = fcnParams.substring(nextComma + 1);
-			}
-			i++;
-		}
+		// Get list of function parameters from string										// Remove parenthesis
+		String fcnParams = info.substring(commaLocations[0] + 1, info.length() - 1);
 		
 		// Get command list from 2nd set of parenthesis
-		String cmds = fcn.substring(fcn.indexOf(")") + 1);							// Retain parenthesis in string
+		String cmds = fcn.substring(fcn.indexOf(")") + 2);
+		cmds = cmds.substring(0, cmds.indexOf(")"));
 		
 		// Get return variable string
-		String returnVal = "";
-		String temp = "";
-		temp = fcn.replaceAll("Function", ""); 										// Remove "function" from string
-		temp = temp.replaceAll(fcnParams, "");										// Remove parameters string
-		temp = temp.replaceAll(cmds, "");											// Remove cmds string, now just left with last set of parenthesis
-		temp = temp.replaceAll("(", "");
-		temp = temp.replaceAll(")", "");
-		returnVal = temp;
+		String returnVar = fcn.substring(fcn.indexOf(")") + 2);
+		returnVar = returnVar.substring(returnVar.indexOf("(") + 1, returnVar.length() - 1);
 		
 		// Now process commands
 		// MAKE SURE to check for ForLoop commands
 		ArrayList<Command> cmdList = new ArrayList<Command>();
-		cmds = cmds.substring(1);			// Ignore first parenthesis in string
 		while (!(cmds.isEmpty())) {
-			//System.out.println("hi");
 			int nextSemiCol = cmds.indexOf(";");
 			// To handle end case
 			if (nextSemiCol == -1) {
-				nextSemiCol = cmds.length() - 1;
+				nextSemiCol = cmds.length();
 			}
 			
 			// Add processing code here
+			String cmdToProcess = cmds.substring(0, nextSemiCol);
+			Command c = interpret(cmdToProcess, lang);
+			createLineOfCode(c);
+			c.setIndentLevel(fIndentLevel + 1);
+			cmdList.add(c);
+			
+			// Shorten the string
+			if (nextSemiCol != cmds.length()) {
+				cmds = cmds.substring(nextSemiCol + 1);
+			}
+			else {
+				cmds = "";
+			}
+			
 			// Make sure to be careful with ForLoop() commands
 		}
 		
-		return new Function(cmdList, name, params, returnVal);
+		// Find return type
+		String returnType = "";
+		for (int j = 0; j < cmdList.size(); j++) {
+			Command currentC = cmdList.get(j);
+			
+			if (currentC.getCommand().equals("var") && currentC.getName().equals(returnVar)) {
+				returnType = currentC.getType();
+			}
+		}
+		
+		// Create function object and set necessary instance variables
+		Function f = new Function(lang, cmdList, name, fcnParams, returnVar);
+		f.setReturnType(returnType);
+		f.setIndentLevel(fIndentLevel);
+		
+		// Return Function object
+		return f;
+	}
+	
+	public static void createLinesOfCodeFunction(Function f) {
+		String lang = f.getLanguage();
+		String[] params = f.convertParametersToArray();
+		String codeLines = "";
+		String typePlaceHolder = "/* TYPE */";
+		
+		String header = "";
+		String codeBody = "";
+		String returnCode = "";
+		if (lang.equals("java")) {
+			// Create header 
+			header += f.indent() + "public static " + f.getReturnType() + " " + f.getName() + "(";
+			// Add placeholder for each parameter type
+			for (int i = 0; i < params.length; i++) {
+				if (i != params.length - 1) {
+					header += typePlaceHolder + " " + params[i] + ",";
+				}
+				else {
+					header += typePlaceHolder + " " + params[i];
+				}
+			}
+			// Add final parenthesis and start bracket
+			header += ") {\n";
+			
+			// Add commands into function
+			for (int i = 0; i < f.getCommands().size(); i++) {
+				Command c = f.getCommands().get(i);
+				codeBody += c.indent() + c.getLineOfCode() + "\n";
+			}
+			
+			// Create end brack
+			String endBrack = f.indent() + "}";
+			
+			codeLines = header + codeBody + endBrack;
+		}
+		
+		f.setLineOfCode(codeLines);
 	}
 	
 	public static String findType(String command, String paramStr, String inputNWS) {

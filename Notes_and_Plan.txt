@@ -3,7 +3,7 @@ Supported commands:
 - var (String, int, char, array, etc.)
 - mat
 - ForLoop
-- include (for importing packages/modules) (to-do)
+- include (for importing packages/modules)
 - Function creation (work in progress)
 
 Supported languages:
@@ -19,7 +19,8 @@ Documentation:
 - ForLoop(var,start,end,increment)(commands):				For loop of variable var from start to end-1, increment is how much to increase the loop variable
 - Logic(var/logic test,var/logic test...)					Create a logical expression for a variable. A logic test includes keywords like not, equals, or, or and
 - If{Logic(var/logic test)}{cmds if true}{cmds if false}	Create a simple if/else expression
-- Function("NAME",param1,param2,..)(cmds)(return var)		Create a function with name NAME and the following parameters. Commands are then specified. Lastly the name of the return variable is specified
+- Include(package_name)										Include libary/package package_name in code file
+- Function("NAME",param1,param2,..)(cmds)(return_var)		Create a function with name NAME and the following parameters. Commands are then specified. Lastly the name of the return variable is specified
 	
 ***
 

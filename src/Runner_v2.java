@@ -415,7 +415,7 @@ public class Runner_v2 {
     				createIfElseSetupWindow();
     			}
     			
-    			if (cmd.equals("mat")) {
+    			if (cmd.equals("mat") || cmd.equals("arr")) {
     				createMatSetupWindow();
     			}
     			
@@ -802,6 +802,11 @@ public class Runner_v2 {
     	inputs.add(numRows);
     	inputs.add(new JLabel(" # of Columns"));
     	inputs.add(numCols);
+    	
+    	// If command is at, use this window but set rows automatically to 1
+    	if (currentCmdType.equals("arr")) {
+    		numRows.setText("1");
+    	}
     	
     	submit.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){

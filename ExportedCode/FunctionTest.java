@@ -1,16 +1,18 @@
-// asdf.java
-// This program was auto-generated from your pseudocode on 2020-06-25T11:34:45.222394400
+// FunctionTest.java
+// This program was auto-generated from your pseudocode on 2020-06-25T23:49:29.046745100
 
 
-public class asdf {
+public class FunctionTest {
 
 	public static void main (String[] args) {
 
 	}
 
-	public static double mult(/* TYPE */ a,/* TYPE */ b,/* TYPE */ c) {
-		double d = a*b*c;
-		System.out.println(d);
+	public static double Loop(/* TYPE */ a,/* TYPE */ b) {
+		System.out.println(a);
+		System.out.println(b);
+		double c = a*b;
+		return c;
 	}
 
 }

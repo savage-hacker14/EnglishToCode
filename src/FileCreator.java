@@ -182,9 +182,20 @@ public class FileCreator {
 		// Add return 0 statement
 		writer.write("\t" + "return 0;");
 		
-		// Finalize all brackets and EOF
+		// Finalize code brackets
 		writer.write("\n");
 		writer.write("}");
+		
+		// Add functions from Program object
+		writer.write("\n\n");
+		for (int i = 0; i < userCode.numFunctions(); i++) {
+			if (userCode.numFunctions() == 1) {
+				writer.write(userCode.getFunction(i).getLineOfCode() + "\n");
+			}
+			else {
+				writer.write(userCode.getFunction(i).getLineOfCode());
+			}
+		}
 		
 		// Close writer buffer
 		writer.close();
@@ -227,6 +238,17 @@ public class FileCreator {
 			else {
 				System.out.println(userCode.getCommand(i).toString());
 				writer.write(userCode.getCommand(i).getLineOfCode() + "\n");
+			}
+		}
+		
+		// Add functions from Program object
+		writer.write("\n\n");
+		for (int i = 0; i < userCode.numFunctions(); i++) {
+			if (userCode.numFunctions() == 1) {
+				writer.write(userCode.getFunction(i).getLineOfCode() + "\n");
+			}
+			else {
+				writer.write(userCode.getFunction(i).getLineOfCode());
 			}
 		}
 		

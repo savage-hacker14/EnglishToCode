@@ -791,7 +791,7 @@ public class Interpretor {
 		}
 		
 		// Obtain name of function
-		String info = fcn.substring(fcn.indexOf("("), fcn.indexOf(")") + 1);		// Retain parenthesis in string
+		String info = fcn.substring(fcn.indexOf("{"), fcn.indexOf("}") + 1);		// Retain parenthesis in string
 		int[] commaLocations = findAllCommas(info);
 		String name = info.substring(2, commaLocations[0] - 1);								// Remove quotes
 		
@@ -799,12 +799,12 @@ public class Interpretor {
 		String fcnParams = info.substring(commaLocations[0] + 1, info.length() - 1);
 		
 		// Get command list from 2nd set of parenthesis
-		String cmds = fcn.substring(fcn.indexOf(")") + 2);
-		cmds = cmds.substring(0, cmds.indexOf(")"));
+		String cmds = fcn.substring(fcn.indexOf("}") + 2);
+		cmds = cmds.substring(0, cmds.indexOf("}"));
 		
 		// Get return variable string
-		String returnVar = fcn.substring(fcn.indexOf(")") + 2);
-		returnVar = returnVar.substring(returnVar.indexOf("(") + 1, returnVar.length() - 1);
+		String returnVar = fcn.substring(fcn.indexOf("}") + 2);
+		returnVar = returnVar.substring(returnVar.indexOf("{") + 1, returnVar.length() - 1);
 		
 		// Now process commands
 		// MAKE SURE to check for ForLoop commands
@@ -836,11 +836,18 @@ public class Interpretor {
 		
 		// Find return type
 		String returnType = "";
-		for (int j = 0; j < cmdList.size(); j++) {
-			Command currentC = cmdList.get(j);
-			
-			if (currentC.getCommand().equals("var") && currentC.getName().equals(returnVar)) {
-				returnType = currentC.getType();
+		if (returnVar.equals("NONE")) {
+			// No variable to return
+			returnType = "void";
+		}
+		else {
+			// A variable needs to be return 
+			for (int j = 0; j < cmdList.size(); j++) {
+				Command currentC = cmdList.get(j);
+				
+				if (currentC.getCommand().equals("var") && currentC.getName().equals(returnVar)) {
+					returnType = currentC.getType();
+				}
 			}
 		}
 		
@@ -853,6 +860,10 @@ public class Interpretor {
 		return f;
 	}
 	
+	/** 
+	 * Clean this up
+	 * @param f
+	 */
 	public static void createLinesOfCodeFunction(Function f) {
 		String lang = f.getLanguage();
 		String[] params = f.convertParametersToArray();
@@ -861,7 +872,9 @@ public class Interpretor {
 		
 		String header = "";
 		String codeBody = "";
+		String endBrack = "";
 		String returnCode = "";
+		
 		if (lang.equals("java")) {
 			// Create header 
 			header += f.indent() + "public static " + f.getReturnType() + " " + f.getName() + "(";
@@ -883,11 +896,76 @@ public class Interpretor {
 				codeBody += c.indent() + c.getLineOfCode() + "\n";
 			}
 			
-			// Create end brack
-			String endBrack = f.indent() + "}";
+			// Add return code
+			Command lastCmd = f.getCommands().get(f.getCommands().size() - 1);
+			if (!f.getReturnType().equals("void")) {
+				returnCode = lastCmd.indent() + "return " + f.getReturnVar() + ";\n";
+			}
 			
-			codeLines = header + codeBody + endBrack;
+			// Create end brack
+			endBrack = f.indent() + "}";
 		}
+		if (lang.equals("c++")) {
+			header += f.indent() + f.getReturnType() + " " + f.getName() + "(";
+			// Add placeholder for each parameter type
+			for (int i = 0; i < params.length; i++) {
+				if (i != params.length - 1) {
+					header += typePlaceHolder + " " + params[i] + ",";
+				}
+				else {
+					header += typePlaceHolder + " " + params[i];
+				}
+			}
+			// Add final parenthesis and start bracket
+			header += ") {\n";
+			
+			// Add commands into function
+			for (int i = 0; i < f.getCommands().size(); i++) {
+				Command c = f.getCommands().get(i);
+				codeBody += c.indent() + c.getLineOfCode() + "\n";
+			}
+			
+			// Add return code
+			Command lastCmd = f.getCommands().get(f.getCommands().size() - 1);
+			returnCode = lastCmd.indent() + "return " + f.getReturnVar() + ";\n";
+			if (!f.getReturnType().equals("void")) {
+				returnCode = lastCmd.indent() + "return " + f.getReturnVar() + ";\n";
+			}
+			
+			// Create end brack
+			endBrack = f.indent() + "}";
+		}
+		if (lang.equals("python")) {
+			header += f.indent() + "def " + f.getName() + "(";
+			// Add placeholder for each parameter type
+			for (int i = 0; i < params.length; i++) {
+				if (i != params.length - 1) {
+					header += typePlaceHolder + " " + params[i] + ",";
+				}
+				else {
+					header += typePlaceHolder + " " + params[i];
+				}
+			}
+			header += ":\n";
+			
+			// Add commands into function
+			for (int i = 0; i < f.getCommands().size(); i++) {
+				Command c = f.getCommands().get(i);
+				codeBody += c.indent() + c.getLineOfCode() + "\n";
+			}
+			
+			// Add return code
+			Command lastCmd = f.getCommands().get(f.getCommands().size() - 1);
+			returnCode = lastCmd.indent() + "return " + f.getReturnVar() + ";\n";
+			if (!f.getReturnType().equals("void")) {
+				returnCode = lastCmd.indent() + "return " + f.getReturnVar() + "\n";
+			}
+			
+			// No end brakets needed 
+			endBrack = "";
+		}
+		
+		codeLines = header + codeBody + returnCode + endBrack;
 		
 		f.setLineOfCode(codeLines);
 	}

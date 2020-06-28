@@ -14,6 +14,9 @@ public class Runner_v2 {
 	private static JFrame inclWindowButton = new JFrame("Add Include");
 	private static JFrame inclWindow = new JFrame("Include Packages");
 	
+	private static JFrame funcWindowButton = new JFrame("Add Function");
+	private static JFrame funcWindow = new JFrame("Function Setup");
+	
 	private static JFrame cmdsWindow = new JFrame("Commands");
 	
 	private static JFrame cmdInputWindow = new JFrame("Command Input");
@@ -47,6 +50,9 @@ public class Runner_v2 {
 	private static ArrayList<String> userIncludesJava = new ArrayList<String>();
 	private static ArrayList<String> userIncludesCPP = new ArrayList<String>();
 	private static ArrayList<String> userIncludesPython = new ArrayList<String>();
+	private static ArrayList<Function> userFunctionsJava = new ArrayList<Function>();
+	private static ArrayList<Function> userFunctionsCPP = new ArrayList<Function>();
+	private static ArrayList<Function> userFunctionsPython = new ArrayList<Function>();
 	
 	
 	public static void main(String[] args) {
@@ -115,6 +121,7 @@ public class Runner_v2 {
             	// Open up command input window and includes button window
             	createCommandsWindow();
             	createIncludeButtonWindow();
+            	createFunctionButtonWindow();
             }
         });
         submit.setMnemonic('X');
@@ -163,11 +170,11 @@ public class Runner_v2 {
     	export.addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent e){
     			// Create Program and FileCreator objects for ALL languages
-    			Program pJava = new Program(userCmdsJava, userIncludesJava);
+    			Program pJava = new Program(userCmdsJava, userIncludesJava, userFunctionsJava);
     			FileCreator fJava = new FileCreator(programParams[0], "java", pJava);
-    			Program pCPP = new Program(userCmdsCPP, userIncludesCPP);
+    			Program pCPP = new Program(userCmdsCPP, userIncludesCPP, userFunctionsCPP);
     			FileCreator fCPP = new FileCreator(programParams[0], "c++", pCPP);
-    			Program pPython = new Program(userCmdsPython, userIncludesPython);
+    			Program pPython = new Program(userCmdsPython, userIncludesPython, userFunctionsPython);
     			FileCreator fPython = new FileCreator(programParams[0], "python", pPython);
     			
     			// Check if user specified a directory to save the code file in
@@ -418,17 +425,6 @@ public class Runner_v2 {
     			if (cmd.equals("mat") || cmd.equals("arr")) {
     				createMatSetupWindow();
     			}
-    			
-//    			if (!(cmd.equals("ForLoop") || cmd.equals("If"))) {
-//        			createRegCommandDetailWindow();
-//    			}
-//    			else {
-//        			if (cmd.equals("ForLoop")) {
-//        				createForLoopSetupWindow();
-//        				isSubCmd = true;
-//        			}
-//        			
-//    			}
 			}
     	});
     	submit.setMnemonic('X');
@@ -447,8 +443,6 @@ public class Runner_v2 {
     }
     
     private static void createRegCommandDetailWindow() {
-    	//System.out.println("regCmdDetailWindow " + currentCmdIdx);
-
     	cmdDetailsWindow.setPreferredSize(new Dimension(300,110));
     	cmdDetailsWindow.setLocation(100,225);
     	
@@ -477,7 +471,8 @@ public class Runner_v2 {
             		currentCommandString += " " + varName.getText() + params.getText();
             	}
             	
-            	if (currentCommandString.indexOf("ForLoop") != -1 || currentCommandString.indexOf("If") != -1) {
+            	if (currentCommandString.indexOf("ForLoop") != -1 || currentCommandString.indexOf("If") != -1 
+            			|| currentCommandString.indexOf("Function") != -1) {
             		currentCommandString += ";";
             	}
             	
@@ -495,7 +490,6 @@ public class Runner_v2 {
                 	Interpretor.createLineOfCode(cPython);
                 		
                 	// Only add regular commands to the userCmds array list
-                	//System.out.println(currentCmdIdx);
                 	userCmdsJava.set(currentCmdIdx, cJava); 
                 	userCmdsCPP.set(currentCmdIdx, cCPP);
                 	userCmdsPython.set(currentCmdIdx, cPython);
@@ -901,6 +895,106 @@ public class Runner_v2 {
     	matValues.getContentPane().add(submit, BorderLayout.SOUTH);
     	matValues.pack();
     	matValues.setVisible(true);
+    }
+    
+    private static void createFunctionButtonWindow() {
+    	funcWindowButton.setPreferredSize(new Dimension(275,75));
+    	funcWindowButton.setLocation(inclWindowButton.getX() + inclWindowButton.getWidth(), inclWindowButton.getY());
+    	
+    	JButton addFunction = new JButton("+");
+    	
+    	addFunction.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e){
+    			createFunctionSetupWindow();
+			}
+    	});
+    	
+    	funcWindowButton.getContentPane().add(addFunction);
+    	funcWindowButton.pack();
+    	funcWindowButton.setVisible(true);
+    }
+    
+    private static void createFunctionSetupWindow() {
+    	// Create JPanel with input fields and proper layout
+    	JPanel inputs = new JPanel();
+    	inputs.setLayout(new GridLayout(4,2));
+    	
+    	// Input fields
+    	JTextField funcName = new JTextField();
+    	JTextField returnVarName = new JTextField();
+    	JTextField params = new JTextField();
+    	JButton addCmds = new JButton("+");
+    	JButton submit = new JButton("SUBMIT");
+    	
+    	// Add input fields to panel
+    	inputs.add(new JLabel(" Name:"));
+    	inputs.add(funcName);
+    	inputs.add(new JLabel(" Parameters (, sep):"));
+    	inputs.add(params);
+    	inputs.add(new JLabel(" Commands:"));
+    	inputs.add(addCmds);
+    	inputs.add(new JLabel(" Return var (NONE if none):"));
+    	inputs.add(returnVarName);
+    	
+    	firstClick = true;
+    	
+    	// Add ActionListeners  	
+    	addCmds.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e){
+    			if (firstClick) {
+    				String name = funcName.getText();
+    				String paramsStr = params.getText();
+    				currentCommandString += "Function{\"" + name + "\"," + paramsStr + "}{";
+    				
+    				firstClick = false;
+    				
+    				isSubCmd = true;
+    			}
+    			createCommandInputWindow(currentCmdIdx);
+			}
+    	});
+    	
+    	submit.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e){
+    			// Finalize Function string then process it
+    			int[] semiCols = Interpretor.findAllSemicolons(currentCommandString);
+    			int lastSemiCol = semiCols[semiCols.length - 1];
+    			currentCommandString = currentCommandString.substring(0, lastSemiCol) + "}{";
+    			currentCommandString += returnVarName.getText() + "}";
+    			
+    			System.out.println(currentCommandString);
+    			
+            	// Create Function objects from currentCommandString
+            	Function fJava = (Function) Interpretor.interpret(currentCommandString, "java");
+            	Interpretor.createLineOfCode(fJava);
+            	Function fCPP = (Function) Interpretor.interpret(currentCommandString, "c++");
+            	Interpretor.createLineOfCode(fCPP);
+            	Function fPython = (Function) Interpretor.interpret(currentCommandString, "python");
+            	Interpretor.createLineOfCode(fPython);
+
+            		
+            	// Only add regular commands to the userCmds array list
+            	userFunctionsJava.add(fJava); 
+            	userFunctionsCPP.add(fCPP);
+            	userFunctionsPython.add(fPython);
+            	
+            	// Clear variables
+            	currentCommandString = "";
+            	currentCmdType = "";
+            	isSubCmd = false;
+            	
+            	// Hide this window
+            	funcWindow.setVisible(false);
+			}
+    	});
+    	
+    	funcWindow.getContentPane().add(inputs, BorderLayout.NORTH);
+    	funcWindow.getContentPane().add(submit, BorderLayout.SOUTH);
+    	
+	    funcWindow.setPreferredSize(new Dimension(275,175));
+	    funcWindow.setLocation(funcWindowButton.getX(), funcWindowButton.getHeight());
+	    funcWindow.pack();
+	    funcWindow.setVisible(true); 
     }
     
     private static int numOcurranceOfChar(char c, String str) {

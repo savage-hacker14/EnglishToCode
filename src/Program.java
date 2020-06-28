@@ -33,6 +33,17 @@ public class Program {
 		includes = imports;
 	}
 	
+	/** 
+	 * Create a Program object with all instance variables filled
+	 * @param cmdArray
+	 * @param imports
+	 */
+	public Program(ArrayList<Command> cmdArray, ArrayList<String> imports, ArrayList<Function> fcns) {
+		commands = cmdArray;
+		includes = imports;
+		functions = fcns;
+	}
+	
 	/**
 	 * Adds a string to the includes ArrayList
 	 * @param inc - The string to include to the ArrayList

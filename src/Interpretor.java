@@ -911,7 +911,7 @@ public class Interpretor {
 					header += params[i];
 				}
 			}
-			header += ":\n";
+			header += "):\n";
 		}
 		
 		// 3. Add commands into function (the same for all languages)

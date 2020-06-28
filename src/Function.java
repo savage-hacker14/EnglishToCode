@@ -42,6 +42,7 @@ public class Function extends Command {
 	
 	/**
 	 * Full constructor for a Function object
+	 * @param langToSet - Language to set for the function
 	 * @param nameToSet - Name of the function
 	 * @param paramsToSet - Parameters of the function
 	 * @param cmds - Commands to be included within the Function

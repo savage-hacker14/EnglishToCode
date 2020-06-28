@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EnglishToCode
-   &#160;<span id="projectnumber">v2020.05.08</span>
+   &#160;<span id="projectnumber">v2020.06.27</span>
    </div>
    <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to Scratch, however the code can be later exported to Java, C++, and Python.</div>
   </td>
@@ -102,7 +102,8 @@ Inheritance diagram for Command:</div>
   <img src="class_command.png" usemap="#Command_map" alt=""/>
   <map id="Command_map" name="Command_map">
 <area href="class_for_loop.html" alt="ForLoop" shape="rect" coords="0,56,67,80"/>
-<area href="class_if_else.html" alt="IfElse" shape="rect" coords="77,56,144,80"/>
+<area href="class_function.html" alt="Function" shape="rect" coords="77,56,144,80"/>
+<area href="class_if_else.html" alt="IfElse" shape="rect" coords="154,56,221,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -122,6 +123,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a37d0fb0de3a3c237fc4b98c445315af1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea50670aba2cdd11029da936f07717fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command.html#aea50670aba2cdd11029da936f07717fa">setLineOfCode</a> (String lineOfCodeToSet)</td></tr>
 <tr class="separator:aea50670aba2cdd11029da936f07717fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e65c7d80665beb37ac01e28b01a7ccd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command.html#a2e65c7d80665beb37ac01e28b01a7ccd">setName</a> (String nameToSet)</td></tr>
+<tr class="separator:a2e65c7d80665beb37ac01e28b01a7ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acecd54448a9961c086e308e050cc3046"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command.html#acecd54448a9961c086e308e050cc3046">getName</a> ()</td></tr>
 <tr class="separator:acecd54448a9961c086e308e050cc3046"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1591818abe1e19c1bc288d6263b0663f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command.html#a1591818abe1e19c1bc288d6263b0663f">setType</a> (String str)</td></tr>
@@ -419,8 +422,6 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="class_for_loop.html#a967f8a39f504c5319d3c2abc0fca5b77">ForLoop</a>.</p>
-
 </div>
 </div>
 <a id="a67e286d5d6b2cc75b13f0b53629dbc34"></a>
@@ -463,6 +464,30 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Set the line of code for the command (in the proper language) Used for code generation </p><dl class="section return"><dt>Returns</dt><dd>lineOfCode </dd></dl>
+
+</div>
+</div>
+<a id="a2e65c7d80665beb37ac01e28b01a7ccd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e65c7d80665beb37ac01e28b01a7ccd">&#9670;&nbsp;</a></span>setName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Command.setName </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>nameToSet</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sets the name of the command (e.g a variable name) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nameToSet</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -529,6 +554,8 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>To string method, useful for debugging and testing </p><dl class="section return"><dt>Returns</dt><dd>Values of all instance variables </dd></dl>
+
+<p>Reimplemented in <a class="el" href="class_function.html#a8f2bca1b6e1985eda5016c636709142c">Function</a>.</p>
 
 </div>
 </div>

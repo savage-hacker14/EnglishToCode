@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EnglishToCode
-   &#160;<span id="projectnumber">v2020.05.08</span>
+   &#160;<span id="projectnumber">v2020.06.27</span>
    </div>
    <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to Scratch, however the code can be later exported to Java, C++, and Python.</div>
   </td>
@@ -123,11 +123,19 @@ $(document).ready(function(){initNavTree('class_for_loop.html','');});
   <tr class="even"><td class="entry"><a class="el" href="class_command.html#afa8fe60e2b85e2530eabb068669ccab4">name</a></td><td class="entry"><a class="el" href="class_command.html">Command</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_for_loop.html#a5fc244893125627d92568e5edc508d99">numNested</a></td><td class="entry"><a class="el" href="class_for_loop.html">ForLoop</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_command.html#adcac74805893467dc2a18e2a95735ff6">params</a></td><td class="entry"><a class="el" href="class_command.html">Command</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_command.html#ab48399832de05d31d0dcf87dcdcbdc18">setCommand</a>(String str)</td><td class="entry"><a class="el" href="class_command.html">Command</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_for_loop.html#a967f8a39f504c5319d3c2abc0fca5b77">setIndentLevel</a>(int i)</td><td class="entry"><a class="el" href="class_for_loop.html">ForLoop</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_for_loop.html#af53e8895858a22e504f944908820d01e">setCommand</a>(int pos, Command c)</td><td class="entry"><a class="el" href="class_for_loop.html">ForLoop</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_command.html#ab48399832de05d31d0dcf87dcdcbdc18">Command.setCommand</a>(String str)</td><td class="entry"><a class="el" href="class_command.html">Command</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_for_loop.html#aefa99d0f97b231c48fc8830242f2bc89">setEnd</a>(String endToSet)</td><td class="entry"><a class="el" href="class_for_loop.html">ForLoop</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_for_loop.html#acf8aad6770f6abbd403597e75fcfc56f">setIncrement</a>(String incToSet)</td><td class="entry"><a class="el" href="class_for_loop.html">ForLoop</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_command.html#a80079c1667798d3a83a4d2b724752bff">setIndentLevel</a>(int i)</td><td class="entry"><a class="el" href="class_command.html">Command</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_for_loop.html#aac405e71872138bf2d63d819972483c8">setIndentLevels</a>(int i)</td><td class="entry"><a class="el" href="class_for_loop.html">ForLoop</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_command.html#a67e286d5d6b2cc75b13f0b53629dbc34">setLanguage</a>(String str)</td><td class="entry"><a class="el" href="class_command.html">Command</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_command.html#aea50670aba2cdd11029da936f07717fa">setLineOfCode</a>(String lineOfCodeToSet)</td><td class="entry"><a class="el" href="class_command.html">Command</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_command.html#a27cb8a0494104cddc6dcc8536fdc07e2">setParameters</a>(String str)</td><td class="entry"><a class="el" href="class_command.html">Command</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_for_loop.html#a5a825a9e2a20d13f8db71e0b4730c01c">setLoopVar</a>(String varName)</td><td class="entry"><a class="el" href="class_for_loop.html">ForLoop</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_command.html#a2e65c7d80665beb37ac01e28b01a7ccd">setName</a>(String nameToSet)</td><td class="entry"><a class="el" href="class_command.html">Command</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_for_loop.html#ad73c65b4afeb784cf55d34ab9fbfed5c">setNumCommands</a>(int numCmds)</td><td class="entry"><a class="el" href="class_for_loop.html">ForLoop</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_command.html#a27cb8a0494104cddc6dcc8536fdc07e2">setParameters</a>(String str)</td><td class="entry"><a class="el" href="class_command.html">Command</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_for_loop.html#a3c9fd174aff18c2f1a353346298054e3">setStart</a>(String value)</td><td class="entry"><a class="el" href="class_for_loop.html">ForLoop</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_command.html#a1591818abe1e19c1bc288d6263b0663f">setType</a>(String str)</td><td class="entry"><a class="el" href="class_command.html">Command</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_for_loop.html#aef330fa129948fe76d90340cc3866745">start</a></td><td class="entry"><a class="el" href="class_for_loop.html">ForLoop</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_command.html#a2a709554212524d6b014ef5e9ec0ed16">toString</a>()</td><td class="entry"><a class="el" href="class_command.html">Command</a></td><td class="entry"></td></tr>

@@ -14,6 +14,7 @@ var class_command =
     [ "setIndentLevel", "class_command.html#a80079c1667798d3a83a4d2b724752bff", null ],
     [ "setLanguage", "class_command.html#a67e286d5d6b2cc75b13f0b53629dbc34", null ],
     [ "setLineOfCode", "class_command.html#aea50670aba2cdd11029da936f07717fa", null ],
+    [ "setName", "class_command.html#a2e65c7d80665beb37ac01e28b01a7ccd", null ],
     [ "setParameters", "class_command.html#a27cb8a0494104cddc6dcc8536fdc07e2", null ],
     [ "setType", "class_command.html#a1591818abe1e19c1bc288d6263b0663f", null ],
     [ "toString", "class_command.html#a2a709554212524d6b014ef5e9ec0ed16", null ],

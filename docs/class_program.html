@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EnglishToCode
-   &#160;<span id="projectnumber">v2020.05.08</span>
+   &#160;<span id="projectnumber">v2020.06.27</span>
    </div>
    <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to Scratch, however the code can be later exported to Java, C++, and Python.</div>
   </td>
@@ -114,6 +114,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:adde00531c5f9b63229d78d5dcde66965"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1c3c2d8afbd81f6e6af0342f2b81046"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_command.html">Command</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#af1c3c2d8afbd81f6e6af0342f2b81046">getCommand</a> (int i)</td></tr>
 <tr class="separator:af1c3c2d8afbd81f6e6af0342f2b81046"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf1bdb59caad60dcfb0f0a88ce12e8d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#abf1bdb59caad60dcfb0f0a88ce12e8d9">addFunction</a> (<a class="el" href="class_function.html">Function</a> f)</td></tr>
+<tr class="separator:abf1bdb59caad60dcfb0f0a88ce12e8d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55b3a9e442a9c5eda5a13ccd59d62973"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_function.html">Function</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#a55b3a9e442a9c5eda5a13ccd59d62973">getFunction</a> (int i)</td></tr>
+<tr class="separator:a55b3a9e442a9c5eda5a13ccd59d62973"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85b6a942486db9450ec69e665df19e94"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#a85b6a942486db9450ec69e665df19e94">numFunctions</a> ()</td></tr>
+<tr class="separator:a85b6a942486db9450ec69e665df19e94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac19f8b1664bc59d72a2175806fe8cfda"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_program.html#ac19f8b1664bc59d72a2175806fe8cfda">numCommands</a> ()</td></tr>
 <tr class="separator:ac19f8b1664bc59d72a2175806fe8cfda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -141,7 +147,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a program object with no data </p>
+<p>Create a <a class="el" href="class_program.html">Program</a> object with no data </p>
 
 </div>
 </div>
@@ -194,6 +200,13 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Create a <a class="el" href="class_program.html">Program</a> object with an ArrayList of <a class="el" href="class_command.html">Command</a> objects and an ArrayList of String include libraries </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmdArray</td><td></td></tr>
+    <tr><td class="paramname">imports</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -222,6 +235,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="abf1bdb59caad60dcfb0f0a88ce12e8d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf1bdb59caad60dcfb0f0a88ce12e8d9">&#9670;&nbsp;</a></span>addFunction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Program.addFunction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_function.html">Function</a>&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add a <a class="el" href="class_function.html">Function</a> object to the functions ArrayList in the <a class="el" href="class_program.html">Program</a> object </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>- The <a class="el" href="class_function.html">Function</a> object to add </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a8a8ecb136d3a11631555162ecc009597"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8a8ecb136d3a11631555162ecc009597">&#9670;&nbsp;</a></span>addInclude()</h2>
 
@@ -237,6 +274,12 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Adds a string to the includes ArrayList </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inc</td><td>- The string to include to the ArrayList </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -255,13 +298,38 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get a given command based on its index in the ArrayList </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Get a given <a class="el" href="class_command.html">Command</a> object based on its index in the ArrayList </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">i</td><td>- index (0 based) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_command.html">Command</a> object at index i </dd></dl>
+
+</div>
+</div>
+<a id="a55b3a9e442a9c5eda5a13ccd59d62973"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55b3a9e442a9c5eda5a13ccd59d62973">&#9670;&nbsp;</a></span>getFunction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_function.html">Function</a> Program.getFunction </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get a given <a class="el" href="class_function.html">Function</a> object based on its index in the ArrayList </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>- index (0 based) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_function.html">Function</a> object at index i </dd></dl>
 
 </div>
 </div>
@@ -280,6 +348,13 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get string at index i in the </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>- Index of include in includes ArrayList </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A String with code to include a certain library </dd></dl>
 
 </div>
 </div>
@@ -297,7 +372,25 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Returns the following: </p><dl class="section return"><dt>Returns</dt><dd>length of commands ArrayList </dd></dl>
+<p>Get the number of <a class="el" href="class_command.html">Command</a> objects in the <a class="el" href="class_program.html">Program</a> object </p><dl class="section return"><dt>Returns</dt><dd>length of commands ArrayList </dd></dl>
+
+</div>
+</div>
+<a id="a85b6a942486db9450ec69e665df19e94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85b6a942486db9450ec69e665df19e94">&#9670;&nbsp;</a></span>numFunctions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Program.numFunctions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the number of <a class="el" href="class_function.html">Function</a> objects in the <a class="el" href="class_program.html">Program</a> object </p><dl class="section return"><dt>Returns</dt><dd>lengths of functions ArrayList </dd></dl>
 
 </div>
 </div>
@@ -315,6 +408,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the number of include libraries in the <a class="el" href="class_program.html">Program</a> object </p><dl class="section return"><dt>Returns</dt><dd>length of includes ArrayList </dd></dl>
 
 </div>
 </div>

@@ -1,6 +1,7 @@
 var annotated_dup =
 [
     [ "Command", "class_command.html", "class_command" ],
+    [ "CommandButton", "class_command_button.html", "class_command_button" ],
     [ "FileCreator", "class_file_creator.html", "class_file_creator" ],
     [ "ForLoop", "class_for_loop.html", "class_for_loop" ],
     [ "Function", "class_function.html", "class_function" ],
@@ -10,5 +11,6 @@ var annotated_dup =
     [ "Interpretor", "class_interpretor.html", null ],
     [ "Program", "class_program.html", "class_program" ],
     [ "Runner", "class_runner.html", null ],
+    [ "Runner_v2", "class_runner__v2.html", null ],
     [ "Tester", "class_tester.html", null ]
 ];

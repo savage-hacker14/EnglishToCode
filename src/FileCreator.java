@@ -29,6 +29,7 @@ public class FileCreator {
 	
 	/**
 	 * This method creates the proper code based on the language the user specified
+	 * NOTE: The code is created in the current/default directory
 	 * @throws IOException
 	 */
 	public void createCodeFile() throws IOException {
@@ -51,6 +52,11 @@ public class FileCreator {
 		}
 	}
 	
+	/**
+	 * This method writes a single code file to a specified File object
+	 * @param saveFile - The specified File object to write to
+	 * @throws IOException
+	 */
 	public void createCodeFile(File saveFile) throws IOException {
 		// Determine the proper code to generate based on language parameter
 		switch (lang) {
@@ -67,8 +73,9 @@ public class FileCreator {
 	}
 	
 	/**
-	 * This method creates the .java file from the user code (stored in Program object)
+	 * This method writes the .java file from the user code (stored in Program object) to a specified File object
 	 * @param p - A Program object
+	 * @param saveFile - the File object to write the user code to
 	 * @throws IOException
 	 */
 	private void createJavaFile(Program p, File saveFile) throws IOException {
@@ -135,8 +142,9 @@ public class FileCreator {
 	}
 	
 	/**
-	 * This method creates the .cpp file from the user code (stored in Program object)
+	 * This method write the .cpp file from the user code (stored in Program object) to a specified File object
 	 * @param p - A Program object
+	 * @param saveFile - the File object to write the user code to
 	 * @throws IOException
 	 */
 	private void createCPPFile(Program p, File saveFile) throws IOException {
@@ -202,8 +210,9 @@ public class FileCreator {
 	}
 	
 	/**
-	 * This method creates the .py file from the user code (stored in Program object)
+	 * This method writes the .py file from the user code (stored in Program object) to a specified File object
 	 * @param p - A Program object
+	 * @param saveFile - the File object to write the user code to
 	 * @throws IOException
 	 */
 	private void createPythonFile(Program p, File saveFile) throws IOException {

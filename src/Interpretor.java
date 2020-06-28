@@ -775,11 +775,12 @@ public class Interpretor {
 	}
 	
 	/**
+	 * Helper method to create a Function object from the raw user input
 	 * @param fcn - Raw user input to process
 	 * @param lang - The language for the Function object
-	 * @return Function object with instance variables set from the fcn string
+	 * @return f - Function object with instance variables set from the fcn string
 	 */
-	public static Function interpretFunction(String fcn, String lang) {
+	private static Function interpretFunction(String fcn, String lang) {
 		// First determine indent level
 		int fIndentLevel = 0;
 		if (lang.equals("java")) {
@@ -861,10 +862,10 @@ public class Interpretor {
 	}
 	
 	/** 
-	 * Clean this up
-	 * @param f
+	 * Helper method to create and set the lines of code for a given Function object
+	 * @param f - The Function object to create the lines of code for
 	 */
-	public static void createLinesOfCodeFunction(Function f) {
+	private static void createLinesOfCodeFunction(Function f) {
 		String lang = f.getLanguage();
 		String[] params = f.convertParametersToArray();
 		String codeLines = "";
@@ -875,69 +876,19 @@ public class Interpretor {
 		String endBrack = "";
 		String returnCode = "";
 		
+		// 1. Create headers
 		if (lang.equals("java")) {
-			// Create header 
 			header += f.indent() + "public static " + f.getReturnType() + " " + f.getName() + "(";
-			// Add placeholder for each parameter type
-			for (int i = 0; i < params.length; i++) {
-				if (i != params.length - 1) {
-					header += typePlaceHolder + " " + params[i] + ",";
-				}
-				else {
-					header += typePlaceHolder + " " + params[i];
-				}
-			}
-			// Add final parenthesis and start bracket
-			header += ") {\n";
-			
-			// Add commands into function
-			for (int i = 0; i < f.getCommands().size(); i++) {
-				Command c = f.getCommands().get(i);
-				codeBody += c.indent() + c.getLineOfCode() + "\n";
-			}
-			
-			// Add return code
-			Command lastCmd = f.getCommands().get(f.getCommands().size() - 1);
-			if (!f.getReturnType().equals("void")) {
-				returnCode = lastCmd.indent() + "return " + f.getReturnVar() + ";\n";
-			}
-			
-			// Create end brack
-			endBrack = f.indent() + "}";
 		}
 		if (lang.equals("c++")) {
 			header += f.indent() + f.getReturnType() + " " + f.getName() + "(";
-			// Add placeholder for each parameter type
-			for (int i = 0; i < params.length; i++) {
-				if (i != params.length - 1) {
-					header += typePlaceHolder + " " + params[i] + ",";
-				}
-				else {
-					header += typePlaceHolder + " " + params[i];
-				}
-			}
-			// Add final parenthesis and start bracket
-			header += ") {\n";
-			
-			// Add commands into function
-			for (int i = 0; i < f.getCommands().size(); i++) {
-				Command c = f.getCommands().get(i);
-				codeBody += c.indent() + c.getLineOfCode() + "\n";
-			}
-			
-			// Add return code
-			Command lastCmd = f.getCommands().get(f.getCommands().size() - 1);
-			returnCode = lastCmd.indent() + "return " + f.getReturnVar() + ";\n";
-			if (!f.getReturnType().equals("void")) {
-				returnCode = lastCmd.indent() + "return " + f.getReturnVar() + ";\n";
-			}
-			
-			// Create end brack
-			endBrack = f.indent() + "}";
 		}
 		if (lang.equals("python")) {
 			header += f.indent() + "def " + f.getName() + "(";
-			// Add placeholder for each parameter type
+		}
+		
+		// 2. Add type placeholders for parameters (Java/C++ only)
+		if (lang.equals("java") || lang.equals("c++")) {
 			for (int i = 0; i < params.length; i++) {
 				if (i != params.length - 1) {
 					header += typePlaceHolder + " " + params[i] + ",";
@@ -946,31 +897,62 @@ public class Interpretor {
 					header += typePlaceHolder + " " + params[i];
 				}
 			}
+			
+			// Add final parenthesis and start bracket
+			header += ") {\n";
+		}
+		else {
+			// Python
+			for (int i = 0; i < params.length; i++) {
+				if (i != params.length - 1) {
+					header += params[i] + ",";
+				}
+				else {
+					header += params[i];
+				}
+			}
 			header += ":\n";
-			
-			// Add commands into function
-			for (int i = 0; i < f.getCommands().size(); i++) {
-				Command c = f.getCommands().get(i);
-				codeBody += c.indent() + c.getLineOfCode() + "\n";
-			}
-			
-			// Add return code
-			Command lastCmd = f.getCommands().get(f.getCommands().size() - 1);
-			returnCode = lastCmd.indent() + "return " + f.getReturnVar() + ";\n";
-			if (!f.getReturnType().equals("void")) {
-				returnCode = lastCmd.indent() + "return " + f.getReturnVar() + "\n";
-			}
-			
-			// No end brakets needed 
-			endBrack = "";
 		}
 		
+		// 3. Add commands into function (the same for all languages)
+		for (int i = 0; i < f.getCommands().size(); i++) {
+			Command c = f.getCommands().get(i);
+			codeBody += c.indent() + c.getLineOfCode() + "\n";
+		}
+		
+		// 4. Add return code
+		Command lastCmd = f.getCommands().get(f.getCommands().size() - 1);
+		if (!f.getReturnType().equals("void")) {
+			returnCode = lastCmd.indent() + "return " + f.getReturnVar();
+		}
+		
+		if (lang.equals("java") || lang.equals("c++")) {
+			returnCode += ";\n";
+		}
+		else {
+			// Python
+			returnCode += "\n";		// No semicolon needed
+		}
+		
+		// 5. Add end brackets
+		if (lang.equals("java") || lang.equals("c++")) {
+			endBrack = f.indent() + "}";
+		}
+
+		// Set the lines of code
 		codeLines = header + codeBody + returnCode + endBrack;
 		
 		f.setLineOfCode(codeLines);
 	}
 	
-	public static String findType(String command, String paramStr, String inputNWS) {
+	/**
+	 * This method determines the variable type for a var created by the raw user input
+	 * @param command - Raw user input to process
+	 * @param paramStr - The string of parameters for the variable (usually the value of it)
+	 * @param inputNWS - User input with No White Space (NWS)
+	 * @return
+	 */
+	private static String findType(String command, String paramStr, String inputNWS) {
 		String type = "";
 		
 		if (!command.equals("display")) {
@@ -1035,6 +1017,11 @@ public class Interpretor {
 		return type;
 	}
 	
+	/**
+	 * Helper method for ForLoop processing that finds the variable type for the looping variable
+	 * @param startStr - The header for the For Loop
+	 * @return type - The variable type of the looping variable (either int or double)
+	 */
 	public static String findForLoopType(String startStr) {
 		String type = "";
 		
@@ -1072,6 +1059,11 @@ public class Interpretor {
 		return output;
 	}
 	
+	/**
+	 * Helper method to find the indices of all semicolons in a string
+	 * @param str - The string to find semicolons int
+	 * @return output - An int array with all the indices of semicolors
+	 */
 	public static int[] findAllSemicolons(String str) {
 		ArrayList<Integer> locations = new ArrayList<Integer>();
 		for (int i = 0; i < str.length(); i++) {

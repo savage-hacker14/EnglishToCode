@@ -30,7 +30,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">EnglishToCode
-   &#160;<span id="projectnumber">v2020.05.08</span>
+   &#160;<span id="projectnumber">v2020.06.27</span>
    </div>
    <div id="projectbrief">The goal of this project is to allow a user to build code in an environment similar to Scratch, however the code can be later exported to Java, C++, and Python.</div>
   </td>
@@ -103,15 +103,17 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af9c38884b5009f2ce8a0338c8708f954"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31e07db00e98d944b646463f5e98d494"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_creator.html#a31e07db00e98d944b646463f5e98d494">createCodeFile</a> ()  throws IOException </td></tr>
 <tr class="separator:a31e07db00e98d944b646463f5e98d494"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae153533639e9483c4e27ebd8de1d96cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_creator.html#ae153533639e9483c4e27ebd8de1d96cc">createCodeFile</a> (File saveFile)  throws IOException </td></tr>
+<tr class="separator:ae153533639e9483c4e27ebd8de1d96cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a2905cd8db9948e5d4f13b7e1d1eeeebf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_creator.html#a2905cd8db9948e5d4f13b7e1d1eeeebf">createJavaFile</a> (<a class="el" href="class_program.html">Program</a> p)  throws IOException </td></tr>
-<tr class="separator:a2905cd8db9948e5d4f13b7e1d1eeeebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afca49aecebb13a551acd56532b6c510c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_creator.html#afca49aecebb13a551acd56532b6c510c">createCPPFile</a> (<a class="el" href="class_program.html">Program</a> p)  throws IOException </td></tr>
-<tr class="separator:afca49aecebb13a551acd56532b6c510c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47640c4a4983fd93608e816b985f48bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_creator.html#a47640c4a4983fd93608e816b985f48bb">createPythonFile</a> (<a class="el" href="class_program.html">Program</a> p)  throws IOException </td></tr>
-<tr class="separator:a47640c4a4983fd93608e816b985f48bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cde3c2227202f8fda905f66ae208541"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_creator.html#a0cde3c2227202f8fda905f66ae208541">createJavaFile</a> (<a class="el" href="class_program.html">Program</a> p, File saveFile)  throws IOException </td></tr>
+<tr class="separator:a0cde3c2227202f8fda905f66ae208541"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cd741b4bc35dca879fc178b53eab65e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_creator.html#a9cd741b4bc35dca879fc178b53eab65e">createCPPFile</a> (<a class="el" href="class_program.html">Program</a> p, File saveFile)  throws IOException </td></tr>
+<tr class="separator:a9cd741b4bc35dca879fc178b53eab65e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74247506b64ac354ad31810ee7234244"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_file_creator.html#a74247506b64ac354ad31810ee7234244">createPythonFile</a> (<a class="el" href="class_program.html">Program</a> p, File saveFile)  throws IOException </td></tr>
+<tr class="separator:a74247506b64ac354ad31810ee7234244"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -167,7 +169,7 @@ Private Attributes</h2></td></tr>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a31e07db00e98d944b646463f5e98d494"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31e07db00e98d944b646463f5e98d494">&#9670;&nbsp;</a></span>createCodeFile()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a31e07db00e98d944b646463f5e98d494">&#9670;&nbsp;</a></span>createCodeFile() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,7 +182,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>This method creates the proper code based on the language the user specified </p><dl class="exception"><dt>Exceptions</dt><dd>
+<p>This method creates the proper code based on the language the user specified NOTE: The code is created in the current/default directory </p><dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">IOException</td><td></td></tr>
   </table>
@@ -189,8 +191,38 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="afca49aecebb13a551acd56532b6c510c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afca49aecebb13a551acd56532b6c510c">&#9670;&nbsp;</a></span>createCPPFile()</h2>
+<a id="ae153533639e9483c4e27ebd8de1d96cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae153533639e9483c4e27ebd8de1d96cc">&#9670;&nbsp;</a></span>createCodeFile() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FileCreator.createCodeFile </td>
+          <td>(</td>
+          <td class="paramtype">File&#160;</td>
+          <td class="paramname"><em>saveFile</em></td><td>)</td>
+          <td> throws IOException</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This method writes a single code file to a specified File object </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">saveFile</td><td>- The specified File object to write to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IOException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9cd741b4bc35dca879fc178b53eab65e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cd741b4bc35dca879fc178b53eab65e">&#9670;&nbsp;</a></span>createCPPFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -202,8 +234,18 @@ Private Attributes</h2></td></tr>
           <td class="memname">void FileCreator.createCPPFile </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_program.html">Program</a>&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
-          <td> throws IOException</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">File&#160;</td>
+          <td class="paramname"><em>saveFile</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> throws IOException</td>
         </tr>
       </table>
   </td>
@@ -212,9 +254,10 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>This method creates the .cpp file from the user code (stored in <a class="el" href="class_program.html">Program</a> object) </p><dl class="params"><dt>Parameters</dt><dd>
+<p>This method write the .cpp file from the user code (stored in <a class="el" href="class_program.html">Program</a> object) to a specified File object </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">p</td><td>- A <a class="el" href="class_program.html">Program</a> object </td></tr>
+    <tr><td class="paramname">saveFile</td><td>- the File object to write the user code to </td></tr>
   </table>
   </dd>
 </dl>
@@ -227,8 +270,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a2905cd8db9948e5d4f13b7e1d1eeeebf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2905cd8db9948e5d4f13b7e1d1eeeebf">&#9670;&nbsp;</a></span>createJavaFile()</h2>
+<a id="a0cde3c2227202f8fda905f66ae208541"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cde3c2227202f8fda905f66ae208541">&#9670;&nbsp;</a></span>createJavaFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -240,8 +283,18 @@ Private Attributes</h2></td></tr>
           <td class="memname">void FileCreator.createJavaFile </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_program.html">Program</a>&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
-          <td> throws IOException</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">File&#160;</td>
+          <td class="paramname"><em>saveFile</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> throws IOException</td>
         </tr>
       </table>
   </td>
@@ -250,9 +303,10 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>This method creates the .java file from the user code (stored in <a class="el" href="class_program.html">Program</a> object) </p><dl class="params"><dt>Parameters</dt><dd>
+<p>This method writes the .java file from the user code (stored in <a class="el" href="class_program.html">Program</a> object) to a specified File object </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">p</td><td>- A <a class="el" href="class_program.html">Program</a> object </td></tr>
+    <tr><td class="paramname">saveFile</td><td>- the File object to write the user code to </td></tr>
   </table>
   </dd>
 </dl>
@@ -265,8 +319,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a47640c4a4983fd93608e816b985f48bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47640c4a4983fd93608e816b985f48bb">&#9670;&nbsp;</a></span>createPythonFile()</h2>
+<a id="a74247506b64ac354ad31810ee7234244"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74247506b64ac354ad31810ee7234244">&#9670;&nbsp;</a></span>createPythonFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,8 +332,18 @@ Private Attributes</h2></td></tr>
           <td class="memname">void FileCreator.createPythonFile </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_program.html">Program</a>&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
-          <td> throws IOException</td>
+          <td class="paramname"><em>p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">File&#160;</td>
+          <td class="paramname"><em>saveFile</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> throws IOException</td>
         </tr>
       </table>
   </td>
@@ -288,9 +352,10 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>This method creates the .py file from the user code (stored in <a class="el" href="class_program.html">Program</a> object) </p><dl class="params"><dt>Parameters</dt><dd>
+<p>This method writes the .py file from the user code (stored in <a class="el" href="class_program.html">Program</a> object) to a specified File object </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">p</td><td>- A <a class="el" href="class_program.html">Program</a> object </td></tr>
+    <tr><td class="paramname">saveFile</td><td>- the File object to write the user code to </td></tr>
   </table>
   </dd>
 </dl>

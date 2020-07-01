@@ -978,6 +978,11 @@ public class Runner_v2 {
             	userFunctionsCPP.add(fCPP);
             	userFunctionsPython.add(fPython);
             	
+            	// Clear text fields
+            	funcName.setText("");
+            	params.setText("");
+            	returnVarName.setText("");
+            	
             	// Clear variables
             	currentCommandString = "";
             	currentCmdType = "";
@@ -991,7 +996,7 @@ public class Runner_v2 {
     	funcWindow.getContentPane().add(inputs, BorderLayout.NORTH);
     	funcWindow.getContentPane().add(submit, BorderLayout.SOUTH);
     	
-	    funcWindow.setPreferredSize(new Dimension(275,175));
+	    funcWindow.setPreferredSize(new Dimension(335,175));
 	    funcWindow.setLocation(funcWindowButton.getX(), funcWindowButton.getHeight());
 	    funcWindow.pack();
 	    funcWindow.setVisible(true); 

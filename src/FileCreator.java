@@ -99,7 +99,7 @@ public class FileCreator {
 		// Create header and main method
 		writer.write("public class " + nameOfClass + " {");
 		writer.write("\n\n\t");
-		writer.write("public static void main (String[] args) {");
+		writer.write("public static void main(String[] args) {");
 		writer.write("\n");
 		
 		// Add commands from Program object

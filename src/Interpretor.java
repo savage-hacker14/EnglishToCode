@@ -924,14 +924,15 @@ public class Interpretor {
 		Command lastCmd = f.getCommands().get(f.getCommands().size() - 1);
 		if (!f.getReturnType().equals("void")) {
 			returnCode = lastCmd.indent() + "return " + f.getReturnVar();
-		}
-		
-		if (lang.equals("java") || lang.equals("c++")) {
-			returnCode += ";\n";
-		}
-		else {
-			// Python
-			returnCode += "\n";		// No semicolon needed
+			
+			// Only add return code if the return type is not void
+			if (lang.equals("java") || lang.equals("c++")) {
+				returnCode += ";\n";
+			}
+			else {
+				// Python
+				returnCode += "\n";		// No semicolon needed
+			}
 		}
 		
 		// 5. Add end brackets

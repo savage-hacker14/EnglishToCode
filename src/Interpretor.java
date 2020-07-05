@@ -545,7 +545,7 @@ public class Interpretor {
 	private static void createLinesOfCodeForLoop(ForLoop fl) {
 		// Create header
 		
-		//System.out.println(fl.getIndentLevel());
+		System.out.println(fl.getIndentLevel());
 		
 		String header = "";
 		if (fl.getLanguage().equals("java") || fl.getLanguage().contentEquals("c++")) {
@@ -811,7 +811,15 @@ public class Interpretor {
 		// MAKE SURE to check for ForLoop commands
 		ArrayList<Command> cmdList = new ArrayList<Command>();
 		while (!(cmds.isEmpty())) {
-			int nextSemiCol = cmds.indexOf(";");
+			int nextSemiCol = 0;
+			if (cmds.indexOf("ForLoop") != -1) {
+				nextSemiCol = cmds.indexOf(");") + 1;
+			}
+			else {
+				nextSemiCol = cmds.indexOf(";");
+			}
+			
+			
 			// To handle end case
 			if (nextSemiCol == -1) {
 				nextSemiCol = cmds.length();
@@ -820,8 +828,9 @@ public class Interpretor {
 			// Add processing code here
 			String cmdToProcess = cmds.substring(0, nextSemiCol);
 			Command c = interpret(cmdToProcess, lang);
-			createLineOfCode(c);
 			c.setIndentLevel(fIndentLevel + 1);
+			createLineOfCode(c);
+			System.out.println(c.toString());
 			cmdList.add(c);
 			
 			// Shorten the string
@@ -917,6 +926,9 @@ public class Interpretor {
 		// 3. Add commands into function (the same for all languages)
 		for (int i = 0; i < f.getCommands().size(); i++) {
 			Command c = f.getCommands().get(i);
+			if (c.getCommand().equals("ForLoop")) {		// Fix weird indenting bug with ForLoop in a Function
+				c.setIndentLevel(-2);
+			}
 			codeBody += c.indent() + c.getLineOfCode() + "\n";
 		}
 		

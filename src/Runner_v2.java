@@ -321,6 +321,9 @@ public class Runner_v2 {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
+    					
+    					// Exit program
+    	    		    System.exit(0);
     				}
     			}
             }
@@ -572,22 +575,24 @@ public class Runner_v2 {
     			
     			System.out.println(currentCommandString);
     			
-            	// Create Command object from currentCommandString
-            	Command cJava = Interpretor.interpret(currentCommandString, "java");
-            	Interpretor.createLineOfCode(cJava);
-            	Command cCPP = Interpretor.interpret(currentCommandString, "c++");
-            	Interpretor.createLineOfCode(cCPP);
-            	Command cPython = Interpretor.interpret(currentCommandString, "python");
-            	Interpretor.createLineOfCode(cPython);
-            		
-            	// Only add regular commands to the userCmds array lists
-            	userCmdsJava.set(currentCmdIdx, cJava); 
-            	userCmdsCPP.set(currentCmdIdx, cCPP);
-            	userCmdsPython.set(currentCmdIdx, cPython);
-            	
-            	currentCommandString = "";
-            	currentCmdType = "";
-            	isSubCmd = false;
+    			if (!isSubCmd) {
+	            	// Create Command object from currentCommandString
+	            	Command cJava = Interpretor.interpret(currentCommandString, "java");
+	            	Interpretor.createLineOfCode(cJava);
+	            	Command cCPP = Interpretor.interpret(currentCommandString, "c++");
+	            	Interpretor.createLineOfCode(cCPP);
+	            	Command cPython = Interpretor.interpret(currentCommandString, "python");
+	            	Interpretor.createLineOfCode(cPython);
+	            		
+	            	// Only add regular commands to the userCmds array lists
+	            	userCmdsJava.set(currentCmdIdx, cJava); 
+	            	userCmdsCPP.set(currentCmdIdx, cCPP);
+	            	userCmdsPython.set(currentCmdIdx, cPython);
+	            	
+	            	currentCommandString = "";
+	            	currentCmdType = "";
+	            	isSubCmd = false;
+    			}
     			
             	// Clear any old text
             	loopVarName.setText("");
@@ -958,8 +963,13 @@ public class Runner_v2 {
     		public void actionPerformed(ActionEvent e){
     			// Finalize Function string then process it
     			int[] semiCols = Interpretor.findAllSemicolons(currentCommandString);
-    			int lastSemiCol = semiCols[semiCols.length - 1];
-    			currentCommandString = currentCommandString.substring(0, lastSemiCol) + "}{";
+    			if (currentCommandString.charAt(currentCommandString.length() - 1) == ';') {
+        			int lastSemiCol = semiCols[semiCols.length - 1];
+        			currentCommandString = currentCommandString.substring(0, lastSemiCol) + "}{";
+    			}
+    			else {
+    				currentCommandString += "}{";
+    			}
     			currentCommandString += returnVarName.getText() + "}";
     			
     			System.out.println(currentCommandString);

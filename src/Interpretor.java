@@ -802,7 +802,7 @@ public class Interpretor {
 		// Get command list from 2nd set of parenthesis
 		String cmds = fcn.substring(fcn.indexOf("}") + 2);
 		cmds = cmds.substring(0, cmds.indexOf("}"));
-		
+
 		// Get return variable string
 		String returnVar = fcn.substring(fcn.indexOf("}") + 2);
 		returnVar = returnVar.substring(returnVar.indexOf("{") + 1, returnVar.length() - 1);
@@ -813,7 +813,12 @@ public class Interpretor {
 		while (!(cmds.isEmpty())) {
 			int nextSemiCol = 0;
 			if (cmds.indexOf("ForLoop") != -1) {
-				nextSemiCol = cmds.indexOf(");") + 1;
+				if (cmds.indexOf(";") != cmds.length() - 1) {
+					nextSemiCol = -1;
+				}
+				else {
+					nextSemiCol = cmds.indexOf(");") + 1;
+				}
 			}
 			else {
 				nextSemiCol = cmds.indexOf(";");
@@ -830,7 +835,6 @@ public class Interpretor {
 			Command c = interpret(cmdToProcess, lang);
 			c.setIndentLevel(fIndentLevel + 1);
 			createLineOfCode(c);
-			System.out.println(c.toString());
 			cmdList.add(c);
 			
 			// Shorten the string
